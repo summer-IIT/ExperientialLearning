@@ -1,0 +1,33 @@
+<apex:page standardStyleSheets="false" showHeader="false" sidebar="false" cache="false">
+    <html>
+        <head>
+            <title>Illinois Tech Scholarship Symposium</title>
+            <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem_IIT,'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+        </head>
+        
+        <div class="iit">
+            
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-m-bottom--xx-large">
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--left">
+                        <img src="{!$Resource.Logo}" />
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--2-of-4">
+                    <div class="slds-text-align--center">
+                        <h1 class="slds-text-heading--large">Scholarship Symposium Interview System</h1>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--right">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-align--absolute-left">
+                <p class="slds-text-heading--label" style="color:red;">Access Denied</p>
+            </div>
+            
+        </div>
+    </html>
+</apex:page>

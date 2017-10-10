@@ -1,0 +1,97 @@
+<apex:page standardController="Contact" extensions="TargetX_SRMb.AppTrackerLandingController" showHeader="false" standardStylesheets="false" action="{!handleRedirect}">
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    </head>
+    <apex:outputText value="{!Contact.OwnerId}" rendered="false"/>
+    <div class="container">
+    
+        <div clas="row">
+            <div class="col-md-9" style="min-height: 100px;">
+                <apex:include pageName="AppTrackerHeader"/>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div><!--END OF ROW 1 -->
+        
+        <div class="row">
+                <div class="col-md-12 well well-lg">
+                <div class="col-md-9">
+                    <h4>Application Record For:</h4>
+                    <p>
+                        <b>{!LEFT(contact.FirstName, 1)}. {!contact.LastName}</b><br />
+                           {!contact.MailingCity},&nbsp;{!contact.MailingState}
+                    </p>
+                </div>
+                <div class="col-md-3" style="font-size: 85%;">
+                    <apex:outputPanel rendered="{!NOT(ISNULL(owner))}">
+                            <h4>Admission Contact</h4>
+                            <p>
+                                {!owner.Name}<br />
+                                {!owner.Phone}<br />
+                                {!owner.Email}
+                           </p>
+                        </apex:outputPanel>
+                </div>
+                </div>                         
+            </div><!-- End of ROW 2 -->
+            <div class="well-lg">
+            <div class="row">
+            <h3>Applications on File</h3>
+                <div class="col-md-12">
+                    <div class="row">
+                        <h5>Select an Application</h5>
+                        <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Program</th>
+                                <th>Start Term</th>
+                                <th>Date Received</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <apex:repeat value="{!Contact.TargetX_SRMb__Application__r}" var="app">
+                            <tr>
+                                <td><apex:outputLink value="/apex/AppTracker?id={!app.Id}">View Details</apex:outputLink></td>
+                                <td>{!app.TargetX_SRMb__Possible_Academic_Major__c}</td>
+                                <td>{!app.TargetX_SRMb__Start_Term_and_Year__c}</td>
+                                <td>
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                        <apex:param value="{!app.createdDate}" /> 
+                                    </apex:outputText>
+                                </td>
+                            </tr>                          
+                        </apex:repeat>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- END OF ROW 2 -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!--FOOTER-->
+                </div>
+            </div>
+        
+    </div><!--END OF CONTAINER-->
+    <apex:include PageName="AppTracker_CSS" />
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+            
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );   
+            });   
+        });
+    </script>
+</apex:page>

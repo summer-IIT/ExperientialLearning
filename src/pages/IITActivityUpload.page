@@ -1,0 +1,53 @@
+<apex:page controller="IITActivityUploadController" standardStylesheets="false" showHeader="true" sidebar="false">
+
+    <html>
+        <head>
+            <title>IIT Activity Upload</title>
+            <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem_IIT,'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+        </head>
+        
+        <div class="iit">
+            <div class="slds-align--absolute-center slds-m-bottom--medium">
+                <h1 class="slds-text-heading--large">Welcome to the IIT Activity Upload Wizard</h1>
+            </div>
+            <div class="slds-align--absolute-center slds-m-bottom--xx-large">
+                <p class="slds-text-heading--label">Use the form below to mass insert activities.</p>
+                <br />
+            </div>
+            <apex:pageMessages />
+            <div class="slds-align--absolute-center">
+            <div class="slds-box">
+                <apex:form id="form" styleClass="slds-form--stacked">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="select-subject">Subject:</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputText value="{!avtySubject}" id="select-subject" required="true" maxlength="80" styleClass="slds-input" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="select-date">Date:</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputText value="{!avtyDate}" id="select-date" required="true" maxlength="10" styleClass="slds-input" html-placeholder="01/01/2017" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="select-file">File:</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputFile value="{!csvFileBody}" filename="{!csvAsString}" id="select-file" required="true" accept=".csv" styleClass="slds-file-selector__input" />
+                        </div>
+                        <label class="slds-form-element__label">*CSV Files Only</label>
+                    </div>
+                    <div class="slds-m-top--large slds-align--absolute-center">
+                        <apex:commandButton value="Import Activities" action="{!uploadActivities}" styleClass="slds-button slds-button--brand" />
+                    </div>
+                    <apex:outputPanel rendered="{!successMessage != null}">
+                        <div class="slds-m-top--large slds-align--absolute-center">
+                            <p class="slds-text-heading--label">{!successMessage}</p>
+                        </div>
+                    </apex:outputPanel>
+                </apex:form>
+            </div>
+            </div>
+        </div>
+    </html>
+</apex:page>

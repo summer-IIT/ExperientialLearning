@@ -1,0 +1,51 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" expires="0" cache="false" docType="html" controller="TargetX_Base.TX_CommunitiesBase">
+
+    <apex:composition template="{!defaultTemplate}">
+
+        <apex:define name="content">
+
+        <div class="targetx-welcome-info">
+            <h1 class="targetx-welcome-title">Welcome to International Projects (IPRO 3.0)</h1>
+            <h2 class="targetx-welcome-subtext">See below to start a new application or continue an existing one.</h2>
+            <!--
+                <div class="targetx-welcome-items-markers">
+                    <div class="targetx-welcome-items-markers-middle"></div>
+                </div>
+            -->
+            <div class="targetx-welcome-items">
+                <!--
+                <div class="targetx-welcome-item">
+                    <div class="targetx-welcome-advisor"></div>
+                    <span class="targetx-welcome-item-title">Meet Your Counselor</span>
+                    <span>This is Emily Manning and she will be helping you throughout your application process.</span>
+                    <div>
+                        <a href="" class="targetx-button-secondary">send a message</a>
+                    </div>
+                </div>
+                -->
+                <div class="targetx-welcome-item-calendar">
+                    <div class="targetx-welcome-progress"></div>
+                    <span class="targetx-welcome-item-title">Online Application</span>
+                    <span>Click the button below to get started!</span>
+                    <div>
+                        <a href="{!$Page.TargetX_App__OnlineAppHome}" class="targetx-button">Online Application</a>
+                    </div>
+                </div>
+                <!--
+                <div class="targetx-welcome-item">
+                    <div class="targetx-welcome-calendar"></div>
+                    <span class="targetx-welcome-item-title">Attend a Campus Event </span>
+                    <span>Browse our list of upcoming events and find something that you’d love to attend.</span>
+                    <div>
+                        <a href="" class="targetx-button-secondary">view calendar</a>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

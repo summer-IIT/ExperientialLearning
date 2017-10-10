@@ -1,0 +1,126 @@
+<apex:page standardController="Contact" extensions="IITAppTrackerTransferEvalController" showHeader="FALSE" standardStyleSheets="false">
+    <head>
+        <link rel="icon" href="http://web.iit.edu/sites/web/themes/iit_web/favicon.ico" type="image/x-icon" />
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <title>Illinois Tech Admission</title>
+    </head>
+
+    <div class="container">
+    
+    <apex:outputPanel rendered="{!accessError}">
+       <div clas="row">
+           <div class="col-md-9">
+               <apex:include pageName="AppTrackerHeader"/>
+           </div>
+           <div class="col-md-3">
+               <div class="well-lg">
+               </div>
+           </div>
+       </div>
+       <div class="row" style="margin-top: 25px;">
+           <div class="col-md-12">
+               <h1>Access Denied</h1>
+               <p>Email admission@iit.edu for access to this page.</p>
+           </div>
+       </div>        
+   </apex:outputPanel>
+   
+   <apex:outputPanel rendered="{!NOT(accessError)}">
+    
+        <div class="row">
+            <div class="col-md-12">
+                <apex:include pageName="AppTrackerHeader" />
+            </div>
+            <div class="col-md-12">
+                <br />
+            </div>
+        </div><!--END OF ROW 1 -->
+        
+        <div class="row">
+            <div class="col-md-12 well well-lg">
+            <div class="col-md-8">
+                <h4>{!contact.FirstName} {!contact.LastName}</h4>     
+            </div>
+            <div class="col-md-4" style="font-size: 85%;">
+                <h4>Need help? Contact me!</h4>
+                <p>
+                <apex:image value="{!contact.IIT_Contact_Owner_Photo__c}" width="125" height="88" style="float: left; margin-right: 10px;"/>
+                <b>{!contact.owner.Name}</b><br />
+                {!contact.owner.Email}<br />
+                {!contact.owner.Phone}
+                </p>
+            </div>
+            </div>
+        </div><!-- END OF ROW 2 -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <h3 id="applicants">Transfer Credit Evaluations</h3>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Transfer Institution</th>
+                            <th>Course Name</th>
+                            <th>Course Title</th>
+                            <th align="center">Credits</th>
+                            <th>IIT Course</th>
+                            <th>IIT Course Title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!courseEvaluations}" var="evals">
+                        <apex:outputPanel rendered="{!IF(evals.id != null,true,false)}">
+                        <tr>
+                            <td>{!evals.IIT_School__r.name}</td>
+                            <td>{!evals.IIT_Course_Name__c}</td>
+                            <td>{!evals.IIT_Course_Title__c}</td>
+                            <td align="center">{!IF(evals.IIT_Semester_Hours__c = null,"***",IF(LEFT(evals.IIT_IIT_Course_Equivalent__c,3)="TRF","("+TEXT(evals.IIT_Semester_Hours__c)+")",TEXT(evals.IIT_Semester_Hours__c)))}</td>
+                            <td>{!IF(LEFT(evals.IIT_IIT_Course_Equivalent__c,3)="TRF","**",evals.IIT_IIT_Course_Equivalent__c)}</td>
+                            <td>{!IF(LEFT(evals.IIT_IIT_Course_Equivalent__c,3)="TRF","",evals.IIT_IIT_Course_Equivalent_Title__c)}</td>
+                        </tr>
+                        </apex:outputPanel>
+                        </apex:repeat>
+                        <apex:outputPanel rendered="{!courseEvaluations.size = 0}">
+                        <tr>
+                            <td colspan="6"><i>No transfer credits have been received.</i></td>
+                        </tr>    
+                        </apex:outputPanel>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">Key: ** Course is transferable but does not apply to curriculum, *** Grade not adequate for transfer (including "C-")</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div><!-- END OF ROW 3 -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <h3 id="applicants">Comments</h3>
+                <apex:outputField value="{!contact.IIT_Course_Evaluation_Notes__c}"/>
+            </div>
+        </div><!-- END OF ROW 4 -->
+
+    </apex:outputPanel>
+    
+    </div><!--END OF CONTAINER-->
+    <apex:include PageName="AppTracker_CSS" />
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+            
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );   
+            });   
+        });
+    </script>
+</apex:page>

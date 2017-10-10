@@ -1,0 +1,69 @@
+<apex:page sidebar="false" showHeader="false" docType="html-5.0"  applyBodyTag="false" applyHtmlTag="false" standardStylesheets="false">
+  <head>
+  <apex:insert name="Footer"><c:Header /></apex:insert>
+        <style> 
+            .container{
+             margin-right: auto;
+  		     margin-left: auto;
+             padding: 20px; 
+             font-family:futura;
+            }
+            .col-md-8{
+            float:left;
+            padding-top: 30px;
+            }
+            .col-md-4 > h2{                
+                color: #c00;
+
+      	</style> 
+    
+    </head>
+    <body>
+ 
+
+ <div class="container"> 
+ <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+  <apex:image url="{!URLFOR($Resource.exp6)}" width="600" height="300"/>
+                  <!--<img src="http://admissions.iit.edu/sites/admissions/files/elements/admissions/apply-campusphoto.jpg" alt="IIT Background Image" style="width:600px;height:220px" align="left"/>
+                  <apex:image id="theImage" value="http://admissions.iit.edu/sites/admissions/files/elements/admissions/apply-campusphoto.jpg" width="600" height="200"/>-->
+      </div>
+         <div class="row">
+         <div class = "col-md-4">
+             <h2>Transportation</h2>
+                 <ul>
+                     <li>research and development of advanced microgrid technology</li>
+                     <li>implementation of microgrid and nanogrid at IIT</li>
+                     <li>hybrid DC/AC solar energy and energy storage system</li>
+                     <li>integration of distributed renewable energy with DC/AC microgrids</li>
+                     <li>smart power converters and inverters</li> 
+                     <li>smart power electronics enabled autonomous power system</li> 
+                     <li>smart use of electricity and demand response</li>
+                     <li>energy finance and electricity markets</li>
+                </ul>
+                 <Button class="btn btn-primary">Apply Now</button>
+          </div>
+          </div>
+        <div>
+        <div class="row">
+          <div class ="col-md-6">
+                
+          <!--<apex:pageBlock >                
+           <apex:pageBlockTable value="{!Description}" var="aDescription">
+                <apex:column value="{!aDescription.Description__c}" />
+          </apex:pageBlockTable>         
+         </apex:pageBlock>-->
+             <h3>Description</h3>
+              <p style="font-size:14px">Groundbreaking work in the generation, distribution, management, and consumption of electricity. The mission of the Robert W. Galvin Center for Electricity Innovation is to pursue groundbreaking work in the generation, transmission, distribution, management and consumption of electricity. Galvin Center brings together universities, industry, government and non-profit research entities to plug into IIT’s microgrid, research laboratories and Technology Park, creating a hub – or sandbox – for new innovations in advanced grid technology.      </p>
+              <p style="font-size:14px">Galvin Center is affiliated with the Wanger Institute for Sustainable Energy Research (WISER) at IIT. The Galvin Center operation encompasses two additional centers including CSMART and SPIKE, which are highlighted below.</p>          
+              <p style="font-size:14px">Video URL:<a href=" https://youtu.be/u-slUKxsgV4"> https://youtu.be/u-slUKxsgV4</a></p>
+            </div>
+        </div>
+       </div>
+      </div>
+  </div>  
+  </div>
+       </body>
+                     
+</apex:page>

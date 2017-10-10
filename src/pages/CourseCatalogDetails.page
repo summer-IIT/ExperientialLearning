@@ -1,0 +1,158 @@
+<APEX:PAGE EXTENSIONS="IITCourseCatalogController" SHOWHEADER="FALSE"
+           STANDARDCONTROLLER="IIT_Courses__c" STANDARDSTYLESHEETS="false"> 
+<HEAD>
+   <LINK HREF="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+         REL="stylesheet" />
+   <SCRIPT SRC="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></SCRIPT>
+   
+   <SCRIPT SRC="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></SCRIPT>
+   
+   <TITLE>IIT Online Course Catalog</TITLE> 
+   <META CONTENT="English" HTTP-EQUIV="Content-Language" />
+   <META CONTENT="text/html; charset=UTF-8" HTTP-EQUIV="Content-Type" />
+   <LINK HREF="IIT_CSS_Course_Catalog" MEDIA="screen" REL="stylesheet"
+         TYPE="text/css" />
+</HEAD>
+<APEX:INCLUDE PAGENAME="IITCourseCatalogHeader" /> 
+<DIV CLASS="container"> 
+   <DIV ID="right"> 
+    <!--Single Course Detail--> 
+    <apex:outputpanel rendered="{!IIT_Courses__c.Id!=null}">
+    <br /><br />
+        <H2>{!IIT_Courses__c.name} - {!IIT_Courses__c.IIT_Course_Title__c}</H2>
+       
+        <DIV CLASS="col-sm-6 col-md-12">
+        <DIV CLASS="col-sm-6 col-md-6"> 
+            <DIV CLASS="thumbnail"> 
+                <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(IIT_Courses__c.name,' ','_')+'.jpg')}"/>
+            </DIV>
+         </DIV>
+        <P>{!IIT_Courses__c.IIT_Course_Description__c}</P> 
+        <P>Prerequisities: {!IIT_Courses__c.IIT_Prerequisites__c}</P>
+        <P>Major: {!IIT_Courses__c.IIT_Major__c}</P>
+        <apex:outputpanel rendered="{!IF(OR(IIT_Courses__c.IIT_Fall_Term__c=True, IIT_Courses__c.IIT_Spring_Term__c=True, IIT_Courses__c.IIT_Summer_Term__c=True),TRUE,FALSE)}">
+        <P><b><u>Available:</u></b></P>
+        <apex:outputpanel rendered="{!IIT_Courses__c.IIT_Fall_Term__c=True}"><P>Fall</P></apex:outputpanel>
+        <apex:outputpanel rendered="{!IIT_Courses__c.IIT_Spring_Term__c=True}"><P>Spring</P></apex:outputpanel>
+        <apex:outputpanel rendered="{!IIT_Courses__c.IIT_Summer_Term__c=True}"><P>Summer</P></apex:outputpanel>
+        </apex:outputpanel>
+        <apex:outputpanel rendered="{!AND(IIT_Courses__c.IIT_Fall_Term__c!=True, IIT_Courses__c.IIT_Spring_Term__c!=True, IIT_Courses__c.IIT_Summer_Term__c!=True,TRUE,FALSE)}">
+        <P>Currently Not Available </P>
+        </apex:outputpanel>
+        </div>
+        <DIV CLASS="col-sm-6 col-md-12">
+        <H4>&nbsp;&nbsp; Professor {!IIT_Courses__c.IIT_Instructor_Name__c}</H4>
+        <div>
+         <DIV CLASS="col-sm-6 col-md-4"> 
+            <DIV CLASS="thumbnail"> 
+                <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'FacultyImages/'+SUBSTITUTE(IIT_Courses__c.IIT_Instructor_Name__c,' ','_')+'.jpg')}"/>
+             </DIV>
+         </DIV>
+        </div>
+        <P>{!IIT_Courses__c.IIT_Instructor_Biography__c}</P>
+        </div>
+        
+        
+    </apex:outputpanel>
+
+      <!--Start of course list block-->
+      <apex:outputpanel rendered="{!IIT_Courses__c.Id=null}">
+        <H2>Courses</H2>
+      </apex:outputpanel>
+     
+       <!--Courses Based on Colleges-->
+       <DIV CLASS="rolling-table">
+         <H3>{!collegeKey}{!departmentKey}{!areaofstudyKey}{!termKey}</H3>
+       <APEX:REPEAT VALUE="{!IITCourses}" VAR="courses"> 
+         <APEX:OUTPUTPANEL RENDERED="{!IF(AND(courses.IIT_College__c != null,courses.IIT_College__c=collegeKey),true,false)}">
+         <DIV CLASS="rolling-table-item">
+            <DIV CLASS="rolling-table-img"><apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/></DIV>
+            <DIV CLASS="rolling-table-item-copy"> 
+               <H4>{!courses.name} - {!courses.IIT_Course_Title__c}</H4> 
+               <P>{!courses.IIT_Course_Description__c}</P> 
+               <P>Prerequisities: {!courses.IIT_Prerequisites__c}</P>
+               <H4>Professor {!courses.IIT_Instructor_Name__c}</H4>
+               <P>{!courses.IIT_Instructor_Biography__c}</P>
+               <P><a href="{!$Page.CourseCatalogDetails}?id={!courses.Id}">Learn More</a></p>
+            </DIV>
+         </DIV>
+         </APEX:OUTPUTPANEL> 
+         </APEX:REPEAT>
+         <!--Courses Based on Department-->
+         <APEX:REPEAT VALUE="{!IITCourses}" VAR="courses"> 
+         <APEX:OUTPUTPANEL RENDERED="{!IF(AND(courses.IIT_Department__c != null,courses.IIT_Department__c=departmentKey),true,false)}">
+         <DIV CLASS="rolling-table-item"> 
+            <DIV CLASS="rolling-table-img"><apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/></DIV>
+            <DIV CLASS="rolling-table-item-copy"> 
+               <H4>{!courses.name} - {!courses.IIT_Course_Title__c}</H4> 
+               <P>{!courses.IIT_Course_Description__c}</P> 
+               <P>Prerequisities: {!courses.IIT_Prerequisites__c}</P>
+               <H4>Professor {!courses.IIT_Instructor_Name__c}</H4>
+               <P>{!courses.IIT_Instructor_Biography__c}</P>
+               <P><a href="{!$Page.CourseCatalogDetails}?id={!courses.Id}">Learn More</a></p>
+            </DIV>
+         </DIV>
+         </APEX:OUTPUTPANEL> 
+         </APEX:REPEAT> 
+         <!--Courses Based on Area of Study-->
+         <APEX:REPEAT VALUE="{!IITCourses}" VAR="courses"> 
+         <APEX:OUTPUTPANEL RENDERED="{!IF(AND(courses.IIT_Area_of_Study__c != null,courses.IIT_Area_of_Study__c=areaofstudyKey),true,false)}">
+         <DIV CLASS="rolling-table-item"> 
+            <DIV CLASS="rolling-table-img"><apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/></DIV>
+            <DIV CLASS="rolling-table-item-copy"> 
+               <H4>{!courses.name} - {!courses.IIT_Course_Title__c}</H4> 
+               <P>{!courses.IIT_Course_Description__c}</P> 
+               <P>Prerequisities: {!courses.IIT_Prerequisites__c}</P>
+               <H4>Professor {!courses.IIT_Instructor_Name__c}</H4>
+               <P>{!courses.IIT_Instructor_Biography__c}</P>
+               <P><a href="{!$Page.CourseCatalogDetails}?id={!courses.Id}">Learn More</a></p>
+            </DIV>
+         </DIV>
+         </APEX:OUTPUTPANEL> 
+         </APEX:REPEAT> 
+         <!--Courses Based on Term-->
+         <APEX:REPEAT VALUE="{!IITCourses}" VAR="courses"> 
+         <APEX:OUTPUTPANEL RENDERED="{!IF(termKey='Fall',courses.IIT_Fall_Term__c,IF(termKey='Spring',courses.IIT_Spring_Term__c,IF(termKey='Summer',courses.IIT_Summer_Term__c,false)))}">
+         <DIV CLASS="rolling-table-item"> 
+            <DIV CLASS="rolling-table-img"><apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/></DIV>
+            <DIV CLASS="rolling-table-item-copy"> 
+               <H4>{!courses.name} - {!courses.IIT_Course_Title__c}</H4> 
+               <P>{!courses.IIT_Course_Description__c}</P> 
+               <P>Prerequisities: {!courses.IIT_Prerequisites__c}</P>
+               <H4>Professor {!courses.IIT_Instructor_Name__c}</H4>
+               <P>{!courses.IIT_Instructor_Biography__c}</P>
+               <P><a href="{!$Page.CourseCatalogDetails}?id={!courses.Id}">Learn More</a></p>
+            </DIV>
+         </DIV>
+         </APEX:OUTPUTPANEL> 
+         </APEX:REPEAT> 
+      </DIV>
+   </DIV>
+   <DIV ID="left">
+      <APEX:INCLUDE PAGENAME="IITCourseCatalogMenu" /> 
+      <A HREF="{!$Page.CourseCatalogHome}"><H3><SPAN CLASS="glyphicon glyphicon-arrow-left"></SPAN><STRONG>&nbsp;Return to Home Page</STRONG></H3></A>
+   </DIV>
+   <DIV STYLE="clear: both;"> 
+   </DIV>
+</DIV><!--END OF CONTAINER-->
+<DIV ID="footer">
+    Illinois Institute of Technology 
+</DIV>
+
+<APEX:INCLUDE PAGENAME="IIT_CSS_Course_Catalog" /> 
+<SCRIPT TYPE="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );
+            });
+        });
+</SCRIPT> 
+</APEX:PAGE>

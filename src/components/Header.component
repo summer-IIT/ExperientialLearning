@@ -1,0 +1,35 @@
+<apex:component >
+        <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script type="text/javscript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
+        <style>
+                .navbar {
+                margin-bottom: 0!important;
+                border-radius: 0;
+                position:fixed-top; 
+                font-family:futura;
+       </style>
+  <nav class="navbar navbar-inverse" >
+  <div class="container-fluid" >
+    <div class="navbar-header" >
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">EXPERIENTIAL LEARNING</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class=""></span> Project Proposal</a></li>
+        <li><a href="#"><span class=""></span> Donor</a></li>
+        <li><a href="#"><span class=""></span> Success Stories</a></li>
+        <li><a href="#"><span class=""></span> About Us</a></li>
+        <li><a href="#"><span class=""></span> Sign In</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</apex:component>

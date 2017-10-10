@@ -1,0 +1,132 @@
+<apex:page controller="IITGrFundingLettersController" showHeader="false" standardStyleSheets="false" renderAs="pdf" applyHtmlTag="false" applyBodyTag="false">
+    
+    <head>
+        <style>
+            @page{margin-left: 1in; margin-right: 1in; margin-top: 1.375in; size: 8.5in 11in;}
+            p{font: 10pt arial;}
+        </style>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <title>Illinois Tech Admission</title>
+    </head>
+    
+    <apex:outputPanel rendered="{!apps.size = 0}">
+        <p style="text-align:center;"><b>No Letters in the Report!</b></p>
+    </apex:outputPanel>
+    
+    <apex:repeat value="{!Apps}" var="app">
+    <body style="{!IF(Apps.size > 1,'page-break-after:always','')}">
+
+    <p>{!CASE(MONTH(TODAY()),
+    1, "January",
+    2, "February",
+    3, "March", 
+    4, "April", 
+    5, "May", 
+    6, "June",
+    7, "July",
+    8, "August",
+    9, "September",
+    10, "October",
+    11, "November",
+    12, "December",
+    "None")} {!DAY(TODAY())}, {!YEAR(TODAY())}<br /><br />
+    
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__Contact__r.IIT_Mailing_Address_Active__c = false,true,false)}">
+    {!app.TargetX_SRMb__Contact__r.FirstName} {!app.TargetX_SRMb__Contact__r.LastName}<br />
+    {!app.TargetX_SRMb__Contact__r.mailingstreet}<br />
+    {!app.TargetX_SRMb__Contact__r.mailingcity}, {!app.TargetX_SRMb__Contact__r.mailingstate} {!app.TargetX_SRMb__Contact__r.mailingpostalcode}<br />
+    {!IF(app.TargetX_SRMb__Contact__r.mailingcountry = "United States",null,app.TargetX_SRMb__Contact__r.mailingcountry)}
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__Contact__r.IIT_Mailing_Address_Active__c = true,true,false)}">
+    {!app.TargetX_SRMb__Contact__r.FirstName} {!app.TargetX_SRMb__Contact__r.LastName}<br />
+    {!app.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Address__c}<br />
+    {!app.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_City__c}, {!app.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_State__c} {!app.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Postal_Code__c}<br />
+    {!IF(app.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Country__c = "United States",null,app.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Country__c)}
+    </apex:outputPanel>
+    </p>
+    
+    <p>Dear {!app.TargetX_SRMb__Contact__r.FirstName},</p>
+    
+    <p>Congratulations on your recent admission to the Illinois Institute of Technology and the {!app.TargetX_SRMb__Program__c} program!<br /><br />
+    
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__Contact__r.IIT_PhD_Continuation_Indicator_Exists__c > 0,true,false)}">
+    Illinois Tech is pleased to offer you funding for your PhD program. Summer support is available by agreement with individual faculty members. While we cannot guarantee this level of support beyond what is listed in the tables below, historically all students who maintain good academic standing and are making satisfactory progress toward the Ph.D. degree have been supported for the duration of their studies by Teaching or Research Assistantships.<br /><br />
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__Program__c = 'Master of Public Administration',true,false)}">
+    We believe that your past academic performance is a strong indicator of your ability to succeed at IIT Stuart and, as a result, are pleased to award you a scholarship in the amount of 30% discount on tuition. This will be applied as you take the 11 courses required for your program.<br /><br />
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__Contact__r.IIT_Tuition_Funding_Exists_Currently__c > 0 ,true,false)}">
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__College__c != 'Stuart School of Business',true,false)}">The funding below provides tuition support for your first academic year at Illinois Tech and will be disbursed as follows. Support levels may change in later academic years.  Funding is intended for the program to which you were originally admitted and may be subject to additional restrictions.  Contact your department for more information.<br /><br /></apex:outputPanel>
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__College__c = 'Stuart School of Business',true,false)}">The funding below provides tuition support for your first academic year at Illinois Tech and will be disbursed as follows. Awards listed below are based on full-time graduate enrollment of 9 credit hours. Support levels may change in later academic years.  Funding is intended for the program to which you were originally admitted and may be subject to additional restrictions.  Contact your department for more information.<br /><br /></apex:outputPanel>
+    <table width="100%" border="1" cellspacing="0">
+        <tr>
+            <th>Award Name</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Tuition Support</th>
+        </tr>
+        <apex:repeat value="{!FinancialAid}" var="FinAid">
+        <apex:outputPanel rendered="{!app.Id = FinAid.IIT_Application__c && FinAid.TargetX_SRMb__Type__c = 'Tuition'}" layout="none">
+        <tr>
+            <td>{!FinAid.IIT_Description__c}</td>
+            <td>{!FinAid.IIT_Term_Description__c}</td>
+            <td>{!FinAid.IIT_Aid_Year_Description__c}</td>
+            <td>{!IF(FinAid.TargetX_SRMb__Amount__c <> 0,'$' & TEXT(FinAid.TargetX_SRMb__Amount__c),IF(FinAid.IIT_Credit_Hours__c <> 0,TEXT(FinAid.IIT_Credit_Hours__c) & ' credit hours',TEXT(FinAid.IIT_Percentage__c) & '%'))}</td>
+        </tr>
+        </apex:outputPanel>
+        </apex:repeat>
+    </table>
+    <br />
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__Contact__r.IIT_Stipend_Funding_Exists_Currently__c > 0,true,false)}">
+    The information below lists Stipend Support available for the upcoming academic year and will be disbursed as follows. Funding for later terms will be determined by your department.<apex:outputPanel rendered="{!IF(app.TargetX_SRMb__College__c = 'College of Science',true,false)}"> The deadline to accept this funding is {!IF(TODAY() > DATE(YEAR(TODAY()),04,01),CASE(MONTH(TODAY()+14),1,"January",2,"February",3,"March",4,"April",5,"May",6,"June",7,"July",8,"August",9,"September",10,"October",11,"November",12,"December","None") & " " & TEXT(DAY(TODAY()+14)),"April 15")}.</apex:outputPanel><br /><br />
+    Stipends generally require that you perform work for your department. Please contact your department for more information about this requirement.<br /><br />
+    <table width="100%" border="1" cellspacing="0">
+        <tr>
+            <th>Award Name</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Amount</th>
+        </tr>
+        <apex:repeat value="{!FinancialAid}" var="FinAid">
+        <apex:outputPanel rendered="{!app.Id = FinAid.IIT_Application__c && FinAid.TargetX_SRMb__Type__c = 'Stipend'}" layout="none">
+        <tr>
+            <td>{!FinAid.IIT_Description__c}</td>
+            <td>{!FinAid.IIT_Term_Description__c}</td>
+            <td>{!FinAid.IIT_Aid_Year_Description__c}</td>
+            <td>{!'$' & TEXT(FinAid.IIT_Stipend_Amount__c)}</td>
+        </tr>
+        </apex:outputPanel>
+        </apex:repeat>
+    </table>
+    <br />
+    </apex:outputPanel>
+    
+    Your Campus Wide ID is {!app.TargetX_SRMb__Contact__r.TargetX_SRMb__BannerID__c}<br /><br />
+    
+    <apex:outputPanel rendered="{!IF(app.TargetX_SRMb__Contact__r.IIT_TA_Funding_Exists_Currently__c > 0 && app.TargetX_SRMb__Contact__r.IIT_Is_International__c = false,true,false)}">
+    IIT university policy stipulates a background check, including criminal history, as a condition of employment. All new graduate students who have a work requirement associated with their funding are therefore required to undergo a check, which must be completed prior to the first day of work. IIT has retained the HireRight Agency to conduct all background checks, and HireRight will contact you to initiate this process. It is imperative that you submit the requested information as quickly as possible. All information is confidential and will only be reported to the Office of Human Resources at IIT.<br /><br />
+    </apex:outputPanel>
+    
+    {!IF(app.TargetX_SRMb__Program__c = 'Master of Public Administration',
+    'On behalf of the Stuart faculty and administration, I would like to once again congratulate you and welcome you to IIT Stuart.',
+    'We sincerely look forward to welcoming you to the IIT community. I personally wish you every success as you begin your graduate studies with Illinois Tech.')}
+    </p>
+    
+    <p>Sincerely,<br />    
+    <img src="{!$Resource.IITAbbySignature}" width="2.825in" /><br />    
+    Abby McGrath<br />
+    Associate Vice President<br />
+    Enrollment Services<br />
+    Illinois Institute of Technology</p>
+    
+    </body>
+    </apex:repeat>
+    
+</apex:page>

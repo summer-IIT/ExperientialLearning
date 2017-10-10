@@ -1,0 +1,225 @@
+<apex:page standardStyleSheets="false" showHeader="false" sidebar="false" controller="IITSSController" cache="false">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>Illinois Tech Scholarship Symposium | Applicant Detail</title>
+            <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem_IIT,'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+        </head>
+        <body>
+        <apex:outputPanel rendered="{!NOT(accessError)}" layout="none">
+        <div class="iit">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-m-bottom--xx-large">
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--left">
+                        <img src="{!$Resource.Logo}" />
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--2-of-4">
+                    <div class="slds-text-align--center">
+                        <h1 class="slds-text-heading--large">Scholarship Symposium Interview System</h1>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--right">
+                        <p class="slds-text-heading--label">Welcome {!userFullName}</p>
+                        <apex:outputLink value="{!$Page.SSLogin}">Log Out</apex:outputLink>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                <div class="slds-p-horizontal--small slds-size--1-of-2">
+                    <div class="slds-box">
+                    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-p-horizontal--small slds-size--1-of-2">
+                        <div class="slds-text-align--left">
+                            <p class="slds-text-heading--label">
+                                <b>Student: </b>{!interview.TargetX_Eventsb__Contact__r.FirstName} {!interview.TargetX_Eventsb__Contact__r.LastName}<br />
+                                <b>Interview Date and Time: </b><apex:outputField value="{!interview.IIT_SW_Interview_Date_and_Time__c}"/><br />
+                                <b>Academic Major: </b>{!application.TargetX_SRMb__Possible_Academic_Major__c}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-2">
+                        <div class="slds-text-align--right">
+                            <button class="slds-button">
+                                <a href="{!$Page.SSDashboard}?uid={!username}&sid={!sessionId}">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--left">
+                                    <use xlink:href="{!URLFOR($Resource.LightningDesignSystem_IIT,'/assets/icons/utility-sprite/svg/symbols.svg#back')}"></use>
+                                </svg>Return to Dashboard
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slds-p-horizontal--small slds-size--1-of-1 slds-m-top--large">
+                        <div class="slds-text-align--left">
+                            <p class="slds-text-heading--label"><b>Interview Documents:</b></p>
+                            <apex:repeat value="{!ssattachments}" var="ssattachment">
+                                <apex:outputLink value="{!URLFOR($Action.Attachment.Download, ssattachment.Id)}" target="_blank">Resume</apex:outputLink><br />
+                            </apex:repeat>
+                            <apex:variable value="{!1}" var="rowNum"/>
+                            <apex:repeat value="{!appattachments}" var="appattachment">
+                                <apex:outputLink value="{!URLFOR($Action.Attachment.Download, appattachment.Id)}" target="_blank"><apex:outputText value="Recommendation {!rowNum}"></apex:outputText></apex:outputLink><br />
+                                <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                            </apex:repeat>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2">
+                    <div class="slds-box slds-text-align--center">
+                        <p class="slds-text-heading--label">Scholarship Symposium Rating Form</p>
+                        <br />
+                        <div class="slds-text-align--left">
+                        <p class="slds-text-body--regular">In awarding Camras Scholarships we are looking for students who distinguish themselves for their remarkable academic and personal achievements, dynamism, and intellectual curiosity. We are also looking for students who show originality and independent thinking. Camras scholars will also have demonstrated the capacity to apply their intellectual gifts to better serve society and become part of a community of scholars who want to give back.</p>
+                        <br />
+                        <apex:form id="rating-form" styleClass="slds-form--stacked" rendered="{!NOT(interview.IIT_SW_Interview_Rating_Complete__c)}">
+                            <p class="slds-text-body--regular"><b>Scholarship Symposium Rating</b><br />In comparison with other candidates that you have met and current IIT students, how would you rate the applicant with respect to the following qualities:</p>
+                            <br />
+                            <p class="slds-text-body--regular">Please rate the student on each category</p>
+                            <br />
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="select-rating1">Robust Intellectual Curiosity: <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="select-rating1" multiselect="false" required="true" size="1" value="{!reviewRobustIntellectualCuriosity}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!ReviewRatings}" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="select-rating2">Academic Determination and Potential for Scholarly Growth: <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="select-rating2" multiselect="false" required="true" size="1" value="{!reviewAcadDetermination}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!ReviewRatings}" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="select-rating3">Demonstrated Leadership Experience and Leadership Potential: <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="select-rating3" multiselect="false" required="true" size="1" value="{!reviewLeadership}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!ReviewRatings}" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="select-rating4">Commitment to Service: <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="select-rating4" multiselect="false" required="true" size="1" value="{!reviewService}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!ReviewRatings}" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="select-rating5">Desire to Engage with the IIT Community: <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="select-rating5" multiselect="false" required="true" size="1" value="{!reviewDesireToEngage}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!ReviewRatings}" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="select-rating6">Do you think the student would represent our student body well to alumni and donors? <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="select-rating6" multiselect="false" required="true" size="1" value="{!reviewAlumniDonors}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!ReviewYesNo}" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <p class="slds-text-body--regular"><b>Final Decision</b><br />Please use the ratings from above to make a final recommendation. There is space for any comments you would like to share about this student.</p>
+                            <br />
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="select-ratingoverall">Overall, I would: <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="select-ratingoverall" multiselect="false" required="true" size="1" value="{!reviewOverall}" styleClass="slds-select">
+                                            <apex:selectOptions value="{!ReviewFinal}" />
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="input-notes">Comments (extremely useful in final deliberations): <abbr class="slds-required" title="required">*</abbr></label>
+                                <div class="slds-form-element__control">
+                                    <apex:inputTextarea id="input-notes" value="{!reviewComments}" rows="5" required="true" html-maxlength="975" styleClass="slds-textarea" />
+                                </div>
+                            </div>
+                            <div class="slds-m-top--large">
+                                <apex:commandButton value="Submit Rating" action="{!submitReview}" disabled="{!IF(adminUser == TRUE,TRUE,FALSE)}" styleClass="slds-button slds-button--brand" />
+                                <apex:outputPanel rendered="{!IF(adminUser == TRUE,TRUE,FALSE)}">
+                                    <p class="slds-text-body--regular" style="color:red;">Submit Rating Disabled For Admins!</p>
+                                </apex:outputPanel>
+                                <apex:pageMessages />
+                            </div>
+                        </apex:form>
+                        <apex:outputPanel rendered="{!interview.IIT_SW_Interview_Rating_Complete__c}">
+                            <p class="slds-text-body--regular">Rating Form already completed, please contact <a href="mailto:studentsystem@iit.edu">studentsystem@iit.edu</a> if you need to re-submit.</p>
+                            <br />
+                            <p class="slds-text-body--regular"><b>Scholarship Symposium Rating</b></p>
+                            <br />
+                            <p class="slds-text-body--regular">Completed:&nbsp;&nbsp;<apex:outputField value="{!review.TargetX_Reader__Date_Completed__c}"/></p>
+                            <br />
+                            <p class="slds-text-body--regular">Robust Intellectual Curiosity:&nbsp;&nbsp;{!review.IIT_Camras_Robust_Intellectual_Curiosity__c}</p>
+                            <br />
+                            <p class="slds-text-body--regular">Academic Determination and Potential for Scholarly Growth:&nbsp;&nbsp;{!review.IIT_Camras_Academic_Determination__c}</p>
+                            <br />
+                            <p class="slds-text-body--regular">Demonstrated Leadership Experience and Leadership Potential:&nbsp;&nbsp;{!review.IIT_Camras_Demonstrated_Leadership__c}</p>
+                            <br />
+                            <p class="slds-text-body--regular">Commitment to Service:&nbsp;&nbsp;{!review.IIT_Camras_Commitment_to_Service__c}</p>
+                            <br />
+                            <p class="slds-text-body--regular">Desire to Engage with the IIT Community:&nbsp;&nbsp;{!review.IIT_Camras_Desire_to_Engage_Community__c}</p>
+                            <br />
+                            <p class="slds-text-body--regular">Do you think the student would represent our student body well to alumni and donors?&nbsp;&nbsp;{!review.IIT_Camras_Alumni_and_Donor__c}</p>
+                            <br />
+                            <p class="slds-text-body--regular">Overall, I would:&nbsp;&nbsp;{!review.IIT_Camras_Overall__c}</p>
+                            <br />
+                            <p class="slds-text-body--regular">Comments:&nbsp;&nbsp;<apex:outputField value="{!review.IIT_Camras_Comments__c}"/></p>
+                        </apex:outputPanel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!accessError}" layout="none">
+        <div class="iit">
+            
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-m-bottom--xx-large">
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--left">
+                        <img src="{!$Resource.Logo}" />
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--2-of-4">
+                    <div class="slds-text-align--center">
+                        <h1 class="slds-text-heading--large">Scholarship Symposium Interview System</h1>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--right">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-align--absolute-left">
+                <p class="slds-text-heading--label" style="color:red;">Access Denied</p>
+            </div>
+            
+        </div>
+        </apex:outputPanel>
+        </body>
+    </html>
+</apex:page>

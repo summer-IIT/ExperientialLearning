@@ -1,0 +1,87 @@
+<apex:page standardcontroller="TargetX_SRMb__Application__c" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" docType="html-5.0" >
+    <body>
+        <img src="{!$resource.Logo}" />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">APPLICANT</h3>
+            </div>
+            <table cellpadding="5">
+                <tr>
+                    <td><h3 class="panel-title">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Name}</h3></td>
+                </tr>
+                <tr>
+                    <th class="fieldname">BIRTHDATE</th>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Birthdate}" /></apex:outputText></td>
+                    <th class="fieldname">ADDRESS</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingCity}, {!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingState}<br />{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingCountry}</td>
+                </tr>
+                <tr>
+                    <th class="fieldname">STUDENT TYPE</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Student_Type__c}</td>
+                    <th class="fieldname">CITIZENSHIP</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.Citizenship_Status__c}</td>
+                </tr>
+                <tr>
+                    <th class="fieldname">CITIZENSHIP</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.Citizenship_Status__c}</td>
+                    <th class="fieldname">PROGRAM</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Program__c}</td>
+                </tr>
+                <tr>
+                    <th class="fieldname">PHONE</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Phone}</td>
+                    <th class="fieldname">REAPPLICANT</th>
+                    <td class="fieldvalue"></td>
+                </tr>
+                <tr>
+                    <th class="fieldname">FIELD LABEL</th>
+                    <td class="fieldvalue"></td>
+                    <th class="fieldname">FIELD LABEL</th>
+                    <td class="fieldvalue"></td>
+                </tr> 
+            </table>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">EDUCATION</h3>
+            </div>
+            <table cellpadding="5">
+                <tr>
+                    <th class="fieldname">INSTITUTION</th>
+                    <th class="fieldname">DEGREE</th>
+                    <th class="fieldname">MAJOR</th>
+                </tr>
+                 <apex:repeat value="{!TargetX_SRMb__Application__c.TargetX_SRMb__Enrollment_History__r}" var="r">
+                    <tr>
+                        <td class="fieldvalue">{!r.Name}</td>
+                        <td class="fieldvalue">{!r.TargetX_SRMb__Degree_Earned__c}</td>
+                        <td class="fieldvalue">{!r.TargetX_SRMb__Degree_Candidate__c}</td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </div>
+                <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"> GRE </h3>
+            </div>
+            <table cellpadding="5">
+                <tr>
+                    <th class="fieldname">DATE</th>
+                    <th class="fieldname">VERBAL</th>
+                    <th class="fieldname">QUANT</th>
+                    <th class="fieldname">AWA</th>
+                    <th class="fieldname">TOTAL</th>
+                </tr>
+                 <apex:repeat value="{!TargetX_SRMb__Application__c.TargetX_SRMb__Recommendation__r}" var="r">
+                    <tr>
+                        <td class="fieldvalue">{!r.TargetX_SRMb__First_Name__c}</td>
+                        <td class="fieldvalue">{!r.TargetX_SRMb__First_Name__c}</td>
+                        <td class="fieldvalue">{!r.TargetX_SRMb__First_Name__c}</td>
+                        <td class="fieldvalue">{!r.TargetX_SRMb__First_Name__c}</td>
+                        <td class="fieldvalue">{!r.TargetX_SRMb__First_Name__c}</td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </div>
+    </body>
+</apex:page>

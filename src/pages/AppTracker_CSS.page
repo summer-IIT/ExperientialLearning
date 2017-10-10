@@ -1,0 +1,27 @@
+<apex:page showHeader="false" standardStylesheets="false"><style type="text/css">
+h5{
+    font-weight: bold;
+    }
+h1,h2,h3,h4{
+    color: #c00;
+    font-weight: bold;
+    }
+body{
+    background: #666;
+    }
+.container{
+    margin: 10px auto;
+    background: #FFF;
+    padding: 10px 0px;
+    box-sizing: border-box;
+    padding: 0px 50px 50px 50px;
+    box-shadow: 0 0 3px 3px #555;
+    -mox-box-shadow: 0 0 3px 3px #555;
+    -webkit-box-shadow: 0 0 3px 3px #555;
+    }
+.well{
+    border:2px solid #c00;
+    background: #FFF;
+    }
+</style>
+</apex:page>

@@ -1,0 +1,273 @@
+<APEX:PAGE EXTENSIONS="IITCourseCatalogController" SHOWHEADER="FALSE"
+           STANDARDCONTROLLER="IIT_Courses__c" STANDARDSTYLESHEETS="false"> 
+<HEAD>
+   <LINK HREF="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+         REL="stylesheet" />
+   
+   <SCRIPT SRC="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></SCRIPT>
+   
+   <SCRIPT SRC="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></SCRIPT>
+   
+   <TITLE>IIT Online Course Catalog</TITLE> 
+   <META CONTENT="English" HTTP-EQUIV="Content-Language" />
+   <META CONTENT="text/html; charset=UTF-8" HTTP-EQUIV="Content-Type" />
+   <LINK HREF="IIT_CSS_Course_Catalog" MEDIA="screen" REL="stylesheet"
+         TYPE="text/css" />
+</HEAD>
+
+<APEX:INCLUDE PAGENAME="IITCourseCatalogHeader" /> 
+<DIV CLASS="container">
+   <DIV ID="right"> 
+      <H2>Online Course Spotlight</H2> 
+      <DIV CLASS="articles"> 
+         <DIV CLASS="row"> 
+            <DIV CLASS="carousel slide" DATA-RIDE="carousel"
+                 ID="myCarousel1"> 
+
+<!-- Indicators
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol> -->
+<!-- Wrapper for slides -->
+               <DIV CLASS="carousel-inner" ROLE="listbox"> 
+                  <DIV CLASS="item active"> 
+                     <APEX:REPEAT ROWS="3" VALUE="{!IITCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+                  <DIV CLASS="item"> 
+                     <APEX:REPEAT FIRST="3" ROWS="3" VALUE="{!IITCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+                  <DIV CLASS="item"> 
+                     <APEX:REPEAT FIRST="6" ROWS="3" VALUE="{!IITCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+                  <DIV CLASS="item"> 
+                     <APEX:REPEAT FIRST="9" ROWS="3" VALUE="{!IITCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+               </DIV>
+
+<!-- Left and right controls -->
+               <A CLASS="left carousel-control" DATA-SLIDE="prev"
+                  HREF="#myCarousel1" ROLE="button"> 
+               <SPAN ARIA-HIDDEN="true"
+                     CLASS="glyphicon glyphicon-chevron-left"></SPAN> 
+               <SPAN CLASS="sr-only">Previous</SPAN> </A> 
+               <A CLASS="right carousel-control" DATA-SLIDE="next"
+                  HREF="#myCarousel1" ROLE="button"> 
+               <SPAN ARIA-HIDDEN="true"
+                     CLASS="glyphicon glyphicon-chevron-right"></SPAN> 
+               <SPAN CLASS="sr-only">Next</SPAN> </A> 
+            </DIV>
+         </DIV>
+      </DIV>
+      <BR /><BR /> 
+      <H2>Popular Online Courses</H2> 
+      <DIV CLASS="articles"> 
+         <DIV CLASS="row"> 
+            <DIV CLASS="carousel slide" DATA-RIDE="carousel"
+                 ID="myCarousel2"> 
+
+<!-- Indicators -->
+               <OL CLASS="carousel-indicators">
+                  <LI CLASS="active" DATA-SLIDE-TO="0"
+                      DATA-TARGET="#myCarousel"></LI>
+                  <LI DATA-SLIDE-TO="1" DATA-TARGET="#myCarousel"></LI>
+                  <LI DATA-SLIDE-TO="2" DATA-TARGET="#myCarousel"></LI>
+                  <LI DATA-SLIDE-TO="3" DATA-TARGET="#myCarousel"></LI>
+               </OL>
+
+<!-- Wrapper for slides -->
+               <DIV CLASS="carousel-inner" ROLE="listbox"> 
+                  <DIV CLASS="item active"> 
+                     <APEX:REPEAT ROWS="3" VALUE="{!IITPopCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+                  <DIV CLASS="item"> 
+                     <APEX:REPEAT FIRST="3" ROWS="3" VALUE="{!IITPopCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+                  <DIV CLASS="item"> 
+                     <APEX:REPEAT FIRST="6" ROWS="3" VALUE="{!IITPopCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+                  <DIV CLASS="item"> 
+                     <APEX:REPEAT FIRST="9" ROWS="3" VALUE="{!IITPopCourses}"
+                                  VAR="courses"> 
+                     <DIV CLASS="col-sm-6 col-md-4"> 
+                        <DIV CLASS="thumbnail"> 
+                           <apex:image url="{!URLFOR($Resource.IITCourseCatalogImages,'CourseImages/'+SUBSTITUTE(courses.name,' ','_')+'.jpg')}"/>
+                           
+                           <DIV CLASS="caption"> 
+                              <H3>{!courses.name}</H3> 
+
+                              <P>{!courses.IIT_Course_Description__c}</P> 
+
+                              <P>
+                              <A CLASS="btn btn-default" HREF="{!$Page.CourseCatalogDetails}?id={!courses.Id}"
+                                 ROLE="button">Learn More</A></P> 
+                           </DIV>
+                        </DIV>
+                     </DIV>
+                     </APEX:REPEAT> 
+                  </DIV>
+               </DIV>
+
+<!-- Left and right controls -->
+               <A CLASS="left carousel-control" DATA-SLIDE="prev"
+                  HREF="#myCarousel2" ROLE="button"> 
+               <SPAN ARIA-HIDDEN="true"
+                     CLASS="glyphicon glyphicon-chevron-left"></SPAN> 
+               <SPAN CLASS="sr-only">Previous</SPAN> </A> 
+               <A CLASS="right carousel-control" DATA-SLIDE="next"
+                  HREF="#myCarousel2" ROLE="button"> 
+               <SPAN ARIA-HIDDEN="true"
+                     CLASS="glyphicon glyphicon-chevron-right"></SPAN> 
+               <SPAN CLASS="sr-only">Next</SPAN> </A> 
+            </DIV>
+         </DIV>
+      </DIV>
+   </DIV>
+   <DIV ID="left"> 
+      <APEX:INCLUDE PAGENAME="IITCourseCatalogMenu" /> 
+   </DIV>
+   <DIV STYLE="clear: both;"> 
+   </DIV>
+</DIV><!--END OF CONTAINER-->
+<DIV ID="footer">
+    Illinois Institute of Technology 
+</DIV>
+
+<APEX:INCLUDE PAGENAME="IIT_CSS_Course_Catalog" /> 
+<SCRIPT TYPE="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );
+            });
+        });
+</SCRIPT> 
+</APEX:PAGE>

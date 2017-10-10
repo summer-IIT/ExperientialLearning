@@ -1,0 +1,16 @@
+<apex:page showHeader="false" standardStylesheets="false">
+<DIV ID="header-wrapper" CLASS="row">
+    <DIV ID="header" CLASS="row"> 
+        <DIV CLASS="col-md-12 col-md-12-header"> 
+            <!--<DIV CLASS="col-md-8"><img src="{!$Resource.AppTrackerHeader}" style="margin-top: 20px;" width="250px"/></div>-->
+            <DIV CLASS="col-md-8 col-md-8-header">
+                <h1 class="header-branding">Illinois Institute of Technology</h1>
+            </DIV>
+            <DIV CLASS="col-md-4 col-md-4-header">
+                <BUTTON CLASS="btn btn-danger btn-lg" TYPE="button" onclick="window.location.href='https://myiit.force.com/OnlineApp'">Apply Now</BUTTON>
+                <BUTTON CLASS="btn btn-danger btn-lg" TYPE="button" onclick="window.location.href='{!$Page.CourseCatalogSearch}'">Search Courses</BUTTON>
+            </DIV>
+        </DIV>
+    </DIV>
+</DIV>
+</apex:page>

@@ -1,0 +1,129 @@
+<apex:page standardStyleSheets="false" showHeader="false" sidebar="false" controller="IITSSController" cache="false">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>Illinois Tech Scholarship Symposium | Dashboard</title>
+            <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem_IIT,'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+        </head>
+        
+        <apex:outputPanel rendered="{!NOT(accessError)}">
+        <div class="iit">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-m-bottom--xx-large">
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--left">
+                        <img src="{!$Resource.Logo}" />
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--2-of-4">
+                    <div class="slds-text-align--center">
+                        <h1 class="slds-text-heading--large">Scholarship Symposium Interview System</h1>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--right">
+                        <p class="slds-text-heading--label">Welcome {!userFullName}</p>
+                        <apex:outputLink value="{!$Page.SSLogin}">Log Out</apex:outputLink>
+                    </div>
+                </div>
+            </div>
+            
+            <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover">
+                <thead>
+                    <tr class="slds-text-title--caps">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Student">Student</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Interview Date and Time">Interview Date and Time</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Interview Location">Interview Location</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Interview Faculty">Interview Faculty</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate slds-text-align--center" title="Completed">Interview Rating Form Completed</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!interviewList}" var="int">
+                    <tr>
+                        <td data-label="Student">
+                            <div class="slds-truncate">
+                                <a href="{!$Page.SSApplicantDetail}?uid={!username}&sid={!sessionId}&cid={!int.TargetX_Eventsb__Contact__r.Id}">{!int.TargetX_Eventsb__Contact__r.FirstName} {!int.TargetX_Eventsb__Contact__r.LastName}</a>
+                            </div>
+                        </td>
+                        <td data-label="Interview Date and Time">
+                            <div class="slds-truncate"><apex:outputField value="{!int.IIT_SW_Interview_Date_and_Time__c}"/></div>
+                        </td>
+                        <td data-label="Interview Location">
+                            <div class="slds-truncate">{!int.IIT_SW_Interview_Location__c}</div>
+                        </td>
+                        <td data-label="Interview Faculty">
+                            <div class="slds-truncate">{!int.IIT_SW_Interview_Faculty__c}</div>
+                        </td>
+                        <td data-label="Completed">
+                            <div class="slds-truncate slds-text-align--center">
+                                <apex:outputPanel rendered="{!int.IIT_SW_Interview_Rating_Complete__c}">
+                                <span class="slds-icon_container">
+                                    <svg aria-hidden="true" class="slds-icon slds-icon--x-small slds-icon-text-default">
+                                        <use xlink:href="{!URLFOR($Resource.LightningDesignSystem_IIT,'/assets/icons/utility-sprite/svg/symbols.svg#check')}"></use>
+                                    </svg>
+                                </span>
+                                </apex:outputPanel>
+                            </div>
+                        </td>
+                    </tr>
+                    </apex:repeat>
+                    <tr class="slds-text-title--caps">
+                        <th data-label="Student">
+                            <div class="slds-truncate">Number of Interviews: {!interviewList.size}</div>
+                        </th>
+                        <th data-label="Interview Date and Time">
+                            <div class="slds-truncate"></div>
+                        </th>
+                        <th data-label="Interview Location">
+                            <div class="slds-truncate"></div>
+                        </th>
+                        <th data-label="Interview Faculty">
+                            <div class="slds-truncate"></div>
+                        </th>
+                        <th data-label="Completed">
+                            <div class="slds-truncate slds-text-align--center"></div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!accessError}">
+        <div class="iit">
+            
+            <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-m-bottom--xx-large">
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--left">
+                        <img src="{!$Resource.Logo}" />
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--2-of-4">
+                    <div class="slds-text-align--center">
+                        <h1 class="slds-text-heading--large">Scholarship Symposium Interview System</h1>
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-4">
+                    <div class="slds-text-align--right">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-align--absolute-left">
+                <p class="slds-text-heading--label" style="color:red;">Access Denied</p>
+            </div>
+            
+        </div>
+        </apex:outputPanel>
+        
+    </html>
+</apex:page>

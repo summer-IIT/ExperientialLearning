@@ -1,0 +1,70 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" expires="0" cache="false" docType="html"
+    controller="TargetX_Base.TX_CommunitiesBase" extensions="TX_CommunitiesProvisionController">
+    <apex:composition template="{!defaultTemplate}">
+        <apex:define name="header">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="mycontainer">
+                    <div class="navbar-header">
+                        <div class="targetx-header-university">
+                            <div class="targetx-header-university-icon"></div>
+                            <div class="targetx-header-university-info">
+                                <span class="targetx-header-university-name">{!header_school}</span>
+                                <span class="targetx-header-university-program">{!header_program}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>  
+        </apex:define>
+
+        <apex:define name="content">
+            <apex:outputPanel rendered="{!showLogin}">
+                <c:TX_SiteLogin id="siteLogin"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!!showLogin}">
+                <script type="text/javascript">
+                    function showhide()
+                    {
+                        $("#noAccount").hide() ;
+                        $("#emailSent").show() ;
+                    }
+                </script>
+
+                <div class="targetx-welcome-info">
+                    <div class="targetx-welcome-items">
+                        <div class="targetx-welcome-item" id="noAccount">
+                            <span class="targetx-welcome-item-title">
+                                <h3>Your account has not been activated</h3>
+                            </span>
+                            <div>
+                                <apex:form forceSSL="true">
+                                    <apex:actionfunction name="activateAccount" action="{!createCommunityUser}"
+                                        rerender="nothing" oncomplete="showhide()"/>
+
+                                    <apex:commandButton styleClass="targetx-button" value="Activate My Account"
+                                        onclick="activateAccount()" rerender="nothing"/>
+                                </apex:form>
+                            </div>
+                        </div>
+
+                        <div class="targetx-welcome-item" id="emailSent" style="display:none;">
+                            <span class="targetx-welcome-item-title">
+                                <h3>You should receive an email to confirm your account creation.</h3>
+                                <apex:form >
+                                    <div id="resendLink">
+                                        <apex:commandLink action="{!resendConf}" value="Didn't receive an email?"
+                                            rerender="nothing" oncomplete="$('#moreHelpText').show();$('#resendLink').hide()"/><br/>
+                                    </div>
+                                    <div style="display:none" id="moreHelpText">
+                                        Another email has been sent.<br/>
+                                        &lt;Click here&gt; if you need further assistance.
+                                    </div>
+                                </apex:form>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+</apex:page>

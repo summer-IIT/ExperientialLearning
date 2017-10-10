@@ -1,0 +1,496 @@
+<apex:page standardcontroller="TargetX_SRMb__Application__c" extensions="IITDecCloudController,IITFinAidController" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" docType="html-5.0" >
+    <body>
+        <img src="{!$resource.Logo}" />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">APPLICANT INFORMATION</h3>
+            </div>
+            <table cellpadding="5">
+                 <tr>
+                    <td colspan="6"><h3 class="studentName">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Name}</h3></td>
+                </tr>
+                <tr class="panel-row">
+                    <th class="fieldname">Birthdate:</th>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Birthdate}" /></apex:outputText></td>
+                    <th class="fieldname">Student Type:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Student_Type__c}</td>
+                     <th class="fieldname">Gender:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Gender__c}</td>
+                 </tr>
+                   <tr>
+                    <th class="fieldname">Citizenship Status:</th>
+                    <td class="fieldvalue">{!CASE(TargetX_SRMb__Application__c.Citizenship_Status__c,'International Student/Non-Resident Alien','International Student',TargetX_SRMb__Application__c.Citizenship_Status__c)}</td>
+                    <th class="fieldname">Primary Citizenship Country:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Primary_Country_of_Citizenship__c}</td>
+                     <th class="fieldname">Email:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Email}</td>
+                  </tr>
+                <tr>
+                   
+                    <th class="fieldname">Entry Term:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c}</td>
+                    <th class="fieldname">Alumni:</th>
+                    <td class="fieldvalue">{!IF(TargetX_SRMb__Application__c.IIT_Alumnus__c=true,"Y","N")}</td>
+                    <th class="fieldname">Phone:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Phone}</td>
+                </tr>
+                <tr>
+                   
+                    
+                    <th class="fieldname">Address:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingCity}, {!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingState} {!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingCountry}</td>
+                   
+                    <apex:outputPanel rendered="{!IF(OR(TargetX_SRMb__Application__c.Special_Program__c='IIE BSMP',TargetX_SRMb__Application__c.Special_Program__c='IIE GET'),true, false)}">
+                    <th class="fieldname">Research Title:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_BSMP_Research_Title__c}</td>
+                    <th class="fieldname">Start Date:</th>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TargetX_SRMb__Application__c.IIT_Start_Date__c}" /></apex:outputText></td>
+                    <th class="fieldname">End Date:</th>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TargetX_SRMb__Application__c.IIT_End_Date__c}" /></apex:outputText></td>
+                    
+                    <apex:outputPanel rendered="{!IF(TargetX_SRMb__Application__c.Special_Program__c='IIE BSMP', true, false)}">
+                    <th class="fieldname">Host Institution:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Host_Instituion__c}</td>
+                    <th class="fieldname">Major(s) of Interest:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Major_of_Interest__c}</td>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!IF(TargetX_SRMb__Application__c.Special_Program__c='Summer Research',true, false)}">
+                    <th class="fieldname">Research Title:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_BSMP_Research_Title__c}</td>
+                    <th class="fieldname">Start Date:</th>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TargetX_SRMb__Application__c.IIT_Start_Date__c}" /></apex:outputText></td>
+                    <th class="fieldname">End Date:</th>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TargetX_SRMb__Application__c.IIT_End_Date__c}" /></apex:outputText></td>
+                    </apex:outputPanel>
+                </tr>
+              
+            </table>
+        </div>
+         <br></br>
+               <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">APPLICATION INFORMATION</h3>
+            </div>
+         <table cellpadding="5">
+                <tr class="panel-row">
+                    <th class="fieldname">Department:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.Department__c}</td>
+                    <th class="fieldname">Degree:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Degree__c}</td>
+                    <th class="fieldname">Academic Major:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c}</td>
+                </tr>
+                   <tr>
+                    <th class="fieldname">College:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__College__c}</td>
+                    <th class="fieldname">Program:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Program__c}</td>
+                     <th class="fieldname">Special Program:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.Special_Program__c}</td>
+                 </tr>
+                   
+                   <tr>
+                   
+                    <th class="fieldname">Concentration:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Concentration__c}</td>
+                    
+                 </tr>
+         </table>
+         </div>
+          <br></br>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">APPLICATION STATUS</h3>
+            </div>
+         <table cellpadding="5">
+                <tr class="panel-row">
+                    <th class="fieldname">Application Stage:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Stage__c}</td>
+                    <th class="fieldname">Application Status:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.TargetX_SRMb__Status__c}</td>
+                    <th class="fieldname">Processing Status:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_Application_Processing_Status__c}</td>
+                </tr>
+                   <tr>
+                    <th class="fieldname">Application Submit Date:</th>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!TargetX_SRMb__Application__c.TargetX_SRMb__Application_Submit_Date__c}" /></apex:outputText></td>
+                    <th class="fieldname">Items waiting to be verified:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_Open_Mandatory_Checklist_Items__c}</td>
+                    <th class="fieldname">Items waiting to be received:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_Mandatory_Check_Items_Not_Rec__c}</td>
+                 </tr>
+                           
+                <tr>
+                    <th class="fieldname">Specialist:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_Application_Owner__r.Name}</td>
+                    <th class="fieldname">Graduate Funding:</th>
+                    <td class="fieldvalue"><apex:outputLink value="https://my125.iit.edu/dss/app/gffunding_stu.html?s={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Banner_PIDM__c}" target="_blank">Link</apex:outputLink></td>
+                    
+                </tr>
+            </table>
+            </div>
+             <br></br>
+           <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">ADDITIONAL INFORMATION</h3>
+            </div>
+         <table cellpadding="5">
+                <tr class="panel-row">
+                    <th class="fieldname">Financial Verification:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_Financial_Verification__c}</td>
+                    <th class="fieldname">Current Visa Status:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_Current_Visa_Status__c}</td>
+                </tr>
+                   <tr>
+                    <th class="fieldname">Desired Visa Status:</th>
+                    <td class="fieldvalue">{!TargetX_SRMb__Application__c.IIT_Desired_Visa_Status__c}</td>
+                    <th class="fieldname">Will Bring Dependents:</th>
+                    <td class="fieldvalue">{!IF(TargetX_SRMb__Application__c.IIT_Will_Bring_Dependents__c=true,"Y","N")}</td>
+                 </tr>
+                           
+               
+            </table>
+            </div>
+             <br></br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">EDUCATION</h3>
+            </div>
+            <table cellpadding="5">
+                <tr>
+                    <th class="fieldname">Institution</th>
+                    <th class="fieldname">GPA</th>
+                    <th class="fieldname">Rank</th>
+                </tr>
+                <apex:repeat value="{!TargetX_SRMb__Application__c.TargetX_SRMb__Enrollment_History__r}" var="enrollmenthistory">
+                <apex:outputPanel rendered="true">
+                <tr>
+                    <td class="fieldvalue">{!enrollmenthistory.TargetX_SRMb__Account__r.Name}</td>
+                  <!--  <td class="fieldvalue">{!enrollmenthistory.TargetX_SRMb__Account__r.Name}</td> -->
+                    <td class="fieldvalue">{!enrollmenthistory.TargetX_SRMb__Official_GPA__c}</td>
+                    <td class="fieldvalue">{!enrollmenthistory.TargetX_SRMb__Official_Class_Rank__c} / {!enrollmenthistory.TargetX_SRMb__Official_Class_Size__c}</td>
+                </tr>
+                </apex:outputPanel>
+                </apex:repeat>
+            </table>
+        </div>
+        
+       <!-- <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">TRANSCRIPT EVALUATIONS</h3>
+            </div>
+            <table >
+                <tr>
+                    <th class="fieldnameTE">SCHOOL<br />DEGREE</th>
+                    <th class="fieldnameTE">TERM 1</th>
+                    <th class="fieldnameTE">2</th>
+                    <th class="fieldnameTE">3</th>
+                    <th class="fieldnameTE">4</th>
+                    <th class="fieldnameTE">5</th>
+                    <th class="fieldnameTE">6</th>
+                    <th class="fieldnameTE">7</th>
+                    <th class="fieldnameTE">8</th>
+                    <th class="fieldnameTE">OVERALL</th>
+                    <th class="fieldnameTE">NOTES</th>
+                </tr>
+                <apex:repeat value="{!TargetX_SRMb__Application__c.TargetX_SRMb__Enrollment_History__r}" var="ehis1">
+                <apex:outputPanel rendered="true">
+                <tr>
+                   <td class="fieldvalueTE">{!ehis1.name} - {!ehis1.TargetX_SRMb__Degree_Earned__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_1__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_2__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_3__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_4__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_5__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_6__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_7__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Term_8__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Overall__c}</td>
+                   <td class="fieldvalueTE">{!ehis1.IIT_TE_Notes__c}</td>                   
+                   
+                </tr>
+                </apex:outputPanel>
+                </apex:repeat>
+            </table>
+        </div> -->
+         
+         <br></br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">TEST SCORES</h3>
+            </div>
+            <table cellpadding="5">
+                <tr>
+                    <th class="fieldname">Test</th>
+                    <th class="fieldname">Date</th>
+                    <th class="fieldname">Total</th>
+                    <th class="fieldname">Subscore</th>
+                    <th class="fieldname">Subscore</th>
+                    <th class="fieldname">Subscore</th>
+                    <th class="fieldname">Subscore</th>
+                </tr>
+                <apex:repeat value="{!contactTests}" var="GMAT">
+                <apex:outputPanel rendered="{!IF(GMAT.TargetX_SRMb__Test__c='GMAT' && GMAT.TargetX_SRMb__Score_Validated__c=true,true,false)}">
+                <tr>
+                    <td class="fieldvalue">GMAT</td>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!GMAT.TargetX_SRMb__Test_Date__c}" /></apex:outputText></td>
+                    <td class="fieldvalue">Total Score:<br/ > {!ROUND(GMAT.TargetX_SRMb__GMAT_Total_Score__c,0)}({!ROUND(GMAT.TargetX_SRMb__GMAT_Total_Percentage__c,0)}%)</td>
+                    <td class="fieldvalue">A Score:<br/ > {!ROUND(GMAT.TargetX_SRMb__GMAT_Analytical_Score__c,0)}({!ROUND(GMAT.TargetX_SRMb__GMAT_Analytical_Percentage__c,0)}%)</td>
+                    <td class="fieldvalue">Int R Score:<br/ > {!ROUND(GMAT.TargetX_SRMb__GMAT_Integrated_Reasoning_Score__c,0)}({!ROUND(GMAT.TargetX_SRMb__GMAT_Integrated_Reasoning_Percentage__c,0)}%)</td>
+                    <td class="fieldvalue">Q Score:<br/ > {!ROUND(GMAT.TargetX_SRMb__GMAT_Quantitative_Score__c,0)}({!ROUND(GMAT.TargetX_SRMb__GMAT_Quantitative_Percentage__c,0)}%)</td>
+                    <td class="fieldvalue">V Score:<br/ > {!ROUND(GMAT.TargetX_SRMb__GMAT_Verbal_Score__c,0)}( {!ROUND(GMAT.TargetX_SRMb__GMAT_Verbal_Percentage__c,0)}%)</td>
+                    
+                </tr>
+                </apex:outputPanel>
+                </apex:repeat>
+                <apex:repeat value="{!contactTests}" var="GRE">
+                <apex:outputPanel rendered="{!IF(GRE.TargetX_SRMb__Test__c='GRE General' && GRE.TargetX_SRMb__Score_Validated__c=true,true,false)}">
+                <tr>
+                    <td class="fieldvalue">GRE</td>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!GRE.TargetX_SRMb__Test_Date__c}" /></apex:outputText></td>
+                    <td class="fieldvalue">Total Score:<br/ >{!ROUND(GRE.IIT_GRE_General_Composite_Score__c,0)}</td>
+                    <td class="fieldvalue">A Score:<br/ >{!ROUND(GRE.TargetX_SRMb__GRE_General_Analytical_Score__c,0)}({!ROUND(GRE.TargetX_SRMb__GRE_General_Analytical_Percentage__c,0)}%)</td>
+                    <!--<td class="fieldvalue">Composite <br/ > Score: {!ROUND(GRE.IIT_GRE_General_Composite_Score__c,0)}</td> --> 
+                    <td class="fieldvalue">Q Score:<br/ >{!ROUND(GRE.TargetX_SRMb__GRE_General_Quantitative_Score__c,0)}({!ROUND(GRE.TargetX_SRMb__GRE_General_Quantitative_Percentage__c,0)}%) </td>
+                    <td class="fieldvalue">V Score:<br/ >{!ROUND(GRE.TargetX_SRMb__GRE_General_Verbal_Score__c,0)} ({!ROUND(GRE.TargetX_SRMb__GRE_General_Verbal_Percentage__c,0)}%)</td>
+                    <!-- <td class="fieldvalue">Subject Subscore: {!ROUND(GRE.TargetX_SRMb__GRE_Subject_Subscore__c,0)}</td> -->
+                    
+                    <td></td>               
+                </tr>
+                </apex:outputPanel>
+                </apex:repeat>
+                <apex:repeat value="{!contactTests}" var="toefl">
+                <apex:outputPanel rendered="{!IF(toefl.TargetX_SRMb__Test__c='TOEFL' && toefl.TargetX_SRMb__Score_Validated__c=true,true,false)}">
+                <tr>
+                    <td class="fieldvalue">TOEFL</td>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!toefl.TargetX_SRMb__Test_Date__c}" /></apex:outputText></td>
+                    <td class="fieldvalue">Total Score:<br/ >{!ROUND(toefl.TargetX_SRMb__TOEFL_Total_Score__c,0)}</td>
+                    <td class="fieldvalue">Listening:<br/ >{!ROUND(toefl.TargetX_SRMb__TOEFL_Listening_Comprehension__c,0)}</td>
+                    <td class="fieldvalue">Reading:<br/ >{!ROUND(toefl.TargetX_SRMb__TOEFL_Reading_Comprehension__c,0)}</td>
+                    <td class="fieldvalue">Speaking:<br/ >{!ROUND(toefl.TargetX_SRMb__TOEFL_Speaking_Comprehension__c,0)}</td>
+                    <td class="fieldvalue">Writing:<br/ >{!ROUND(toefl.TargetX_SRMb__TOEFL_Writing_Comprehension__c,0)}</td>
+                </tr>
+                </apex:outputPanel>
+                </apex:repeat>
+                <apex:repeat value="{!contactTests}" var="IELTS">
+                <apex:outputPanel rendered="{!IF(IELTS.TargetX_SRMb__Test__c='IELTS' && IELTS.TargetX_SRMb__Score_Validated__c=true,true,false)}">
+                <tr>
+                    <td class="fieldvalue">IELTS</td>
+                    <td class="fieldvalue"><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!IELTS.TargetX_SRMb__Test_Date__c}" /></apex:outputText></td>
+                    <td class="fieldvalue">Total Score:<br/ >{!IELTS.IIT_IELTS_Overall_Band_Score__c}</td>
+                    <td class="fieldvalue">Listening:<br/ >{!IELTS.IIT_IELTS_Listening_Band_Score__c}</td>
+                    <td class="fieldvalue">Writing:<br/ >{!IELTS.IIT_IELTS_Writing_Band_Score__c}</td>
+                    <td class="fieldvalue">Reading:<br/ >{!IELTS.IIT_IELTS_Reading_Band_Score__c}</td>
+                    <td class="fieldvalue">Speaking:<br/ >{!IELTS.IIT_IELTS_Speaking_Band_Score__c}</td>
+                    
+                  
+                </tr>
+                </apex:outputPanel>
+                </apex:repeat>
+            </table>
+        </div>
+        
+     
+     
+     
+   <!-- Start of ID Reviews -->
+<apex:outputPanel rendered="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__College__c='Institute of Design',true,false)}">    
+    <br /> 
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">FACULTY REVIEWS</h3>
+            </div>
+                          
+                <apex:repeat value="{!AppReviews}" var="AR">
+                <div class="panel">
+                <tr>
+                    <th class="fieldname">Review Date:</th>
+                    <td class='fieldvalue'><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!AR.TargetX_Reader__Date_Completed__c}" /></apex:outputText></td>
+                    <th class="fieldname">Reviewer:</th>
+                    <td class="fieldvalue">{!AR.IIT_Decision_Maker_Name__c}</td>
+                    <th class="fieldname">Academic Strength:</th>
+                    <td class="fieldvalue">{!AR.IIT_Academic_Strength__c}</td>
+                    <th class="fieldname">Personal Statement:</th>
+                    <td class="fieldvalue">{!AR.IIT_Quality_of_Personal_Statement__c}</td>
+                </tr>
+               <tr>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>    
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue' > </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                </tr>
+                    <tr>
+                    <th class="fieldname">Recommendation Letters:</th>
+                    <td class="fieldvalue">{!AR.IIT_Quality_of_Letters_of_Recommendation__c}</td>
+                    <th class="fieldname">Portfolio:</th>
+                    <td class="fieldvalue">{!AR.IIT_Quality_of_Portfolio__c}</td>
+                    <th class="fieldname">Relevant Experience:</th>
+                    <td class="fieldvalue">{!AR.IIT_Relevant_Work_or_Life_Experience__c}</td>
+                    <th class="fieldname">Average Score:</th>
+                    <td class="fieldvalue">{!AR.IIT_Average_Score__c}</td>    
+                </tr>
+                  <tr>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>    
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue' > </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                </tr>    
+                <tr>    
+                    <th class="fieldname">Additional Interview:</th>
+                    <td class="fieldvalue">{!AR.IIT_Additional_Interview__c}</td>
+                    <th class="fieldname">Recommend Foundation:</th>
+                    <td class="fieldvalue">{!AR.IIT_Recommend_Foundation_Course__c}</td>
+                    <th class="fieldname">Recommend English:</th>
+                    <td class="fieldvalue">{!AR.IIT_Recommend_English_for_Design_Course__c}</td>
+                    <th class="fieldname">Recommend Fellowship:</th>
+                    <td class="fieldvalue">{!AR.IIT_Recommend_Fellowship_Consideration__c}</td>
+                </tr>
+                  <tr>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>    
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue' > </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                </tr>    
+                <tr>   
+                    <th class="fieldname">Notes:</th>
+                    <td class="fieldvalue">{!AR.IIT_Summary_Notes__c}</td>
+                </tr>
+                    </div>
+                </apex:repeat>
+          
+</div>
+</apex:outputPanel>
+<!--End of ID Reviews-->
+<!--Start of Arch Reviews-->
+<apex:outputPanel rendered="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__College__c='College of Architecture',true,false)}">    
+    <BR />   
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">FACULTY REVIEWS</h3>
+            </div>
+               
+                <apex:repeat value="{!AppReviews}" var="AR">
+                <div class="panel">
+                <tr>
+                    <th class="fieldname">Review Date:</th>
+                    <td class='fieldvalue'><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!AR.TargetX_Reader__Date_Completed__c}" /></apex:outputText></td>
+                    <th class="fieldname">Reviewer:</th>
+                    <td class="fieldvalue">{!AR.IIT_Decision_Maker_Name__c}</td>
+                    <th class="fieldname">Academic Strength:</th>
+                    <td class="fieldvalue">{!AR.IIT_Academic_Strength__c}</td>
+                    <th class="fieldname">Personal Statement:</th>
+                    <td class="fieldvalue">{!AR.IIT_Quality_of_Personal_Statement__c}</td>
+                </tr>
+               <tr>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>    
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue' > </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                </tr>
+                    <tr>
+                    <th class="fieldname">Recommendation Letters:</th>
+                    <td class="fieldvalue">{!AR.IIT_Quality_of_Letters_of_Recommendation__c}</td>
+                    <th class="fieldname">Portfolio:</th>
+                    <td class="fieldvalue">{!AR.IIT_Quality_of_Portfolio__c}</td>
+                    <th class="fieldname">Preperation for Studies:</th>
+                    <td class="fieldvalue">{!AR.IIT_Level_of_Preparation_for_Studies__c}</td>
+                    <th class="fieldname">Relevant Experience:</th>    
+                    <td class="fieldvalue">{!AR.IIT_Relevant_Work_or_Life_Experience__c}</td>
+                       
+                </tr>
+                  <tr>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>    
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue' > </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                </tr>    
+                <tr>
+                    <th class="fieldname">Average Score:</th>
+                    <td class="fieldvalue">{!AR.IIT_Average_Score__c}</td>
+                    <th class="fieldname">Studios:</th>
+                    <td class="fieldvalue">{!AR.IIT_Number_of_Studios__c}</td>
+                    <th class="fieldname">Ranking:</th>
+                    <td class="fieldvalue">{!AR.IIT_Architecture_Ranking__c}</td>
+                </tr>
+                  <tr>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>    
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue' > </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                    <th class="fieldname"> </th>
+                    <td class='fieldvalue'> </td>
+                </tr> 
+                <tr>
+                 <th class="fieldname">Notes:</th>
+                 <td class="fieldvalue">{!AR.IIT_Summary_Notes__c}</td>   
+                </tr>   
+                    </div>
+                </apex:repeat>
+          
+</div>
+</apex:outputPanel>
+<!-- End of ARCH REVIEWS-->
+
+        
+        
+     <!-- <br></br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">GRADUATE FUNDING</h3>
+            </div>
+            <table cellpadding="5">
+                <tr>
+                    <th class="fieldnameGF">Award</th>
+                    <th class="fieldnameGF">Award Type</th>
+                    <th class="fieldnameGF">Description</th>
+                    <th class="fieldnameGF">Amount</th>
+                    <th class="fieldnameGF">Amount Per Year</th>
+                    <th class="fieldnameGF">Term</th>
+                    <th class="fieldnameGF">Aid Year</th>
+                    <th class="fieldnameGF">Date Entered</th>
+                    
+
+                    
+                </tr>
+                <apex:repeat value="{!contactFinAid}" var="finAid">
+                <apex:outputPanel rendered="true">
+                <tr>
+                    <td class="fieldvalueGF">{!finAid.TargetX_SRMb__Type__c}</td>
+                    <td class="fieldvalueGF">{!finAid.TargetX_SRMb__Sub_Type__c}</td>
+                    <td class="fieldvalueGF">{!finAid.IIT_Description__c}</td>
+                     <td class="fieldvalueGF">{!IF(finAid.TargetX_SRMb__Type__c="Tuition",finAid.TargetX_SRMb__Amount__c, finAid.IIT_Stipend_Amount__c)}</td>
+                    <td class="fieldvalueGF">{!finAid.TargetX_SRMb__Amount_Per_Year__c}</td>
+                    <td class="fieldvalueGF">{!finAid.IIT_Term_Description__c}</td>
+                    <td class="fieldvalueGF">{!finAid.IIT_Aid_Year_Description__c}</td>
+                    <td class="fieldvalueGF">{!finAid.TargetX_SRMb__Award_Date__c}</td>
+                </tr>
+                </apex:outputPanel>
+                </apex:repeat>
+            </table>
+        </div>-->
+    </body>
+</apex:page>

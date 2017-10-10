@@ -1,0 +1,180 @@
+<APEX:PAGE EXTENSIONS="TargetX_SRMb.AppTrackerController" SHOWHEADER="FALSE"
+           STANDARDCONTROLLER="TargetX_SRMb__Application__c"
+           STANDARDSTYLESHEETS="false"> 
+<HEAD>
+    <LINK HREF="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+          REL="stylesheet" />
+    <SCRIPT SRC="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></SCRIPT>
+    
+    <SCRIPT SRC="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></SCRIPT>
+    
+</HEAD>
+
+<DIV CLASS="container"> 
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12"> 
+            <APEX:INCLUDE PAGENAME="AppTrackerHeader" /> 
+        </DIV>
+        <DIV CLASS="col-md-12"> 
+             
+        </DIV>
+    </DIV><!--END OF ROW 1-->
+    
+    <DIV CLASS="well-lg"> 
+        <DIV CLASS="row"> 
+            <H3>Application Item Summary</H3> 
+            <DIV CLASS="col-md-12"> 
+                <APEX:OUTPUTPANEL RENDERED="{!showEnrollment}"> 
+                <DIV CLASS="row"> 
+                    <H5>Transcripts</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>School Name</TH> 
+
+<!--<th>School Level</th>-->
+                            <TH STYLE="text-align:center;">Official
+                            Transcripts Received</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!contact.TargetX_SRMb__Enrollment_History__r}"
+                                     VAR="enroll"> 
+                        <TR>
+                            <TD>{!enroll.TargetX_SRMb__Account__r.Name}</TD>
+
+<!--<td>{!enroll.TargetX_SRMb__School_Level__c}</td>-->
+                            <TD STYLE="text-align: center;"><APEX:OUTPUTTEXT RENDERED="{!enroll.TargetX_SRMb__Official_Transcripts_Received__c}">&#10004;</APEX:OUTPUTTEXT></TD>
+                        </TR>
+                        </APEX:REPEAT> 
+                        </TBODY>
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!showRecommendation}"> 
+                <DIV CLASS="row"> 
+                    <H5>Recommendations</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Name of Recommender</TH> 
+
+<!--<th>Recommendation Status</th>-->
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Recommendation__r}"
+                                     VAR="rec"> 
+                        <TR>
+                            <TD>{!rec.TargetX_SRMb__First_Name__c}
+                                {!rec.TargetX_SRMb__Last_Name__c}</TD>
+
+<!--<td>{!rec.TargetX_SRMb__Status__c}</td>-->
+                        </TR>
+                        </APEX:REPEAT> 
+                        </TBODY>
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!showEssay}"> 
+                <DIV CLASS="row"> 
+                    <H5>Essays/Resumes/Miscellaneous</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Title</TH> 
+                            <TH>Received Date</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Essays__r}"
+                                     VAR="essay"> 
+                        <TR>
+                            <TD>{!essay.name}</TD>
+                            <TD> 
+                                <APEX:OUTPUTTEXT VALUE="{0,date,MM'/'dd'/'yyyy}">
+                                
+                                <APEX:PARAM VALUE="{!essay.createdDate}" /> 
+                                </APEX:OUTPUTTEXT> 
+                            </TD>
+                        </TR>
+                        </APEX:REPEAT> 
+                        </TBODY>
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!showTest}"> 
+                <DIV CLASS="row"> 
+                    <H5>Test Scores</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Test Type</TH> 
+                            <TH>Test Date</TH> 
+                            <TH STYLE="text-align: center;">Official Scores
+                            Received</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!contact.TargetX_SRMb__Test__r}"
+                                     VAR="test"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(test.TargetX_SRMb__Score_Validated__c=true,true,false)}">
+                        
+                        <TR>
+                            <TD>{!test.TargetX_SRMb__Test__c}</TD>
+                            <TD> 
+                                <APEX:OUTPUTTEXT VALUE="{0,date,MM'/'dd'/'yyyy}">
+                                
+                                <APEX:PARAM VALUE="{!test.TargetX_SRMb__Test_Date__c}" />
+                                
+                                </APEX:OUTPUTTEXT> 
+                            </TD>
+                            <TD STYLE="text-align: center;"><APEX:OUTPUTTEXT RENDERED="{!test.TargetX_SRMb__Score_Validated__c}">&#10004;</APEX:OUTPUTTEXT></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        </TBODY>
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+            </DIV>
+            <APEX:OUTPUTLINK VALUE="{!$Page.AppTracker}?id={!TargetX_SRMb__Application__c.Id}&k={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}">Go Back to Application Summary</APEX:OUTPUTLINK> 
+        </DIV>
+
+<!--END OF ROW 3 -->
+    </DIV>
+
+<!--END OF ROW 3 WELL-->
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12"> 
+        </DIV>
+    </DIV>
+</DIV>
+
+<!--END OF CONTAINER-->
+<APEX:INCLUDE PAGENAME="AppTracker_CSS" /> 
+<SCRIPT TYPE="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );
+            });
+
+            $('.table').each(function(){
+                if($('tbody tr',this).length == 0){
+                    $('tbody', this).append(
+                        '<tr><td><i>No items received for this application.</i></td></tr>'
+                    );
+                    $('tbody td', this).attr('colspan',  $(this).find('tr')[0].cells.length);
+                }
+            });
+        });
+</SCRIPT> 
+</APEX:PAGE>

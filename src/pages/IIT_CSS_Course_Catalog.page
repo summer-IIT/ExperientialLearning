@@ -1,0 +1,115 @@
+<apex:page showHeader="false" standardStylesheets="false">
+<style type="text/css">
+
+*{ margin: 0; padding: 0; }*
+body { font: 1.2em Arial, Sans-Serif; line-height: 1.8em; background: #FFF; color: #444; }
+a {COLOR: #CC0000; text-decoration: none;}
+a:visited {COLOR: #CC0000; text-decoration: none;}
+a:hover {COLOR: #333; text-decoration: underline;}
+h2 { margin: 0 0 10px; padding: 10px 0 3px; }
+ul {  padding: 0; margin: 0 0 10px;}
+li { list-style-type: none;}
+p { margin: 5px 0 10px 0; }
+img { border: none; }
+
+@font-face {
+  font-family: 'EconomicaBold-IIT';
+  src: url(https://fonts.gstatic.com/s/economica/v4/jObgDQiPUtmACAaaK3pMG1tXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+#header-wrapper {
+background-image: url(http://web.iit.edu/sites/all/modules/custom/iit_global_header/images/background.png);
+border-bottom: 30px solid #666;
+width: 100%;
+}
+#header {
+width: 100%;
+max-width: 1170px;
+margin: 0 auto;
+position: relative;
+}
+.header-branding {
+    font-family: 'EconomicaBold-IIT',sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    color: #c00;
+    font-size: 3.5em;
+    margin: 0.8em 0em 0.1em 0em;
+    line-height: 1.25em;
+}
+
+.container{
+    margin: 0px auto;
+    background: #FFF;
+    box-sizing: border-box;
+    padding: 0 15px 0 15px;
+    min-height: 100px !important;
+    }
+
+.row {margin: 0;}
+
+#left {
+    float: left;
+    width: 22%;
+    background: #c7c7c7;
+    margin-bottom: 10px;
+    margin-top: 65px;
+    border: 1px dotted #777777;
+
+    @media (max-width: 800px) {
+        width: 100%;
+    }
+
+}
+
+#left h3 {
+    margin-top: 0px;
+    padding-left: 10px;
+    color: #fff;
+    background: #CC0000 url(images/bg.jpg) repeat-x;
+    font-size: 1.2em;
+    height: 24px;
+    line-height: 24px;
+}
+
+#right {
+    margin-bottom: 10px;
+    float: right;
+    width: 75%;
+    padding: 0;
+    margin-top: 10px;
+
+    @media (max-width: 800px) {
+        width: 100%;
+    }
+
+}
+
+.btn-danger {margin: 0 15px;}
+.col-md-12-header {position: relative;}
+.col-md-12-header {padding: 0;}
+.col-md-4-header {position: absolute; text-align: right; top: 50%; right: 0; margin-top: -22.5px; padding: 0;}
+
+.dropdown {margin: 0 0 10px 10px;}
+.btn-primary {background-color: #CC0000; border-style: none;}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {background-color: #333; border-style: none;}
+.btn-default {margin: 0 0 0px 60px;}
+.btn-danger  {background-color: #CC0000;}   
+.carousel-control {width: 5%}
+.glyphicon-chevron-right {color: #CC0000;}
+.glyphicon-chevron-left {color: #CC0000;}
+.carousel-indicators {display: none;} 
+#footer { font-size: 15px; text-align: center; border-top: 1px solid #ccc; padding: 10px 5px; }
+
+.rolling-table h3 {margin:0 0 0.5em;line-height:1em;border:0;}
+.rolling-table-img {display:inline-block;margin-right:2%;vertical-align:top;width:34%;line-height:1em;}
+.rolling-table-img img {max-width:100%; height:auto;}
+.rolling-table-item-copy {display:inline-block;vertical-align:top;width:63%;}
+.rolling-table-item-copy h3 {margin:0 0 0.5em;line-height:1em;border:0;}
+.rolling-table-item-copy h4 {margin:0 0 0.5em;line-height:1em;border:0;}
+.rolling-table-item-copy p {margin:0 0 1em;font-size:.875em;}
+.rolling-table-item {border-bottom:1px solid #D7D7D7;margin:0 0 1.5em;padding:0 0 1.5em;}
+
+</style>
+</apex:page>

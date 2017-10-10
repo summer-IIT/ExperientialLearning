@@ -1,0 +1,26 @@
+<apex:page controller="IITAttachmentCopyController" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" docType="html-5.0">
+    
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <title>Illinois Institute of Technology - Attachment Copy</title>
+    </head>
+    
+    <apex:form >
+        <apex:pageMessages />
+        <table>
+            <tr>
+                <th align="left">Old ID:</th>
+                <td><apex:inputText required="true" size="18" value="{!idOld}"/></td>
+            </tr>
+            <tr>
+                <th align="left">New ID:</th>
+                <td><apex:inputText required="true" size="18" value="{!idNew}"/></td>
+            </tr>
+            <tr>
+                <td><br /><apex:commandButton value="Copy Documents" action="{!copyDoc}"/></td>
+            </tr>
+        </table>
+    </apex:form>
+    
+</apex:page>

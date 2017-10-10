@@ -1,0 +1,27 @@
+<apex:page showHeader="false" standardStylesheets="false"
+sidebar="false" expires="0" cache="false" docType="html"
+controller="TargetX_Base.TX_CommunitiesBase"
+extensions="TX_CommunitiesSelfRegConfirmController">
+
+sidebar="false" expires="0" cache="false" docType="html"
+controller="TargetX_Base.TX_CommunitiesBase"
+extensions="TX_CommunitiesSelfRegConfirmController">
+
+
+  <apex:composition template="{!defaultTemplate}">
+
+    <apex:define name="content">
+      <ul class="targetx-application-form-slides">
+        <li class="targetx-application-form-slide targetx-active">
+          <h2 class="targetx-application-form-title">Thank you</h2>
+          <p class="targetx-application-form-info">Thank you for registering.  An email has been sent with your temporary password</p>
+
+          <div class="targetx-application-form-slide-buttons">
+            <apex:outputLink rendered="{!$Site.LoginEnabled}" value="{!$Page.TX_CommunitiesLogin}" styleClass="targetx-button">Login</apex:outputLink>
+          </div>
+        </li>
+      </ul>
+    </apex:define>
+
+  </apex:composition>
+</apex:page>

@@ -1,0 +1,77 @@
+<apex:component controller="TX_SiteLoginController" id="loginComponent">
+    <style>
+        .message {
+            margin: 0 auto;
+            padding: 5px;
+            border: 1px solid red;
+        }
+        .messageText h4 {
+            margin: 0 auto;
+        }
+        .targetx-plaintext {
+            font-size: 16px;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .targetx-application-form-title {
+            margin-bottom: 20px;
+        }
+
+        #alertZone{
+            width: 0px;
+            overflow: hidden;
+            height: 0px;
+        }
+
+    </style>
+
+    <div role="alert" aria-live="rude" aria-hidden="false"  class="aria-alert" id="alertZone">
+
+    </div>
+    <div class="targetx-application-form-slides" role="main">
+        <div class="targetx-application-form-slide targetx-active ">
+            <apex:outputPanel id="alert">
+                <apex:pageMessages ></apex:pageMessages>
+            </apex:outputPanel>
+            <h1 class="targetx-application-form-title" role="banner">Sign In</h1>
+            <apex:form id="loginForm" forceSSL="true">
+                <apex:outputLabel for="username">
+                    <apex:inputText styleClass="targetx-input-text" id="username" value="{!username}" onkeypress="return noenter(event);"/>
+                    <span>Username</span>
+                </apex:outputLabel>
+
+                <apex:outputLabel for="password">
+                    <apex:inputSecret styleClass="targetx-input-text" id="password" value="{!password}" onkeypress="return noenter(event);"/>
+                    <span>Password</span>
+                </apex:outputLabel>
+
+                <div class="targetx-application-form-slide-buttons">
+                    <apex:commandLink id="submitForm" action="{!login}" styleClass="targetx-button" value="Sign In" rerender="alert" oncomplete="onSubmitComplete()"/>
+                </div>
+            </apex:form>
+            <div class="targetx-plaintext">
+                <apex:outputLink value="{!selfRegUrl}" rendered="{!$Site.RegistrationEnabled}" >Sign Up</apex:outputLink>
+                <apex:outputText value=" | " rendered="{!$Site.RegistrationEnabled}"/>
+                <apex:outputLink value="{!$Page.TX_ForgotPassword}">Forgot Password</apex:outputLink>
+            </div>
+
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+        function noenter(ev) {
+            if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+                var ele = document.getElementById('{!$Component.loginComponent.loginForm.submitForm}');
+                ele.click();
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function onSubmitComplete(){
+            $('#alertZone').html($('.messageText').text());
+        }
+    </script>
+</apex:component>

@@ -1,0 +1,321 @@
+<apex:page showHeader="false" applyHtmlTag="false" controller="TargetX_Base.TX_CommunitiesBase">
+<apex:variable var="static_files" value="{!$Resource[staticResource]}"/>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en"> <![endif]-->
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>IIT Online Application</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="http://web.iit.edu/sites/web/themes/iit_web/favicon.ico" type="image/x-icon"/>
+   <!-- <link rel="apple-touch-icon" type="image/x-icon" href="{!static_files}/img/apple-touch-icon-57x57-precomposed.png"/>
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{!static_files}/img/apple-touch-icon-72x72-precomposed.png"/>
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{!static_files}/img/apple-touch-icon-114x114-precomposed.png"/>
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{!static_files}/img/apple-touch-icon-144x144-precomposed.png"/>
+  
+-->    <!-- CSS -->
+    <link href="{!static_files}/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="{!static_files}/css/superfish.css" rel="stylesheet"/>
+    <link href="{!static_files}/css/style.css" rel="stylesheet"/>
+    <link href="{!static_files}/fontello/css/fontello.css" rel="stylesheet"/>
+    <link href="https://rawgithub.com/smalot/bootstrap-datetimepicker/master/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+    <!-- color scheme css -->
+    <link href="{!static_files}/css/color_scheme.css" rel="stylesheet"/>
+    <style>
+        <apex:outputText escape="false" value="{!customCss}"/>
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+    <apex:insert name="additional_head"/>
+    
+</head>
+<body id="boxed">
+<header>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <a href="https://myiit.force.com/OnlineApp/tx_sitelogin"><img src="{!$Resource.IITLogo}" style="height:130px"/></a>
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-9">
+            <div class=" pull-right"><apex:outputLink rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}" value="/secur/logout.jsp" styleClass="button_top">Sign Out</apex:outputLink><apex:outputLink rendered="{!ISPICKVAL($User.UserType,'Guest')}" value="{!$Site.Prefix}" styleClass="button_top">Sign In</apex:outputLink> <!--<a href="apply_2.html" class="button_top hidden-xs" id="apply">Apply now</a>--></div>
+            <ul id="top_nav" class="hidden-xs">
+                <li><apex:outputLink rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}" value="{!$Site.Prefix}/TX_MyProfilePage">My Profile</apex:outputLink></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</header>
+
+<nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="mobnav-btn"></div>
+                <ul class="sf-menu">
+                    <li class="normal_drop_down">
+                    <a href="http://admissions.iit.edu/?_ga=1.64520235.582821740.1434137306" target="_blank" class="white">Office of Admissions</a>
+                   
+                    </li>
+                    <li class="normal_drop_down">
+                    <a href="NEED URL" target="_blank" class="white">AppTracker</a>
+                    
+                    </li>
+                    <li class="normal_drop_down">
+                    <a href="NEED URL" target="_blank" class="white">Events</a>
+                    
+                    </li>
+                    
+                </ul>
+                
+                <!--<div class="col-md-3 pull-right hidden-sm hidden-xs">
+                        <div id="sb-search" class="sb-search">
+                            <form>
+                                <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search"/>
+                                <input class="sb-search-submit" type="submit" value=""/>
+                                <span class="sb-icon-search"></span>
+                            </form>
+                        </div>
+                  </div>-->
+                  
+            </div>
+        </div>
+    </div>
+</nav>
+
+<apex:insert name="subheader">
+    <section id="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center">
+                    <h1>TargetX University</h1>
+                    <p class="lead boxed">You can't really go here, but don't you wish you could?</p>
+                    <p class="lead">
+                        This University serves immaginary people who want to enroll in a great school that is well organized and uses salesforce.com to manage student data to ensure it's accessible, actionable, and secure.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="divider_top"></div>
+    </section>
+</apex:insert>
+
+<section id="main_content" >
+    <div class="container">
+        <apex:insert name="content">
+            <div class="row">
+                <div class="col-md-4">
+                        <h4>No sit debitis meliore postulant, per ex prompta alterum sanctus?</h4>
+                        <p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant.</p>
+                            <ul id="contact-info">
+                                <li><i class="icon-phone"></i>843.953.5670</li>
+                                <li><i class="icon-phone"></i> + 61 (2) 8093 3402</li> 
+                                <li><i class=" icon-email"></i> <a href="#">info@domain.com</a></li>
+                            </ul>
+                        <h4>No sit debitis meliore postulant, per ex prompta alterum sanctus?</h4>
+                        <p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
+                 
+                  <hr/>
+                  <a href="#" class="button_medium_outline">Browse Courses</a>
+                    
+                </div>
+                
+                <div class="col-md-8">
+                    <div class=" box_style_2">
+                        <span class="tape"></span>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Your personal info</h3>
+                            </div>
+                        </div>
+                        <div id="message-apply"></div>
+                        <form method="post" action="assets/apply_2.php" id="contactform_apply">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control style_2" id="name_apply" name="name_apply" placeholder="Name"/>
+                                        <span class="input-icon"><i class="icon-user"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control style_2" id="lastname_apply" name="lastname_apply" placeholder="Last Name"/>
+                                        <span class="input-icon"><i class="icon-user"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <input type="email" id="email_apply" name="email_apply" class="form-control style_2" placeholder="Enter Email"/>
+                                        <span class="input-icon"><i class="icon-email"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" id="phone_apply" name="phone_apply" class="form-control style_2" placeholder="Enter Phone number"/>
+                                        <span class="input-icon"><i class="icon-phone"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <div class="styled-select">
+                                            <select class="form-control" name="country_apply" id="country_apply">
+                                                <option value="" selected="selected">Select your country</option>
+                                                <option value="Europe">Europe</option>
+                                                <option value="Asia">Asia</option>
+                                                <option value="North America">North America</option>
+                                                <option value="South America">South America</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                    <div class="styled-select">
+                                            <select class="form-control" name="gender_apply" id="gender_apply">
+                                                <option value="" selected="selected">Select your gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <div class="styled-select">
+                                            <select class="form-control" name="education_apply" id="education_apply">
+                                                <option value="" selected="selected">Select your education level</option>
+                                                <option value="Less than high school">Less than high school</option>
+                                                <option value="High school diploma or equivalent">High school diploma or equivalent</option>
+                                                <option value="Some college no degree">Some college, no degree</option>
+                                                <option value="Bachelor degree">Bachelor’s degree</option>
+                                                <option value="Doctoral or professional degree">Doctoral or professional degree</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" name="age_apply" id="age_apply"  class="form-control" placeholder="Age"/>
+                                        <span class="input-icon"><i class="icon-user"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr/>
+                            <h3>Your preferences</h3>
+                            <p>Which course are you interested? <a href="#">Browse course</a>.</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <div class="styled-select">
+                                            <select class="form-control" name="course_apply" id="course_apply">
+                                                <option value="" selected="selected">Select your a course</option>
+                                                <option value="Less than high school">Management: Build a Business Plan </option>
+                                                <option value="High school diploma or equivalent">Art: Impressionist </option>
+                                                <option value="Some college no degree">Litteratture: Poetry </option>
+                                                <option value="Bachelor degree">Math: 12 Principles</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea rows="5" id="message_apply_2" name="message_apply_2" class="form-control" placeholder="Additional message" style="height:150px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" id="verify_apply" class=" form-control" placeholder="Are you human? 3 + 1 ="/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                    <div class="form-group pull-right">
+                                        <input type="submit" value="Submit" class=" button_subscribe_green" id="submit-apply"/>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </apex:insert>
+    </div>
+</section>
+
+<footer>
+    <apex:insert name="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>Subscribe to our Newsletter for latest news.</h3>
+                <div id="message-newsletter">
+                </div>
+                <form method="post" action="assets/newsletter.php" name="newsletter" id="newsletter" class="form-inline">
+                    <input name="email_newsletter" id="email_newsletter" type="email" value="" placeholder="Your Email" class="form-control"/>
+                    <button id="submit-newsletter" class=" button_outline"> Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    </apex:insert>
+    <div class="container" id="nav-footer">
+        <div class="row text-left">
+            <div class="col-md-12 col-sm-12">
+                <ul id="follow_us">
+                    <li><a href="http://web.iit.edu/directory/social-media" target="_blank"><i class="icon-facebook"></i></a></li>
+                    <li><a href="http://web.iit.edu/directory/social-media" target="_blank"><i class="icon-twitter"></i></a></li>
+                    <li><a href="http://web.iit.edu/directory/social-media" target="_blank"><i class=" icon-google"></i></a></li>
+                </ul>
+                <ul>
+                    <li><strong class="phone">312.567.3000</strong><br/></li>
+                    <li>Questions? <a href="#">admissions@iit.edu</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</footer>
+
+<div id="toTop">Back to top</div>
+
+<!-- JQUERY -->
+<script src="{!static_files}/js/jquery-1.10.2.min.js"></script>
+
+<!-- OTHER JS --> 
+<script src="{!static_files}/js/superfish.js"></script>
+<script src="{!static_files}/js/bootstrap.min.js"></script>
+<script src="{!static_files}/js/retina.min.js"></script>
+<script src="{!static_files}/assets/validate.js"></script>
+<script src="{!static_files}/js/jquery.placeholder.js"></script>
+<script src="{!static_files}/js/functions.js"></script>
+<script src="https://rawgit.com/smalot/bootstrap-datetimepicker/master/js/bootstrap-datetimepicker.js"></script>
+<!-- GOOGLE MAP -->
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="{!static_files}/js/mapmarker.jquery.js"></script>
+<script type="text/javascript" src="{!static_files}/js/mapmarker_func.jquery.js"></script>
+
+</body>
+</html>
+
+
+</apex:page>

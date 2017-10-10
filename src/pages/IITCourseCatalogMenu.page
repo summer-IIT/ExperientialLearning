@@ -1,0 +1,38 @@
+<APEX:PAGE STANDARDCONTROLLER="IIT_Courses__c" EXTENSIONS="IITCourseCatalogController" SHOWHEADER="FALSE" STANDARDSTYLESHEETS="false">
+<H3>Colleges:</H3> 
+<DIV CLASS="dropdown"> 
+    <BUTTON CLASS="btn btn-primary dropdown-toggle" DATA-TOGGLE="dropdown" TYPE="button">Select a College <SPAN CLASS="caret"></SPAN></BUTTON>
+    <UL CLASS="dropdown-menu">
+        <APEX:REPEAT VALUE="{!Colleges}" VAR="coll"> 
+        <LI><A HREF="{!$Page.CourseCatalogDetails}?c={!coll.label}">{!coll.label}</A></LI>
+        </APEX:REPEAT>
+    </UL>
+</DIV>
+<H3>Department:</H3> 
+<DIV CLASS="dropdown"> 
+    <BUTTON CLASS="btn btn-primary dropdown-toggle" DATA-TOGGLE="dropdown" TYPE="button">Select a Department <SPAN CLASS="caret"></SPAN></BUTTON> 
+    <UL CLASS="dropdown-menu">
+        <APEX:REPEAT VALUE="{!Departments}" VAR="dep"> 
+        <LI><A HREF="{!$Page.CourseCatalogDetails}?d={!dep.label}">{!dep.label}</A></LI>
+        </APEX:REPEAT>
+    </UL>
+</DIV>
+<H3>Area of Study:</H3> 
+<DIV CLASS="dropdown">
+    <BUTTON CLASS="btn btn-primary dropdown-toggle" DATA-TOGGLE="dropdown" TYPE="button">Select an Area of Study <SPAN CLASS="caret"></SPAN></BUTTON> 
+    <UL CLASS="dropdown-menu">
+        <APEX:REPEAT VALUE="{!AreasOfStudy}" VAR="aos"> 
+        <LI><A HREF="{!$Page.CourseCatalogDetails}?a={!aos.label}">{!aos.label}</A></LI>
+        </APEX:REPEAT>
+    </UL>
+</DIV>
+<H3>Term:</H3>
+<DIV CLASS="dropdown">
+    <BUTTON CLASS="btn btn-primary dropdown-toggle" DATA-TOGGLE="dropdown" TYPE="button">Select a Term <SPAN CLASS="caret"></SPAN></BUTTON> 
+    <UL CLASS="dropdown-menu">
+        <LI><A HREF="{!$Page.CourseCatalogDetails}?t=Fall">Fall</A></LI>
+        <LI><A HREF="{!$Page.CourseCatalogDetails}?t=Spring">Spring</A></LI>
+        <LI><A HREF="{!$Page.CourseCatalogDetails}?t=Summer">Summer</A></LI>
+    </UL>
+</DIV>
+</apex:page>

@@ -1,0 +1,323 @@
+<apex:page sidebar="false" showHeader="false" docType="html-5.0"  applyBodyTag="false" applyHtmlTag="false" standardStylesheets="false"> 
+  <apex:insert name="Footer"><c:Header /></apex:insert>
+       <style>
+             .row{
+                 float: left; 
+                }           
+              h1{text-align:center; padding-bottom:50px;padding-top: -20px;
+                }
+             .navbar {
+                margin-bottom: 0!important;
+                border-radius: 0;
+                position:fixed-top;         //fixed keyword is fine too                
+                }
+              .navbar-header{
+               font-family:futura;
+               }
+              .embed-responsive embed-responsive-16by9{
+                margin-top:-100px;
+                }
+              .jumbotron{
+                margin-top: -50px;
+                }
+              p {
+               display: block;
+              -webkit-margin-before: 1em;
+              -webkit-margin-after: 1em;
+              -webkit-margin-start: 0px;
+              -webkit-margin-end: 0px;
+                }
+
+             .container {
+             margin-right: auto;
+  		     margin-left: auto;
+             padding-left: 8px;
+             padding-right: 8px;
+             width: 946px;
+              }
+             .col-xs-4{
+              width: 33.33333%;  
+              padding-top: 30px;
+              }
+             img{
+             max-width: 290px; 
+              }           
+            .card {
+             display: inline-block;
+             max-width: 305px;
+             border-radius: 2px;
+            color: #333;
+            text-decoration: none;
+            text-align: left;
+            background: #fff;
+            cursor: pointer;
+           -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.25);
+            box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.25);
+              }
+            body {
+            font-weight: 300;
+            font-family:futura;
+            font-size: 14px;
+             }
+            .card .card-content {
+            padding: 10px;
+            }
+            a{color: black;}
+            .Innovative-Projects{
+                font-family:futura;
+                font-weight: 800;
+                text-decoration: none;
+                color: #111;
+                font-size:30px;
+                line-height: 2.3125em;
+                margin-top:20px;
+                margin-bottom:20;             
+                }
+                .card-title{
+                font-weight: bold;
+                }
+                .nav navbar-nav navbar-right{
+                  font-family:futura;  
+                  font-size: 14px;
+                  font-weight: 100;
+                 }
+                .embed-responsive {position: relative; padding-bottom: 44%;height:0;width:100%;}
+                .embed-responsive iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%;filter:brightness(60%);}
+                .overlay{
+                   width: 80%;              
+                  margin: 0;
+                  color: #fff;
+                  position: absolute;
+                 top: 35%;
+                 left: 10%;right: 50%;
+                 font-family:futura;
+                 font-size: 70px;
+                 font-weight: 900;
+                }
+        </style>
+   
+   <body>
+
+       <!--<div class="embed-responsive embed-responsive-16by9">
+         <iframe class="embed-responsive-item" src="https://assets.omaze.com/media/OmazeBanner_Q3_June2017.mp4" frameborder="0"></iframe>
+     </div> -->
+     
+         <div align="center" class="embed-responsive" >
+       <!-- <apex:iframe width="854" height="510" src="https://www.youtube.com/embed/SGPvYQ1o2x4" frameborder="0"/>
+          <video autoplay="true" loop="loop">
+             <source src="https://www.youtube.com/embed/l22abOqdapw" allowfullscreen="true" videoborder="0" />
+         </video>-->
+             <iframe  src="https://www.youtube.com/embed/l22abOqdapw?autoplay=1&loop=1&playlist=l22abOqdapw&showinfo=0&controls=0&mute=1&autohide=0&rel=0 " frameborder="0" allowfullscreen="true" height="100%" width="100%" >
+             </iframe>
+             <!--<div class="overlay" style="position:absolute;">
+             <h1 >Content above your video</h1>
+             </div>-->
+                 <div class="overlay"  >
+                     <span>Learning from</span><br/>
+                     <span style="padding-top:0px;">your own experiences.</span>
+                </div>
+         </div>
+    <div class="jumbotron">
+    <div class="col-xs-12" style="text-align:center">
+        <div class="Innovative-Projects">           
+        <h2>Transformative Experiences</h2>
+        </div>
+    </div>    
+  
+<!-- <div class="container">    
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">BLACK FRIDAY DEAL</div>
+          <div class="panel-body"><img alt="Image" class="img-responsive" src="https://placehold.it/150x80?text=IMAGE" style="width:100%" /></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4"> 
+      <div class="panel panel-danger">
+        <div class="panel-heading">BLACK FRIDAY DEAL</div>
+          <div class="panel-body"><img alt="Image" class="img-responsive" src="https://placehold.it/150x80?text=IMAGE" style="width:100%" /></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4"> 
+      <div class="panel panel-success">
+        <div class="panel-heading">BLACK FRIDAY DEAL</div>
+          <div class="panel-body"><img alt="Image" class="img-responsive" src="https://placehold.it/150x80?text=IMAGE" style="width:100%" /></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">    
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">BLACK FRIDAY DEAL</div>
+          <div class="panel-body"><img alt="Image" class="img-responsive" src="https://placehold.it/150x80?text=IMAGE" style="width:100%" /></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4"> 
+      <div class="panel panel-primary">
+        <div class="panel-heading">BLACK FRIDAY DEAL</div>
+          <div class="panel-body"><img alt="Image" class="img-responsive" src="https://placehold.it/150x80?text=IMAGE" style="width:100%" /></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+    <div class="col-sm-4"> 
+      <div class="panel panel-primary">
+        <div class="panel-heading">BLACK FRIDAY DEAL</div>
+          <div class="panel-body"><img alt="Image" class="img-responsive" src="https://placehold.it/150x80?text=IMAGE" style="width:100%" /></div>
+        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+      </div>
+    </div>
+  </div>
+</div>
+  </section>--><section id="home-seller-articles" class="home-news-feed hidden-xs hidden-xxs">
+  <div class="container">
+    <div class="row text-center gutter-none">
+      <div class="col-xs-4 text-left">
+        <div class="card js-navigate-link">
+          <div class="card-media">
+            <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/omazeHome" data-omtag="not for sale: news and advice: position 1">
+              <!--<img alt="Want to Sell Your Home? Step 1: Whip It Into Shape" title="Want to Sell Your Home? Step 1: Whip It Into Shape" src="https://static.rdc-next-prod.rdc.moveaws.com/assets/whip-house-into-shape-97d47e899ce9e63bace30ad3bd94335a2a87caea3021e619528a98b10360d389.jpg" />-->
+                <apex:image url="{!URLFOR($Resource.ExperientialLearningImages1)}" style="width:300px;height:200px" alt="Micro Grid/Smart Grid" title="Micro Grid/Smart Grid" />
+            </a>
+          </div>
+          <div class="card-content">
+            <ul class="list-unstyled">
+              <li></li>
+              <li class="card-title">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/omazeHome" title="Micro Grid/Smart Grid" data-omtag="not for sale: news and advice: position 1">Micro Grid /<span class="display-block"> Smart Grid</span></a>
+              </li>
+              <li class="margin-top-lg link-tertiary">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/omazeHome" title="Micro Grid/Smart Grid" data-omtag="not for sale: news and advice: position 1">Learn More</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+<div class="col-xs-4 text-left">
+        <div class="card js-navigate-link">
+          <div class="card-media">
+            <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/CarbonManagement" data-omtag="not for sale: news and advice: position 1">
+              <!--<img alt="Want to Sell Your Home? Step 1: Whip It Into Shape" title="Want to Sell Your Home? Step 1: Whip It Into Shape" src="https://static.rdc-next-prod.rdc.moveaws.com/assets/whip-house-into-shape-97d47e899ce9e63bace30ad3bd94335a2a87caea3021e619528a98b10360d389.jpg" />-->
+                <apex:image url="{!URLFOR($Resource.EXP2)}" style="width:300px;height:200px" alt="Carbon Management" title="Carbon Management" />
+            </a>
+          </div>
+          <div class="card-content">
+            <ul class="list-unstyled">
+              <li></li>
+              <li class="card-title">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/CarbonManagement" title="Carbon Management" data-omtag="not for sale: news and advice: position 1">Carbon<span class="display-block"> Management</span></a>
+              </li>
+              <li class="margin-top-lg link-tertiary">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/CarbonManagement" title="Carbon Management" data-omtag="not for sale: news and advice: position 1">Learn More</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <div class="col-xs-4 text-left">
+        <div class="card js-navigate-link">
+          <div class="card-media">
+            <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/SustainableBuildings" data-omtag="not for sale: news and advice: position 1">
+              <!--<img alt="Want to Sell Your Home? Step 1: Whip It Into Shape" title="Want to Sell Your Home? Step 1: Whip It Into Shape" src="https://static.rdc-next-prod.rdc.moveaws.com/assets/whip-house-into-shape-97d47e899ce9e63bace30ad3bd94335a2a87caea3021e619528a98b10360d389.jpg" />-->
+                <apex:image url="{!URLFOR($Resource.exp3)}" style="width:300px;height:200px" alt="Sustainable Buildings" title="Sustainable Buildings" />
+            </a>
+          </div>
+          <div class="card-content">
+            <ul class="list-unstyled">
+              <li></li>
+              <li class="card-title">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/SustainableBuildings" title="Sustainable Buildings" data-omtag="not for sale: news and advice: position 1">Sustainable<span class="display-block"> Buildings</span></a>
+              </li>
+              <li class="margin-top-lg link-tertiary">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/SustainableBuildings" title="Sustainable Buildings" data-omtag="not for sale: news and advice: position 1">Learn More</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <div class="col-xs-4 text-left">
+        <div class="card js-navigate-link">
+          <div class="card-media">
+            <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/SustainableCampus" data-omtag="not for sale: news and advice: position 1">
+              <!--<img alt="Want to Sell Your Home? Step 1: Whip It Into Shape" title="Want to Sell Your Home? Step 1: Whip It Into Shape" src="https://static.rdc-next-prod.rdc.moveaws.com/assets/whip-house-into-shape-97d47e899ce9e63bace30ad3bd94335a2a87caea3021e619528a98b10360d389.jpg" />-->
+                <apex:image url="{!URLFOR($Resource.exp4)}" style="width:300px;height:200px" alt="Sustainable Campus" title="Sustainable Campus" />
+            </a>
+          </div>
+          <div class="card-content">
+            <ul class="list-unstyled">
+              <li></li>
+              <li class="card-title">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/SustainableCampus" title="Sustainable Campus" data-omtag="not for sale: news and advice: position 1">Sustainable<span class="display-block"> Campus</span></a>
+              </li>
+              <li class="margin-top-lg link-tertiary">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/SustainableCampus" title="Sustainable Campus" data-omtag="not for sale: news and advice: position 1">Learn More</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <div class="col-xs-4 text-left">
+        <div class="card js-navigate-link">
+          <div class="card-media">
+            <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/HybridVehicles" data-omtag="not for sale: news and advice: position 1">
+              <!--<img alt="Want to Sell Your Home? Step 1: Whip It Into Shape" title="Want to Sell Your Home? Step 1: Whip It Into Shape" src="https://static.rdc-next-prod.rdc.moveaws.com/assets/whip-house-into-shape-97d47e899ce9e63bace30ad3bd94335a2a87caea3021e619528a98b10360d389.jpg" />-->
+                <apex:image url="{!URLFOR($Resource.Exp5)}" style="width:300px;height:200px" alt="Hybrid Vehicles" title="Hybrid Vehicles" />
+            </a>
+          </div>
+          <div class="card-content">
+            <ul class="list-unstyled">
+              <li></li>
+              <li class="card-title">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/HybridVehicles" title="Hybrid Vehicles" data-omtag="not for sale: news and advice: position 1">Hybrid<span class="display-block"> Vehicles</span></a>
+              </li>
+              <li class="margin-top-lg link-tertiary">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/HybridVehicles" title="Hybrid Vehicles" data-omtag="not for sale: news and advice: position 1">Learn More</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <div class="col-xs-4 text-left">
+        <div class="card js-navigate-link">
+          <div class="card-media">
+            <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/Transportation" data-omtag="not for sale: news and advice: position 1">
+              <!--<img alt="Want to Sell Your Home? Step 1: Whip It Into Shape" title="Want to Sell Your Home? Step 1: Whip It Into Shape" src="https://static.rdc-next-prod.rdc.moveaws.com/assets/whip-house-into-shape-97d47e899ce9e63bace30ad3bd94335a2a87caea3021e619528a98b10360d389.jpg" />-->
+                <apex:image url="{!URLFOR($Resource.exp6)}" style="width:300px;height:200px" alt="Transportation" title="Transportation" />
+            </a>
+          </div>
+          <div class="card-content">
+            <ul class="list-unstyled">
+              <li></li>
+              <li class="card-title">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/Transportation" title="Transportation" data-omtag="not for sale: news and advice: position 1">Transportation<span class="display-block"></span></a>
+              </li>
+              <li class="margin-top-lg link-tertiary">
+                <a href="https://illinoistech--aprilwelch--c.cs14.visual.force.com/apex/Transportation" title="Transportation" data-omtag="not for sale: news and advice: position 1">Learn More</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<footer class="container-fluid text-center">
+  <p>see them all</p>  
+  <form class="form-inline">Get deals:
+      <input class="form-control" placeholder="Email Address" size="50" type="email" />
+    <button class="btn btn-danger" type="button">Sign Up</button>
+  </form>
+      </footer>-->
+         </div>
+      
+    </body>
+    
+</apex:page>

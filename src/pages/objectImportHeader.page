@@ -1,0 +1,2 @@
+<apex:page Controller="objectDictionaryController" contentType="application/vnd.ms-excel#{!selectedObject}_Import_Template.csv" cache="true" showheader="false" sidebar="false">{!headerRow}
+</apex:page>

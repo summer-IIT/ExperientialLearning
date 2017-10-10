@@ -1,0 +1,72 @@
+<apex:component controller="TX_AutocompleteController">
+    <apex:attribute name="model" access="public" description="model" type="Object" assignTo="{!modelVar}"></apex:attribute>
+    <apex:attribute name="label" access="public" description="field label" type="String"></apex:attribute>
+    <apex:attribute name="default" access="public" description="Id of the default record" type="String"></apex:attribute>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.17.1/select.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.17.1/select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+    <script src="{!$Resource.TX_NewTheme}/js/tx_autocomplete/app/widgets/widgets.module.js"/>
+    <script src="{!$Resource.TX_NewTheme}/js/tx_autocomplete/app/widgets/autocomplete/autocomplete.directive.js"/>
+    <script src="{!$Resource.TX_NewTheme}/js/tx_autocomplete/app/widgets/autocomplete/ui-select-infinity.directive.js"/>
+
+    <script type="text/javascript">
+        TX = {
+            getData : '{!$RemoteAction.TX_AutocompleteController.getData}',
+            getRecordByValueField : '{!$RemoteAction.TX_AutocompleteController.getRecordByValueField}',
+            staticPath: '{!$Resource.TX_NewTheme}'
+        }
+
+        var app = angular.module('app',['widgets']);
+        app.controller('ctrl',ctrlFn);
+        function ctrlFn($scope) {
+            $scope.model = '{!model}';
+        }
+    </script>
+    <style media="screen">
+        .ui-select-bootstrap .ui-select-choices-row.active>a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #D9E0E6;
+        }
+
+        .ui-select-bootstrap .ui-select-choices-row>a {
+            display: block;
+            padding: 8px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+            height: 34px;
+            text-indent: 8px;
+        }
+
+        .ui-select-bootstrap>.ui-select-match>.btn {
+            bottom: -2px;
+        }
+
+        .ui-select-match > .ui-select-toggle > span.ui-select-placeholder, .ui-select-match > .ui-select-toggle > span.ui-select-match-text{
+            bottom: -4px;
+            left : 4px;
+        }
+
+        input.tx-auto-hidden{
+            display: none !important;
+        }
+
+        .ui-select-choices-row > .ui-select-choices-row-inner >  span{
+            position: relative;
+        }
+
+        .ui-select-search{
+            width: 100% !important;
+        }
+    </style>
+    <div ng-app="app" ng-controller="ctrl">
+        <autocomplete ng-model="model" label-field="{!labelField}" value-field="{!valueField}" label="{!label}" default="{!default}"></autocomplete>
+        <apex:inputText value="{!model}" styleClass="tx-auto-hidden" html-ng-model="model"></apex:inputText>
+    </div>
+</apex:component>

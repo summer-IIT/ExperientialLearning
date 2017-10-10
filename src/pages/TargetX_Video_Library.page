@@ -1,0 +1,56 @@
+<apex:page showHeader="true" standardStyleSheets="true">
+    
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <title>Illinois Insitute of Technology - TargetX Videos</title>
+    </head>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 well well-lg">
+                <h1>TargetX Video Library</h1>
+                <br />
+                <br />
+                <h2>TargetX Product Demo Videos</h2>
+                <p>
+                <a href="https://vimeo.com/219145237/209e4af8fe" target="_blank">CRM Home Screen</a><br />
+                <a href="https://vimeo.com/219144588/2d625e75eb" target="_blank">CRM Contact Record</a><br />
+                <a href="https://vimeo.com/219146449/1b0c0dce8e" target="_blank">CRM Account Record</a><br />
+                <a href="https://vimeo.com/219145141/cc627807f9" target="_blank">CRM Email</a><br />
+                <a href="https://vimeo.com/219148214/b2da8d8911" target="_blank">CRM Events</a><br />
+                <a href="https://vimeo.com/219147240/1943d38373" target="_blank">CRM Geopointe</a><br />
+                <a href="https://vimeo.com/219145389/e1f0a7696b" target="_blank">CRM Reporting</a><br />
+                <a href="https://vimeo.com/219145032/917c3f3d89" target="_blank">Decision Module</a><br />
+                <a href="https://vimeo.com/219144909/23b5748c08" target="_blank">Online Application Part 1</a><br />
+                <a href="https://vimeo.com/219144787/ed1edd0d89" target="_blank">Online Application Part 2</a><br />
+                <a href="https://vimeo.com/219145619/f930a8f064" target="_blank">SchoolsApp</a>
+                </p>
+                <br />
+                <br />
+                <h2>TargetX Training Videos</h2>
+                <p>
+                <a href="https://vimeo.com/targetx/review/206292549/b7346e1f17" target="_blank">Application Management</a><br />
+                <a href="https://vimeo.com/targetx/review/206292426/404e6ea743" target="_blank">Appointment Scheduler</a><br />
+                <a href="https://vimeo.com/targetx/review/197834220/4c7d12ae7c" target="_blank">Events</a><br />
+                <a href="https://vimeo.com/targetx/review/208071403/e92a88420b" target="_blank">Events - Sending Event Reminders/Confirmations via SMS</a><br />
+                <a href="https://vimeo.com/targetx/review/194188486/479cfd5d67" target="_blank">Email (Current Version)</a><br />
+                <a href="https://vimeo.com/targetx/review/208882262/ad92a17e9a" target="_blank">Email (Future Release)</a><br />
+                <a href="https://vimeo.com/targetx/review/203882085/83de695145" target="_blank">Geopointe</a><br />
+                <a href="https://vimeo.com/targetx/review/192031986/34ddebdad3" target="_blank">Reports</a><br />
+                <a href="https://vimeo.com/targetx/review/203881815/9707973194" target="_blank">SMS Magic</a><br />
+                <a href="https://vimeo.com/201664850/66f522abad" target="_blank">Surveys</a><br />
+                <a href="https://vimeo.com/targetx/review/208890100/722c7705cb" target="_blank">Telemarketing</a><br />
+                <br />
+                <i>Admin Only</i><br />
+                <a href="https://vimeo.com/targetx/review/203020387/fa32ddf70b" target="_blank">Conga</a><br />
+                <a href="https://vimeo.com/targetx/review/208831063/0c5a0167c0" target="_blank">DemandTools</a><br />
+                <a href="https://vimeo.com/targetx/review/210751602/9039eccbc3" target="_blank">Form Assembly Gemini</a><br />
+                <a href="https://vimeo.com/targetx/review/203021628/a3cb5a8933" target="_blank">Group Assignment</a><br />
+                <a href="https://vimeo.com/targetx/review/214562454/fa328f051a" target="_blank">Informatica</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</apex:page>

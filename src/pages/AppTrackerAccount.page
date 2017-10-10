@@ -1,0 +1,194 @@
+<apex:page standardController="Account" extensions="IITAppTrackerAccountController" showHeader="FALSE" standardStyleSheets="false">
+    <head>
+        <link rel="icon" href="http://web.iit.edu/sites/web/themes/iit_web/favicon.ico" type="image/x-icon" />
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <title>Illinois Tech Admission</title>
+    </head>
+
+    <div class="container">
+    
+    <apex:outputPanel rendered="{!accessError}">
+       <div clas="row">
+           <div class="col-md-9">
+               <apex:include pageName="AppTrackerHeader"/>
+           </div>
+           <div class="col-md-3">
+               <div class="well-lg">
+               </div>
+           </div>
+       </div>
+       <div class="row" style="margin-top: 25px;">
+           <div class="col-md-12">
+               <h1>Access Denied</h1>
+               <p>Email admission@iit.edu for access to this page.</p>
+           </div>
+       </div>        
+   </apex:outputPanel>
+   
+   <apex:outputPanel rendered="{!NOT(accessError)}">
+    
+        <div clas="row">
+            <div class="col-md-8">
+                <apex:include pageName="AppTrackerHeader" />
+            </div>
+            <div class="col-md-4">
+                <div class="well-lg">
+                    <p>
+                        <b>Illinois Institute of Technology</b><br />
+                        10 West 33rd Street<br />
+                        Chicago, IL 60616
+                    </p>
+                </div>
+            </div>
+        </div><!--END OF ROW 1 -->
+        
+        <div class="row">
+            <div class="col-md-12 well well-lg">
+                <div class="col-md-8">
+                    <h4>School Details</h4>
+                    <p>
+                    <b>{!account.Name}</b><br />
+                    {!account.billingstreet}<br />
+                    {!account.billingcity}, {!account.billingstate} {!account.billingpostalcode}
+                    </p>
+                    <p>
+                    <b><a href="#applicants">Applicants</a> | <a href="#inquiries">Inquiries</a> | <a href="#visits">Visits</a></b>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Admission Contact</h4>
+                    <p>
+                    <b>{!account.owner.name}</b><br />
+                    {!account.owner.email}<br />
+                    {!account.owner.phone}<br />
+                    </p>
+                </div>
+            </div> 
+        </div><!-- END OF ROW 2 -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <h3 id="applicants">Applicants</h3>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start Term and Year</th>
+                            <th>Major</th>
+                            <th>Application Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!contactApps}" var="apps">
+                        <apex:outputPanel rendered="{!IF(apps.id != null,true,false)}">
+                        <tr>
+                            <td>{!apps.TargetX_SRMb__Contact__r.Name}</td>
+                            <td>{!apps.TargetX_SRMb__Start_Term_and_Year__c}</td>
+                            <td>{!apps.TargetX_SRMb__Possible_Academic_Major__c}</td>
+                            <td>{!IF(apps.TargetX_SRMb__Status__c = "Decision Made",IF(apps.IIT_Deposit_Date__c != null,'Deposited',apps.TargetX_SRMb__Application_Decision__c),apps.TargetX_SRMb__Status__c)}</td>
+                        </tr>
+                        </apex:outputPanel>
+                        </apex:repeat>
+                        <apex:outputPanel rendered="{!contactApps.size = 0}">
+                        <tr>
+                            <td colspan="4"><i>No applications have been received for this school.</i></td>
+                        </tr>    
+                        </apex:outputPanel>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4"><a href="#top">Back to Top</a></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div><!-- END OF ROW 3 -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <h3 id="inquiries">Inquiries</h3>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start Term and Year</th>
+                            <th>Major</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!accountContacts}" var="inq">
+                        <tr>
+                            <td>{!inq.name}</td>
+                            <td>{!inq.TargetX_SRMb__Anticipated_Start_Term_Year__c}</td>
+                            <td>{!inq.TargetX_SRMb__Anticipated_Major__c}</td>
+                        </tr>
+                        </apex:repeat>
+                        <apex:outputPanel rendered="{!accountContacts.size = 0}">
+                        <tr>
+                            <td colspan="3"><i>No inquiries have been received for this school.</i></td>
+                        </tr>    
+                        </apex:outputPanel>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><a href="#top">Back to Top</a></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div><!-- END OF ROW 4 -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <h3 id="visits">Visits</h3>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start Date and Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!accountEvents}" var="events">
+                        <tr>
+                            <td>{!events.name}</td>
+                            <td>{!IF(events.IIT_Real_Start_Minutes__c != null,LEFT(events.TargetX_Eventsb__Start_Time_TZ_Adjusted__c,FIND(':',events.TargetX_Eventsb__Start_Time_TZ_Adjusted__c)) & TEXT(events.IIT_Real_Start_Minutes__c) & IF(CONTAINS(events.TargetX_Eventsb__Start_Time_TZ_Adjusted__c,'AM'),'AM','PM'),LEFT(events.TargetX_Eventsb__Start_Time_TZ_Adjusted__c,LEN(events.TargetX_Eventsb__Start_Time_TZ_Adjusted__c)-4))}</td>
+                        </tr>
+                        </apex:repeat>
+                        <apex:outputPanel rendered="{!accountEvents.size = 0}">
+                        <tr>
+                            <td colspan="2"><i>No future visits are currently scheduled for this school.</i></td>
+                        </tr>    
+                        </apex:outputPanel>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"><a href="#top">Back to Top</a></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div><!-- END OF ROW 5 -->
+
+    </apex:outputPanel>
+    
+    </div><!--END OF CONTAINER-->
+    <apex:include PageName="AppTracker_CSS" />
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+            
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );   
+            });   
+        });
+    </script>
+</apex:page>

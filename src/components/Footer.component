@@ -1,0 +1,34 @@
+<apex:component >
+    <head>
+        <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script type="text/javscript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>    
+    </head>
+<body>
+    <footer id="footerbar" role="contentinfo">
+	<div class="container">
+		<nav role="navigation" class="footer-nav-wrapper">
+			<ul class="footer-nav-primary clearfix" role="menubar">
+				<li role="menuitem"><a href="/">Current Issue</a></li>
+				<li role="menuitem"><a href="/issues">Past Issues</a></li>
+				<li role="menuitem"><a href="/browse">Browse<span class="hidden-xs"> Categories</span></a></li>
+				<li role="menuitem"><a href="/about">About<span class="hidden-xs"> <em>IIT Magazine</em></span></a></li>		
+			</ul>
+			<ul class="footer-nav-secondary clearfix" role="menubar">				
+				<li role="menuitem"><a href="/contact">Contact<span class="hidden-xs">  the Editor</span></a></li>
+				<li role="menuitem"><a href="http://alumni.iit.edu/class-notes" target="_blank">Submit <span class="hidden-xs">a </span>Class Note</a></li>
+				<li role="menuitem"><a href="http://alumni.iit.edu/class-notes" target="_blank">Update<span class="hidden-xs">  your </span> Address</a></li>
+			</ul>
+		</nav>
+		<div class="footer-brand-wrapper">
+			<a class="footer-brand" href="http://web.iit.edu/" title="Illinois Institute of Technology" target="_blank">Illinois Institute of Technology</a>
+		</div>
+		<div class="footer-copyright-wrapper">
+			<span class="footer-copyright">&copy; 2017 Illinois Institute of Technology</span>
+		</div>
+	</div>
+</footer>
+    </body>
+</apex:component>

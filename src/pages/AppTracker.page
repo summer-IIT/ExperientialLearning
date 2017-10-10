@@ -1,0 +1,1218 @@
+<APEX:PAGE EXTENSIONS="TargetX_SRMb.AppTrackerController,IITInsufficiencyController,IITEssayController,IITAppTrackerController,IITFinAidYearController"
+           SHOWHEADER="FALSE"
+           STANDARDCONTROLLER="TargetX_SRMb__Application__c"
+           STANDARDSTYLESHEETS="false"> 
+<HEAD>
+    <LINK HREF="http://web.iit.edu/sites/web/themes/iit_web/favicon.ico"
+          REL="icon" TYPE="image/x-icon" />
+    <LINK HREF="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+          REL="stylesheet" />
+    <SCRIPT SRC="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></SCRIPT>
+    
+    <SCRIPT SRC="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></SCRIPT>
+    
+    <TITLE>IIT Admission - Application Status</TITLE> 
+</HEAD>
+<APEX:OUTPUTTEXT RENDERED="false"
+                 VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__c}" />
+<DIV CLASS="container"> 
+    <APEX:OUTPUTPANEL RENDERED="{!accessError}"> 
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-9"> 
+            <APEX:INCLUDE PAGENAME="AppTrackerHeader" /> 
+        </DIV>
+        <DIV CLASS="col-md-3"> 
+            <DIV CLASS="well-lg"> 
+            </DIV>
+        </DIV>
+    </DIV>
+    <DIV CLASS="row" STYLE="margin-top: 25px;"> 
+        <DIV CLASS="col-md-12"> 
+            <H1>Access Denied</H1> 
+
+            
+            <TargetX_Base:AccessKeyButton BUTTONTEXT="Send My Access Link via Email"
+                                          CONTACTID="{!Contact.Id}"
+                                          SETTING="App Tracker" /> 
+        </DIV>
+    </DIV>
+    </APEX:OUTPUTPANEL> 
+    <APEX:OUTPUTPANEL RENDERED="{!NOT(accessError)}"> 
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12"> 
+            <APEX:INCLUDE PAGENAME="AppTrackerHeader" /> 
+        </DIV>
+        <DIV CLASS="col-md-12"> 
+            <BR /> 
+        </DIV>
+    </DIV>
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12 well well-lg"> 
+            <DIV CLASS="col-md-4"> 
+                <H4>{!contact.FirstName} {!contact.LastName}</H4> <B>Date
+                of Birth: </B><APEX:OUTPUTTEXT VALUE="{0,date,MMM-dd-yyyy}"><APEX:PARAM VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Birthdate}" /></APEX:OUTPUTTEXT>
+                
+            </DIV>
+            <DIV CLASS="col-md-4"> 
+
+<!--Permanent Address-->
+                <H4>&nbsp;</H4> 
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate'),true,false)}"><B>Permanent
+                Address:</B><BR /><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingStreet}" /><BR />
+                
+                <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingCity}" />
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingState !=Null,true,false)}">,&nbsp;<APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingState}" />&nbsp;<APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingPostalcode}" /></APEX:OUTPUTPANEL><BR />
+                
+                <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.MailingCountry}" />
+                
+                </APEX:OUTPUTPANEL> 
+            </DIV>
+            <DIV CLASS="col-md-4"> 
+
+<!--Mailing Address-->
+                <H4>&nbsp;</H4> 
+                <APEX:OUTPUTPANEL RENDERED="{!IF(AND(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate'),TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Address__c !=null),true,false)}"><B>Mailing
+                Address:</B><BR /><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Address__c}" /><BR />
+                
+                <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_City__c}" />
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_State__c !=Null,true,false)}">,&nbsp;<APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_State__c}" />&nbsp;<APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Postal_Code__c}" /></APEX:OUTPUTPANEL><BR />
+                
+                <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Country__c}" /><BR />
+                
+                <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Address_Start_Date__c}" />&nbsp;-&nbsp;<APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_SRMb__Alternate_Address_End_Date__c}" /><BR />
+                
+
+<!--Address Update Link-->
+                <APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217786&A={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&P={!TargetX_SRMb__Application__c.Id}&C={!Contact.Id}"><FONT COLOR="red"><U>Update
+                Mailing Address</U></FONT></APEX:OUTPUTLINK> 
+                </APEX:OUTPUTPANEL> 
+            </DIV>
+        </DIV>
+    </DIV>
+
+<!--END OF ROW 1 -->
+    <APEX:OUTPUTPANEL RENDERED="{!TargetX_SRMb__Application__c.RecordTypeId != '012j00000010K29AAE'}">
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12 well well-lg"> 
+            <DIV CLASS="col-md-8"> 
+                <H4>Application Details</H4> 
+
+                <B>Submit Date: </B> 
+                <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Application_Submit_Date__c}" />
+                <BR /> <B>Start Term: </B><APEX:OUTPUTTEXT VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term__c}" />&nbsp;
+                
+                <APEX:OUTPUTTEXT VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_Year__c}" />
+                
+
+<!--Term Text for UG-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',true,false)}">&nbsp;<APEX:OUTPUTTEXT VALUE="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term__c='Fall','(classes start in August)',IF(TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term__c='Spring','(classes start in January)',null))}" /></APEX:OUTPUTPANEL>
+                
+
+<!--Change of Term Link for UG-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Incomplete',TargetX_SRMb__Application__c.IIT_Change_Term_Requested__c=null),TRUE,FALSE)}">&nbsp;<APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217812&tfa_12={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_22={!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term__c}&tfa_23={!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_Year__c}"><FONT COLOR="Red"><U>Update
+                entry term</U></FONT></APEX:OUTPUTLINK></APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!IF(AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Change_Term_Requested__c !=null),TRUE,FALSE)}">&nbsp;<B>Change
+                of Term Requested:</B>&nbsp;<APEX:OUTPUTTEXT VALUE="{!TargetX_SRMb__Application__c.IIT_Change_Term_Requested__c}"></APEX:OUTPUTTEXT></APEX:OUTPUTPANEL>
+                
+                <BR /> <B>Program: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c}" /><BR />
+                <B>Degree: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Degree__c}" /><BR />
+                <B>Student Type: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Student_Type__c}" /><BR />
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',true,false)}"><B>Housing:
+                </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Housing__c}" /><BR /></APEX:OUTPUTPANEL>
+                
+
+<!--Processing Status for Grad Only-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Complete')}"><B>Application
+                Processing Status: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.IIT_Application_Processing_Status__c}" /><BR /></APEX:OUTPUTPANEL>
+                
+
+<!--SEVIS ID-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Is_International__c=true)}"><B>SEVIS
+                ID: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_SEVIS_ID__c}" /><BR /></APEX:OUTPUTPANEL>
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_SEVIS_ID__c !=null)}"><B>SEVIS
+                ID: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_SEVIS_ID__c}" /><BR /></APEX:OUTPUTPANEL>
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.IIT_Is_International__c=true)}"><B>SEVIS
+                ID: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_SEVIS_ID__c}" /><BR /></APEX:OUTPUTPANEL>
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development',TargetX_SRMb__Application__c.IIT_Is_International__c=true)}"><B>SEVIS
+                ID: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_SEVIS_ID__c}" /><BR /></APEX:OUTPUTPANEL>
+                
+
+<!--FedEx Tracking-->
+
+            <!--Legacy TNT Tracking Information -->
+               <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.IIT_Tracking_Number__c !=NULL,OR(LEN(TargetX_SRMb__Application__c.IIT_Tracking_Number__c)=9,LEN(TargetX_SRMb__Application__c.IIT_Tracking_Number__c)=13)       )}"><APEX:OUTPUTLINK VALUE="https://www.tnt.com/express/en_us/site/home/applications/tracking.html"><FONT COLOR="red"><b>Effective February 24, 2017</b>,  I-20's will be shipped express via Fed Ex. If your I-20 was shipped before that date, it was shipped via TNT Express.  Please follow this <U>link</U> to visit the TNT website to track your shipment using the following tracking number: <b>{!TargetX_SRMb__Application__c.IIT_Tracking_Number__c}</b></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL> 
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_I_20_Tracking_Number__c !=NULL,OR(LEN(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_I_20_Tracking_Number__c )=9,LEN(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_I_20_Tracking_Number__c )=13))}"><APEX:OUTPUTLINK VALUE="https://www.tnt.com/express/en_us/site/home/applications/tracking.html"><FONT COLOR="red"><b>Effective February 24, 2017</b>,  I-20's will be shipped express via Fed Ex. If your I-20 was shipped before that date, it was shipped via TNT Express. Please follow this <U>link</U> to visit the TNT website to track your shipment using the following tracking number: {!TargetX_SRMb__Application__c.IIT_Tracking_Number__c}</FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL> 
+                
+                                
+                
+
+                <APEX:OUTPUTPANEL RENDERED="{!AND(LEN(TargetX_SRMb__Application__c.IIT_Tracking_Number__c)=12,TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Tracking_Number__c !=NULL)}"><APEX:OUTPUTLINK VALUE="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber={!TargetX_SRMb__Application__c.IIT_Tracking_Number__c}"><FONT COLOR="red"><U>Tracking
+                Link and Number {!TargetX_SRMb__Application__c.IIT_Tracking_Number__c}</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL> 
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(LEN(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_I_20_Tracking_Number__c )=12,TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_I_20_Tracking_Number__c !=NULL)}"><APEX:OUTPUTLINK VALUE="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_I_20_Tracking_Number__c}"><FONT COLOR="red"><U>Tracking
+                Link and Number {!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_I_20_Tracking_Number__c}</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL> 
+                                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(LEN(TargetX_SRMb__Application__c.IIT_Tracking_Number__c)=12, TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.IIT_Tracking_Number__c !=NULL)}"><APEX:OUTPUTLINK VALUE="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber={!TargetX_SRMb__Application__c.IIT_Tracking_Number__c}"><FONT COLOR="red"><U>Tracking
+                Link and Number {!TargetX_SRMb__Application__c.IIT_Tracking_Number__c} </U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL> 
+              
+                <APEX:OUTPUTPANEL RENDERED="{!AND(LEN(TargetX_SRMb__Application__c.IIT_Tracking_Number__c)=9, TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development',TargetX_SRMb__Application__c.IIT_Tracking_Number__c !=NULL)}"><APEX:OUTPUTLINK VALUE="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber={!TargetX_SRMb__Application__c.IIT_Tracking_Number__c}"><FONT COLOR="red"><U>Tracking
+                Link and Number {!TargetX_SRMb__Application__c.IIT_Tracking_Number__c}</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL> 
+                
+                <!--International Batch Tracking Information-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Batch_Shipped__c=TRUE,TargetX_SRMb__Application__c.IIT_Courier__c !=NULL)}"><B>Tracking
+                Courier:</B> <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.IIT_Courier__c}"/> <B>and Tracking Number: </B><APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.IIT_India_or_China_Local_Tracking_Number__c}"/><BR /></APEX:OUTPUTPANEL>  
+
+<!--Arrival Information-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND( OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate'),TargetX_SRMb__Application__c.IIT_Is_International__c=true,OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit Conditional'), TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Arrival_Date_Time__c= NULL)}"><B>Flight Arrival Information: </B><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217846&tfa_109={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>Click here to enter your arrival information</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate'),TargetX_SRMb__Application__c.IIT_Is_International__c=true,OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit Conditional'), TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Arrival_Airline__c!= NULL)}"><B>Flight Arrival Information: </B><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217846&tfa_109={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>Click here if you need to update your arrival information</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+
+<!--English Assessment for everyone but Stuart-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_English_Proficiency__c='Needs Assessment',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__College__c !='Stuart School of Business')}"><APEX:OUTPUTLINK VALUE="http://pl.iit.edu/pesl-assessment/faq.pdf"><FONT COLOR="Red"><U>English
+                Assessment Required</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+
+<!--English Assessment for Stuart-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_English_Proficiency__c='Needs Assessment',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__College__c='Stuart School of Business',TargetX_SRMb__Application__c.IIT_Is_International__c=true)}"><APEX:OUTPUTLINK VALUE="http://stuart.iit.edu/students/professional-communication-advancement-program-pca"><FONT COLOR="Red"><U>English
+                Assessment Required</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+
+<!--Update Birth date-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Birthdate=NULL, YEAR(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Birthdate)>YEAR(TODAY())-10),TRUE,FALSE)}">
+                
+                <APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217784&tfa_1={!Contact.Id}&tfa_2={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_8={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Birthdate}&tfa_9={!TargetX_SRMb__Application__c.Id}"><U><B>Please
+                Update Your Birthday</B></U></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+<!--IELTS Form ID-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Is_International__c=TRUE,TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_IELT_Report_ID__c=NULL,OR(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Max_TOEFL_Total_Score__c=NULL,TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Max_IELTS_Total_Score__c=NULL))}"><B>IELT Test Report Number: </B><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217849&tfa_12={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>If you have taken the IELTS, please provide your Test Report Form Number: Example TRF# 12345678910111213</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+                
+<!--FastForward Upload Transcript Upload-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.RecordTypeId='012j00000010IkeAAE')}"><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217809&tfa_3={!Contact.Id}&tfa_5={!TargetX_SRMb__Application__c.Id}&tfa_6={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>FastForward
+                Upload Transcript for Evaluation</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+
+<!--FastForward Transcript Evaluation-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.RecordTypeId='012j00000010IkeAAE')}"><APEX:OUTPUTLINK TARGET="_blank"
+                                                                                                                                                                                                         VALUE="{!$Page.AppTrackerTransferEval}?id={!Contact.Id}&k={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>Transcript
+                Evaluation</U></FONT></APEX:OUTPUTLINK><BR /></APEX:OUTPUTPANEL>
+                
+            
+            
+            </DIV>
+<!--Undergraduate Counselor Photo and Info-->
+            <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TRUE,FALSE)}">
+                        <DIV CLASS="col-md-4" STYLE="font-size: 85%;"> 
+                <APEX:OUTPUTPANEL RENDERED="{!NOT(ISNULL(owner))}"> 
+                <H4>Need help? Contact me!</H4> 
+
+                
+                <APEX:IMAGE HEIGHT="88"
+                            STYLE="float: left; margin-right: 10px;"
+                            VALUE="{!TargetX_SRMb__Application__c.IIT_Contact_Owner_Photo__c}"
+                            WIDTH="125" />
+                <B>{!IF(Owner.Name = 'Amy Ionescu' && TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c = 'Spring 2018','Abbie Ray',owner.Name)}</B><BR />
+                {!IF(Owner.Name = 'Amy Ionescu' && TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c = 'Spring 2018','aray9@iit.edu',owner.Email)}<BR />
+                {!IF(Owner.Name = 'Amy Ionescu' && TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c = 'Spring 2018','(312) 567-5233',owner.Phone)} 
+                </APEX:OUTPUTPANEL> 
+            </DIV>
+            </APEX:OUTPUTPANEL> 
+            
+<!--Graduate Counsellor Photo and Info-->
+         <!--Jo
+         <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Is_International__c=false, OR(AND(TargetX_SRMb__Application__c.Department__c='Computer Science',TargetX_SRMb__Application__c.TargetX_SRMb__Degree__c='Master'),TargetX_SRMb__Application__c.Department__c ='Civil, Architectural, and Environmental Engineering',TargetX_SRMb__Application__c.Department__c ='Chemical Biological Engineering',TargetX_SRMb__Application__c.Department__c ='Mechanical, Materials, and Aerospace Engineering',TargetX_SRMb__Application__c.Department__c ='Biomedical Engineering',TargetX_SRMb__Application__c.Department__c ='Information Technology and Management',TargetX_SRMb__Application__c.Department__c ='Math and Science Education'))}">
+                    <DIV CLASS="col-md-4" STYLE="font-size: 85%;"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!NOT(ISNULL(owner))}"> 
+                        <H4>Need help? Contact me!</H4> 
+
+                        
+                        <APEX:IMAGE HEIGHT="88"
+                                    STYLE="float: left; margin-right: 10px;"
+                                    VALUE="https://illinoistech--c.na55.content.force.com/servlet/servlet.ImageServer?id=015j00000025KJK&oid=00Dj0000001uRxk&lastMod=1485362964000"
+                                    WIDTH="125" /> <B>Joanette Catino</B><BR />
+                        catino@iit.edu<BR /> 312-567-7977 
+                        </APEX:OUTPUTPANEL> 
+             </DIV>
+        </APEX:OUTPUTPANEL>
+        -->
+
+
+        <!--Jack
+         <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Is_International__c=false, OR(AND(TargetX_SRMb__Application__c.TargetX_SRMb__Degree__c!='Master',TargetX_SRMb__Application__c.Department__c='Computer Science')
+         ,TargetX_SRMb__Application__c.TargetX_SRMb__College__c='Stuart School of Business',TargetX_SRMb__Application__c.Department__c ='Electrical and Computer Engineering',TargetX_SRMb__Application__c.Department__c ='Food Science and Nutrition'))}">
+                    <DIV CLASS="col-md-4" STYLE="font-size: 85%;"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!NOT(ISNULL(owner))}"> 
+                        <H4>Need help? Contact me!</H4> 
+
+                        
+                        <APEX:IMAGE HEIGHT="88"
+                                    STYLE="float: left; margin-right: 10px;"
+                                    VALUE="https://illinoistech--c.na55.content.force.com/servlet/servlet.ImageServer?id=015j00000025KEU&oid=00Dj0000001uRxk&lastMod=1485358969000"
+                                    WIDTH="125" /> <B>Jack Waas</B><BR />
+                        jwaas1@iit.edu<BR /> 312-567-3879 
+                        </APEX:OUTPUTPANEL> 
+             </DIV>
+        </APEX:OUTPUTPANEL>
+        -->
+
+        <!--Nathan-->
+         <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Is_International__c=false, OR(TargetX_SRMb__Application__c.Department__c ='Chemical Sciences',TargetX_SRMb__Application__c.Department__c='Psychology',TargetX_SRMb__Application__c.Department__c='Physics',TargetX_SRMb__Application__c.Department__c='Biological Sciences',TargetX_SRMb__Application__c.Department__c='Applied Mathematics',TargetX_SRMb__Application__c.Department__c='Humanities'))}">
+                    <DIV CLASS="col-md-4" STYLE="font-size: 85%;"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!NOT(ISNULL(owner))}"> 
+                        <H4>Need help? Contact me!</H4> 
+
+                        
+                        <APEX:IMAGE HEIGHT="88"
+                                    STYLE="float: left; margin-right: 10px;"                            
+                                    VALUE="https://illinoistech--c.na55.content.force.com/servlet/servlet.ImageServer?id=015j00000025KEK&oid=00Dj0000001uRxk&lastMod=1485358882000"
+                                    WIDTH="125" /> <B>Nathan Robbins</B><BR />
+                        nrobbins@iit.edu<BR /> 312-567-3980 
+                        </APEX:OUTPUTPANEL> 
+             </DIV>
+        </APEX:OUTPUTPANEL>
+     
+     
+        </DIV>
+    </DIV>
+    </APEX:OUTPUTPANEL>
+    
+    <APEX:OUTPUTPANEL RENDERED="{!TargetX_SRMb__Application__c.RecordTypeId = '012j00000010K29AAE'}">
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12 well well-lg"> 
+            <DIV CLASS="col-md-8"> 
+                <H4>Application Details</H4> 
+
+                <B>Submit Date: </B> 
+                <APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.TargetX_SRMb__Application_Submit_Date__c}" />
+                
+            </DIV>
+            <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TRUE,FALSE)}">
+            
+            <DIV CLASS="col-md-4" STYLE="font-size: 85%;"> 
+                <APEX:OUTPUTPANEL RENDERED="{!NOT(ISNULL(owner))}"> 
+                <H4>Need help? Contact me!</H4> 
+
+                
+                <APEX:IMAGE HEIGHT="88"
+                            STYLE="float: left; margin-right: 10px;"
+                            VALUE="{!TargetX_SRMb__Application__c.IIT_Contact_Owner_Photo__c}"
+                            WIDTH="125" /> <B>{!owner.Name}</B><BR />
+                {!owner.Email}<BR /> {!owner.Phone} 
+                </APEX:OUTPUTPANEL> 
+            </DIV>
+            </APEX:OUTPUTPANEL> 
+        </DIV>
+    </DIV>
+    </APEX:OUTPUTPANEL> 
+
+<!--END OF ROW-->
+<!--Start of Decision Block-->
+    <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development') && TargetX_SRMb__Application__c.RecordTypeId != '012j00000010K29AAE',TRUE,FALSE)}">
+    
+    <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Decision Made' && TargetX_SRMb__Application__c.IIT_Application_Decision_Date__c <= TODAY()-1,TRUE,FALSE)}">
+    
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12 well well-lg"> 
+            <DIV CLASS="col-md-6"> 
+                <H4>Decision Status</H4> 
+
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Admit</APEX:OUTPUTTEXT> 
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Denied to Applied')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Denied to Applied (Check your email and other applications section for more information)</APEX:OUTPUTTEXT> 
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Admit</APEX:OUTPUTTEXT> 
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Admit No Financial Support</APEX:OUTPUTTEXT>
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate No Financial Support')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Admit to Alternate No Financial Support</APEX:OUTPUTTEXT> 
+                </APEX:OUTPUTPANEL> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c='Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Deny')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Denied</APEX:OUTPUTTEXT> 
+                </APEX:OUTPUTPANEL>
+                <APEX:OUTPUTPANEL rendered="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c = 'Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c = 'Admit English Conditional',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c = 'Undergraduate')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Admit English Conditional</APEX:OUTPUTTEXT>   
+                </APEX:OUTPUTPANEL>
+                <APEX:OUTPUTPANEL rendered="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c = 'Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c = 'JC Deny',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c = 'Undergraduate')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Please check your email for an update on your admission decision.</APEX:OUTPUTTEXT>   
+                </APEX:OUTPUTPANEL>
+                <APEX:OUTPUTPANEL rendered="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Status__c = 'Decision Made', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c = 'English Deny',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c = 'Undergraduate')}">
+                    <B>Decision: </B><APEX:OUTPUTTEXT >Denied (Check your email for more information)</APEX:OUTPUTTEXT>   
+                </APEX:OUTPUTPANEL>
+                
+                <BR />
+
+<!--Primary Academic Advisor Name and Email-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.IIT_Primary_Academic_Advisor__c !=NULL, OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit Conditional',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate'))}">
+                
+                <B>Primary Academic Advisor: </B><APEX:OUTPUTTEXT >{!TargetX_SRMb__Application__c.IIT_Primary_Academic_Advisor_Name__c}</APEX:OUTPUTTEXT>
+                <BR />
+                <B>Primary Academic Advisor Email: </B><APEX:OUTPUTTEXT >{!TargetX_SRMb__Application__c.IIT_Primary_Academic_Advisor_Email__c}</APEX:OUTPUTTEXT>
+                <BR />                
+                </APEX:OUTPUTPANEL> 
+
+                
+
+<!--Intent to Enroll Link for Graduate-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TRUE,FALSE)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Admit No Financial Support',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Deny',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Denied to Applied',TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c=null)}">
+                <BR />
+                <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217727&tfa_12={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_19={!TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c}&tfa_56={!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c}"><FONT COLOR="red"><U>Intent to Enroll</U></FONT></APEX:OUTPUTLINK> - Please let us know if you plan to enroll, or request a deferral for up to one year.
+                <BR /> 
+                <BR />
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Enrollment_Deposit_Waived__c=FALSE,TRUE,FALSE)}">
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Deposit_Date__c = null,TRUE,FALSE)}">
+                <APEX:OUTPUTLINK VALUE="http://admissions.iit.edu/graduate/admitted/stuart-enrollment-deposit-instructions"><FONT COLOR="red"><U>Pay your deposit in the myIIT portal.</U></FONT></APEX:OUTPUTLINK> In addition to completing the Intent to Enroll form, a deposit is required for all students. ​Please remember this is not an additional fee. It is a down payment that will go towards your first semester tuition bill.  
+                </APEX:OUTPUTPANEL>
+                </APEX:OUTPUTPANEL>
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TRUE,FALSE)}">
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Admit No Financial Support',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Deny',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Denied to Applied',TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c !=null)}">
+                
+                <B>Intent to Enroll Form Submit Date:</B>&nbsp;<APEX:OUTPUTFIELD VALUE="{!TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c}" />
+                <BR /> 
+                <BR />
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Enrollment_Deposit_Waived__c=FALSE,TRUE,FALSE)}">
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Deposit_Date__c = null,TRUE,FALSE)}">
+                <APEX:OUTPUTLINK VALUE="http://admissions.iit.edu/graduate/admitted/stuart-enrollment-deposit-instructions"><FONT COLOR="red"><U>Pay your deposit in the myIIT portal.</U></FONT></APEX:OUTPUTLINK> In addition to completing the Intent to Enroll form, a deposit is required for all students. ​Please remember this is not an additional fee. It is a down payment that will go towards your first semester tuition bill.                
+                </APEX:OUTPUTPANEL>
+                </APEX:OUTPUTPANEL>
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+
+<!--Intent to Enroll Link for UG-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Admit_Date__c !=NULL),TRUE,FALSE)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c=null,TRUE,FALSE)}">
+                <BR />
+                <B>Are you attending Illinois Tech? </B>
+                <APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217811&tfa_12={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>Update your answer</U></FONT></APEX:OUTPUTLINK>
+                <BR />
+                </APEX:OUTPUTPANEL>
+                 
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c !=null,TRUE,FALSE)}">
+                <BR />
+                <B>Are you attending Illinois Tech? </B>
+                <APEX:OUTPUTTEXT >{!CASE(TargetX_SRMb__Application__c.TargetX_SRMb__Deposit_Intent_to_Enroll__c,'Yes',"Yes, I'm a Scarlet Hawk!",'Maybe',"I'm still deciding",'No',"No, I have other plans","")}</APEX:OUTPUTTEXT>
+                <BR />
+                <APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217811&tfa_12={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>Update your answer</U></FONT></APEX:OUTPUTLINK>
+                <BR />
+                </APEX:OUTPUTPANEL>
+                
+                </APEX:OUTPUTPANEL>
+                
+
+<!--UG Shirt Size Form-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Admit_Date__c !=NULL,TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_Shirt_Size__c=NULL)}">
+                <BR />
+                <APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217745&cid={!Contact.Id}&aid={!TargetX_SRMb__Application__c.Id}&k={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>Tell us your t-shirt size!</U></FONT></APEX:OUTPUTLINK>
+                <BR />
+                </APEX:OUTPUTPANEL>
+                
+
+<!--Defer Link for Graduate-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.IIT_Defer_Semester_Requested__c=NULL, OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support', TargetX_SRMb__Application__c.IIT_Deposit_Date__c!=NULL))}">
+                
+                <APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217785&A={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&P={!TargetX_SRMb__Application__c.Id}&C={!Contact.Id}&tfa_17={!TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c}&tfa_20={!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c}"><FONT COLOR="red"><U>Request
+                to Defer</U></FONT></APEX:OUTPUTLINK>
+                <BR /> 
+                </APEX:OUTPUTPANEL>
+                 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.IIT_Defer_Semester_Requested__c!=NULL, OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support', TargetX_SRMb__Application__c.IIT_Deposit_Date__c!=NULL))}">
+                <BR />
+                <APEX:OUTPUTTEXT ><B>Semester Requested for Deferral:</B>
+                {!TargetX_SRMb__Application__c.IIT_Defer_Semester_Requested__c}</APEX:OUTPUTTEXT>
+                <BR />
+                </APEX:OUTPUTPANEL> 
+
+<!--Defer Link for UG-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Admit_Date__c !=null,TargetX_SRMb__Application__c.IIT_Defer_Semester_Requested__c=null)}">
+                <BR />
+                <APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217785&A={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&P={!TargetX_SRMb__Application__c.Id}&C={!Contact.Id}&tfa_17={!TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c}&tfa_20={!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c}"><FONT COLOR="red"><U>Defer your admission to a later semester</U></FONT></APEX:OUTPUTLINK>
+                <BR /> 
+                </APEX:OUTPUTPANEL>
+                 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Admit_Date__c !=null,TargetX_SRMb__Application__c.IIT_Defer_Semester_Requested__c !=null)}">
+                <BR />
+                <APEX:OUTPUTTEXT ><B>Semester Requested for Deferral: </B>{!TargetX_SRMb__Application__c.IIT_Defer_Semester_Requested__c}</APEX:OUTPUTTEXT>
+                <BR />
+                </APEX:OUTPUTPANEL>
+                
+
+<!--UG Transcript Evaluation-->
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_UGAA_Evaluated_Date__c !=null)}">
+                <BR />
+                <APEX:OUTPUTLINK TARGET="_blank" VALUE="{!$Page.AppTrackerTransferEval}?id={!Contact.Id}&k={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="Red"><U>View your transfer credits</U></FONT></APEX:OUTPUTLINK>
+                <BR />
+                </APEX:OUTPUTPANEL>
+
+                
+
+<!--Intent to Enroll Link for IEP and Con-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),TRUE,FALSE)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Admit No Financial Support',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Deny',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Denied to Applied',TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c=null)}">
+                <BR />
+                <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217797&tfa_12={!TargetX_SRMb__Application__c.Id}&tfa_9={!Contact.Id}&tfa_11={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_19={!TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c}&tfa_56={!TargetX_SRMb__Application__c.TargetX_SRMb__Start_Term_and_Year__c}"><FONT COLOR="red"><U>Intent
+                to Enroll</U></FONT></APEX:OUTPUTLINK>
+                <BR /> 
+                </APEX:OUTPUTPANEL> 
+                
+                </APEX:OUTPUTPANEL>
+                 
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),TRUE,FALSE)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Admit No Financial Support',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Deny',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c !='Denied to Applied',TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c !=null)}">
+                <BR />
+                <B>Intent to Enroll Form Submit Date:</B> &nbsp;<APEX:OUTPUTTEXT VALUE="{0,date,MM-dd-yyyy}"><APEX:PARAM VALUE="{!TargetX_SRMb__Application__c.IIT_Deposit_Intent_to_Enroll_Date__c}" /></APEX:OUTPUTTEXT>
+                <BR />                
+                </APEX:OUTPUTPANEL> 
+                
+                </APEX:OUTPUTPANEL> 
+
+                
+
+<!--Affidavit of Support Upload Link for AL-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Financial Affidavit of Support',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.IIT_Is_International__c=true, TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217758&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_10={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_12={!TargetX_SRMb__Application__c.TargetX_SRMb__College__c}"><FONT COLOR="red"><U>Financial Affidavit of Support Upload</U></FONT></APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+                <BR></BR> 
+
+<!--Copy of Passport Upload Link for AL-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Copy of Passport',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217759&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_13={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Copy
+                        of Passport Upload</U></FONT></APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+
+<!--Affidavit of Support Upload Link for Admit to Alternate AL-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Financial Affidavit of Support',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.IIT_Is_International__c=true, TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate No Financial Support')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217758&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_10={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_12={!TargetX_SRMb__Application__c.TargetX_SRMb__College__c}"><FONT COLOR="red"><U>Affidavit
+                        of Support Upload</U></FONT></APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+                <BR></BR> 
+
+<!--Copy of Passport Upload Link for Admit to Alternate AL-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Copy of Passport',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate No Financial Support')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217759&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_13={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Copy
+                        of Passport Upload</U></FONT></APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+
+                
+
+<!--Transfer Release Form Link for Graduate -->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='School Transfer Release Form', ess.TargetX_SRMb__IsRequired__c=false, TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate No Financial Support', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate'),true,false)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.TargetX_SRMb__Student_Type__c='Transfer')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217801&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_10={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Transfer
+                        Release Form Upload</U></FONT><BR />The School
+                        Transfer Form must be submitted by any
+                        international student currently studying on an F-1
+                        visa, and intends to enroll at Illinois Tech. It
+                        indicates the release of your I-20 and SEVIS ID by
+                        your current institution, permitting Illinois Tech
+                        to use your current SEVIS ID, and create a new I-20
+                        for you. 
+                        </APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+            </DIV>
+            
+            
+<!-- You Are In Video -->
+            
+            <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',TargetX_SRMb__Application__c.IIT_Admit_Date__c !=NULL)}">
+            <DIV CLASS="col-md-6"> 
+                <H4>You Are In!</H4> 
+                <APEX:IFRAME FRAMEBORDER="0" HEIGHT="320"
+                             SRC="https://www.youtube.com/embed/zt1Iu-zw_dA?loop=1&playlist=zt1Iu-zw_dA"
+                             WIDTH="480" /> 
+            </DIV>
+            </APEX:OUTPUTPANEL> 
+            
+        </DIV>
+    </DIV>
+    </APEX:OUTPUTPANEL> 
+    </APEX:OUTPUTPANEL> 
+
+<!--Document Upload Section for IEP, CON, UG-->
+    <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),true,false)}">
+    
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12 well well-lg"> 
+            <DIV CLASS="col-md-9"> 
+                <H4>Document Uploads</H4> 
+
+                
+
+<!-- Proof of Financial Sponsorship-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Proof of Financial Sponsorship',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),true,false)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Is_International__c=true,true,false)}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217803&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_10={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Proof
+                        of Financial Sponsorship</U></FONT></APEX:OUTPUTLINK>
+                        
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                <BR /> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+
+<!--Copy of Passport Upload Link for IEP, CON-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Copy of Passport',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),true,false)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217805&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_13={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Copy
+                        of Passport Upload</U></FONT></APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                <BR /> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+
+<!--AFFV Upload Link for IEP, CON-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Financial Affidavit of Support',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),true,false)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.IIT_Complete_Financial_Support_Docs__c=0)}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217804&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_13={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Financial
+                        Affidavit of Support Upload</U></FONT></APEX:OUTPUTLINK>
+                        
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                <BR /> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+
+<!--Resume Upload Link for IEP, CON-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='Resume',ess.TargetX_SRMb__IsRequired__c=false,TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),true,false)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217806&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_13={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Resume
+                        Upload</U></FONT></APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                <BR /> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+
+<!--Transfer Release Form Link for IEP and CON-->
+                <APEX:REPEAT VALUE="{!ConEssay}" VAR="ess"> 
+                <APEX:OUTPUTPANEL RENDERED="{!AND(ess.name='School Transfer Release Form', ess.TargetX_SRMb__IsRequired__c=false, TargetX_SRMb__Application__c.Id=ess.TargetX_SRMb__Application__c)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),true,false)}">
+                
+                <TR>
+                    <TD><APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.IIT_Is_International__c=true,TargetX_SRMb__Application__c.TargetX_SRMb__Student_Type__c='Transfer')}">
+                        
+                        <APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217796&tfa_7={!TargetX_SRMb__Application__c.Id}&tfa_3={!Contact.Id}&tfa_10={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}"><FONT COLOR="red"><U>Transfer
+                        Release Form Upload</U></FONT></APEX:OUTPUTLINK> 
+                        </APEX:OUTPUTPANEL></TD>
+                </TR>
+                <BR /> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                </APEX:REPEAT> 
+            </DIV>
+        </DIV>
+    </DIV>
+    </APEX:OUTPUTPANEL> 
+
+<!--Grad Funding Grid -->
+    <APEX:OUTPUTPANEL RENDERED="{!contactFinAid.size > 0}"> 
+    <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',true,false)}">
+    
+    <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate No Financial Support', TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support'),true,false)}">
+    
+    <BR></BR> <B>The funding below provides support for your first academic
+    year at Illinois Tech and will be disbursed as follows. Support levels
+    may change in later academic years. Funding is intended for the program
+    to which you were originally admitted and may be subject to additional
+    restrictions. Contact your department for more information.</B><BR /> 
+
+<!--PHD Message Displays on whether PHD Con Ind is Checked in Financial Aid Award-->
+    <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_PhD_Continuation_Indicator_Exists__c > 0,true,false)}">
+    
+    <BR></BR> <B>Illinois Tech is pleased to offer you funding for your PhD
+    program. Summer support is available by agreement with individual
+    faculty members. While we cannot guarantee this level of support beyond
+    what is listed in the tables below, historically all students who
+    maintain good academic standing and are making satisfactory progress
+    toward the Ph.D. degree have been supported for the duration of their
+    studies by Teaching or Research Assistantships.</B><BR /> 
+    </APEX:OUTPUTPANEL> 
+
+<!--Background Check Message Displays only for Intl TA-->
+    <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.IIT_TA_Funding_Exists_Currently__c > 0,TargetX_SRMb__Application__c.IIT_Is_International__c=FALSE)}">
+    
+    <BR></BR> <B>IIT university policy stipulates a background check,
+    including criminal history, as a condition of employment. All new
+    graduate students who have a work requirement associated with their
+    funding are therefore required to undergo a check, which must be
+    completed prior to the first day of work. IIT has retained the
+    HireRight Agency to conduct all background checks, and HireRight will
+    contact you to initiate this process. It is imperative that you submit
+    the requested information as quickly as possible. All information is
+    confidential and will only be reported to the Office of Human Resources
+    at IIT.</B><BR /> 
+    </APEX:OUTPUTPANEL> 
+    <DIV CLASS="row"> 
+        <H5>Graduate Funding</H5> 
+        <TABLE CLASS="table table-bordered table-striped">
+            <TR>
+                <TH CLASS="fieldnameGF">Award</TH> 
+                <TH CLASS="fieldnameGF">Description</TH> 
+                <TH CLASS="fieldnameGF">Amount</TH> 
+                <TH CLASS="fieldnameGF">Term</TH> 
+                <TH CLASS="fieldnameGF">Aid Year</TH> 
+            </TR>
+            <APEX:REPEAT VALUE="{!contactFinAid}" VAR="finAid"> 
+            <TR>
+                <TD CLASS="fieldvalueGF">{!finAid.TargetX_SRMb__Type__c}</TD>
+                <TD CLASS="fieldvalueGF">{!finAid.IIT_Description__c}</TD>
+                <TD CLASS="fieldvalueGF">{!IF(finAid.IIT_Credit_Hours__c=0,IF(finAid.TargetX_SRMb__Type__c="Tuition",finAid.TargetX_SRMb__Amount__c,
+                    finAid.IIT_Stipend_Amount__c),finAid.IIT_Credit_Hours__c)}{!IF(finAid.IIT_Credit_Hours__c!=0,"
+                    Credit Hour(s)",".00")}</TD>
+                <TD CLASS="fieldvalueGF">{!finAid.IIT_Term_Description__c}</TD>
+                <TD CLASS="fieldvalueGF">{!finAid.IIT_Aid_Year_Description__c}</TD>
+            </TR>
+            </APEX:REPEAT> 
+            <APEX:OUTPUTPANEL RENDERED="{!contactFinAid.size=0}"> 
+            <TR>
+                <TD COLSPAN="5"><I>You have not been awarded funding.</I></TD>
+            </TR>
+            </APEX:OUTPUTPANEL> 
+        </TABLE>
+    </DIV>
+    </APEX:OUTPUTPANEL> 
+    </APEX:OUTPUTPANEL> 
+    </APEX:OUTPUTPANEL> 
+
+<!-- End of ROW 2 -->
+    <DIV CLASS="well-lg"> 
+        <DIV CLASS="row"> 
+            <H3>Application Requirements</H3> 
+             <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Special_Event__c ='December CS India On-Site Admission',TargetX_SRMb__Application__c.IIT_Pending_Tests__c!=0)}">
+             <B><U>Attention: Your application will remain incomplete until official test scores are sent to Illinois Tech (CEEB Code: 1318)</U></B><BR />
+             </APEX:OUTPUTPANEL> 
+             
+            <DIV CLASS="col-md-12"> 
+                <DIV CLASS="row"> 
+                    <H5>Pending</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Item</TH> 
+                            <TH>Comments</TH> 
+                            <TH>Status</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!Activities}" VAR="details"> 
+                        <TR>
+                            <TD>{!details.name}</TD>
+                            <TD>{!details.TargetX_SRMb__Related_To__c}</TD>
+                            <TD>{!details.TargetX_SRMb__Status__c}</TD>
+                        </TR>
+                        </APEX:REPEAT> 
+                        <APEX:OUTPUTPANEL RENDERED="{!Activities.size=0}"> 
+                        <TR>
+                            <TD COLSPAN="3"><I>There are no pending requirements for this application.</I></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </TBODY>
+                    </TABLE>
+                    
+                    <APEX:OUTPUTPANEL RENDERED="{!TargetX_SRMb__Application__c.TargetX_SRMb__Application_Type__c = 'Undergraduate PharmD'}">
+                    Please make your $25 check out to <B>Midwestern University- CCP</B> and mail to:<BR />
+                    Office of Undergraduate Admission<BR />
+                    Attn: Samantha Sleva<BR />
+                    10 W 33rd St PH 101<BR />
+                    Chicago, IL 60616<BR /><BR />
+                    </APEX:OUTPUTPANEL>
+
+<!--Activity Status Legend for Graduate -->
+                    <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',Activities.size !=0)}">
+                    
+                    <DIV CLASS="well well-sm"> <B><U>Application Status Key</U></B><BR />
+                        <B>Not Started:</B> Nothing has been received to
+                        fulfill this application requirement, or the
+                        submitted document has been determined to be
+                        insufficient. Please check the insufficient section
+                        for more details.<BR /> <B>Waived:</B> The
+                        requirement was waived or not required of you.<BR /> 
+                        <B>Completed:</B> We have received such document(s)
+                        or scores, and they are sufficient to fulfill the
+                        application requirement.<BR /> <B>In Progress:</B>
+                        We have received your uploaded documents (or
+                        scores) but due to the volume of applications, our
+                        staff has not verified and/or reviewed the document
+                        yet; please be patient while we get to your
+                        application.<BR /> 
+                        <BR /> 
+                        <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.IIT_Is_International__c=true)}">
+                        <B>International Students:</B> If you did not
+                        submit your Financial Affidavit of Support or Copy
+                        of Passport at the time you submitted your
+                        application, you will not be able to upload these
+                        documents until you have been offered admission.
+                        Once an admission offer has been made you will have
+                        access to upload these documents.<BR /> 
+                        </APEX:OUTPUTPANEL> 
+                    </DIV>
+                    </APEX:OUTPUTPANEL> 
+
+<!--Activity Status Legend for Undergraduate -->
+                    <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate',Activities.size !=0)}">
+                    
+                    <DIV CLASS="well well-sm"> <B><U>Application Status Key</U></B><BR />
+                        <B>Not Started / In Progress:</B> Nothing has been received to fulfill this application requirement, or the submitted document has been determined to be insufficient. Please check the insufficient section for more details.<BR />
+                        <B>Waived:</B> The requirement was waived or not required of you.<BR /> 
+                        <B>Completed:</B> We have received such document(s) or scores, and they are sufficient to fulfill the application requirement.<BR /> 
+                        <BR />
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.IIT_Is_International__c=true,TRUE,FALSE)}">
+                        <B>International Students: </B>You are able to upload copies of your transcript(s), passport, course descriptions, FAS, and bank statement. Official/original documents must be brought with you when you arrive to campus in order to check-in and verify your visa. Students who do not bring these official documents (or mail them in before arrival to campus) will not be allowed to remain in the U.S. as their visa will not be verified and reported to immigration.<BR />When uploading documents, please be sure to combine all files into one single document before uploading into each section. You will not be allowed to upload multiple files to the same section. For example, if your transcripts are in 2-3 separate files, you should combine them into one document before uploading to the transcript requirement.<BR />The Financial Affidavit of Support and passport copy are not required for review and can be submitted after you receive your admission decision.
+                        </APEX:OUTPUTPANEL> 
+                    </DIV>
+                    </APEX:OUTPUTPANEL> 
+
+<!--Activity Status Legend for IEP-->
+                    <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',Activities.size !=0)}">
+                    
+                    <DIV CLASS="well well-sm"> <B><U>Application Status Key</U></B><BR />
+                        <B>Not Started:</B> Nothing has been received to
+                        fulfill this application requirement, or the
+                        submitted document has been determined to be
+                        insufficient. Please check the insufficient section
+                        for more details.<BR /> <B>Waived:</B> The
+                        requirement was waived or not required of you.<BR /> 
+                        <B>Completed:</B> We have received such document(s)
+                        or scores, and they are sufficient to fulfill the
+                        application requirement.<BR /> 
+                        <BR /> 
+                        <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.IIT_Is_International__c=true)}">
+                        <B>International Students:</B> If you did not
+                        submit your Financial Affidavit of Support or Copy
+                        of Passport at the time you submitted your
+                        application, you will not be able to upload these
+                        documents until you have been offered admission.
+                        Once an admission offer has been made you will have
+                        access to upload these documents.<BR /> 
+                        </APEX:OUTPUTPANEL> 
+                    </DIV>
+                    </APEX:OUTPUTPANEL> 
+
+<!--Activity Status Legend for Con-->
+                    <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development',Activities.size !=0)}">
+                    
+                    <DIV CLASS="well well-sm"> <B><U>Application Status Key</U></B><BR />
+                        <B>Not Started:</B> Nothing has been received to
+                        fulfill this application requirement, or the
+                        submitted document has been determined to be
+                        insufficient. Please check the insufficient section
+                        for more details.<BR /> <B>Waived:</B> The
+                        requirement was waived or not required of you.<BR /> 
+                        <B>Completed:</B> We have received such document(s)
+                        or scores, and they are sufficient to fulfill the
+                        application requirement.<BR /> 
+                        <BR /> 
+                        <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development',TargetX_SRMb__Application__c.IIT_Is_International__c=true)}">
+                        <B>International Students:</B> If you did not
+                        submit your Financial Affidavit of Support or Copy
+                        of Passport at the time you submitted your
+                        application, you will not be able to upload these
+                        documents until you have been offered admission.
+                        Once an admission offer has been made you will have
+                        access to upload these documents.<BR /> 
+                        </APEX:OUTPUTPANEL> 
+                    </DIV>
+                    </APEX:OUTPUTPANEL> 
+                </DIV>
+
+<!--Start of Insufficiency Block-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Intensive English Program',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Continuing Education/Professional Development'),TRUE,FALSE)}">
+                
+                <DIV CLASS="row"> 
+                    <H5>Insufficient Documents</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Item</TH> 
+                            <TH>Insufficiency Reason</TH> 
+                            <TH>Additional Insufficiency Notes</TH> 
+                            <TH>Reupload Link</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!EnrollHis}" VAR="enroll"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.Id=enroll.TargetX_SRMb__Application__c,true,false)}">
+                        
+                        <TR>
+                            <TD>{!enroll.name}  ({!enroll.TargetX_SRMb__Degree_Earned__c})</TD>
+                            <TD>{!enroll.IIT_Insufficiency_ID_Desc__c}</TD>
+                            <TD>{!enroll.IIT_Additional_Insufficiency_Notes__c}</TD>
+                            <TD><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217761&tfa_2={!enroll.Id}&tfa_3={!Contact.Id}&tfa_6={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_5={!TargetX_SRMb__Application__c.Id}">Reupload
+                                your document</APEX:OUTPUTLINK></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        <APEX:REPEAT VALUE="{!AppEssay}" VAR="essay"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.Id=essay.TargetX_SRMb__Application__c,true,false)}">
+                        
+                        <TR>
+                            <TD>{!essay.name}</TD>
+                            <TD>{!essay.IIT_Insufficiency_ID_Desc__c}</TD>
+                            <TD>{!essay.IIT_Additional_Insufficiency_Notes__c}</TD>
+                            <TD><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217763&tfa_2={!essay.Id}&tfa_3={!Contact.Id}&tfa_6={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_5={!TargetX_SRMb__Application__c.Id}">Reupload
+                                your document</APEX:OUTPUTLINK></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        <APEX:REPEAT VALUE="{!AppRec}" VAR="rec"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.Id=rec.TargetX_SRMb__Application__c,true,false)}">
+                        
+                        <TR>
+                            <TD>{!rec.name}</TD>
+                            <TD>{!rec.IIT_Insufficiency_ID_Desc__c}</TD>
+                            <TD>{!rec.IIT_Additional_Insufficiency_Notes__c}</TD>
+                            <TD><APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217762&tfa_2={!rec.Id}&tfa_3={!Contact.Id}&tfa_5={!TargetX_SRMb__Application__c.Id}&tfa_6={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_7={!rec.TargetX_SRMb__Email__c}&tfa_8={!rec.TargetX_App__Link_Security_Hash__c}&tfa_9={!rec.TargetX_SRMb__First_Name__c}&tfa_10={!rec.TargetX_SRMb__Last_Name__c}&tfa_11={!contact.FirstName}&tfa_12={!contact.LastName}">Resend
+                                Request for<BR />Letter of Recommendation</APEX:OUTPUTLINK></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        </TBODY>
+                        <APEX:OUTPUTPANEL RENDERED="{!AND(EnrollHis.size=0,AppEssay.size=0,AppRec.size=0)}">
+                        
+                            <TD COLSPAN="4"><I>You Have No Insufficient
+                                Documents</I></TD>
+                            </APEX:OUTPUTPANEL> 
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+
+<!--Start of UG Insufficiency Block-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Undergraduate' && TargetX_SRMb__Application__c.RecordTypeId != '012j00000010K29AAE' && TargetX_SRMb__Application__c.TargetX_SRMb__Status__c != 'Deferred' && TargetX_SRMb__Application__c.TargetX_SRMb__Status__c != 'Withdrawn',true,false)}">
+                
+                <DIV CLASS="row"> 
+                    <H5>Insufficient Documents</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Item</TH> 
+                            <TH>Insufficiency Comments</TH> 
+                            <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.IIT_Is_International__c=TRUE,TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c = 'Summer Program'),true,false)}">
+                            <TH>Upload / Reupload</TH></APEX:OUTPUTPANEL> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!EnrollHis}" VAR="enroll"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.Id=enroll.TargetX_SRMb__Application__c,true,false)}">
+                        
+                        <TR>
+                            <TD>{!enroll.name}</TD>
+                            <TD>{!enroll.IIT_Insufficiency_ID_Desc__c}</TD>
+                            <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.IIT_Is_International__c=TRUE,TargetX_SRMb__Application__c.TargetX_SRMb__Possible_Academic_Major__c = 'Summer Program'),true,false)}"><TD><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217822&tfa_5={!Contact.Id}&tfa_7={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_6={!TargetX_SRMb__Application__c.Id}&tfa_10=Transcript&tfa_9={!enroll.Id}&tfa_19={!enroll.name}%20Transcript">Upload
+                                your transcript</APEX:OUTPUTLINK></TD>
+                            </APEX:OUTPUTPANEL> 
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        <APEX:REPEAT VALUE="{!AppEssay}" VAR="essay"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.Id=essay.TargetX_SRMb__Application__c,true,false)}">
+                        
+                        <TR>
+                            <TD>{!essay.name}</TD>
+                            <TD>{!essay.IIT_Insufficiency_ID_Desc__c}</TD>
+                            <APEX:OUTPUTPANEL RENDERED="{!TargetX_SRMb__Application__c.IIT_Is_International__c}"><TD><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/form?formid=217822&tfa_5={!Contact.Id}&tfa_7={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_6={!TargetX_SRMb__Application__c.Id}&tfa_10={!essay.name}&tfa_9={!essay.Id}&tfa_19={!essay.name}">Upload
+                                your document</APEX:OUTPUTLINK></TD>
+                            </APEX:OUTPUTPANEL> 
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        </TBODY>
+                        <APEX:OUTPUTPANEL RENDERED="{!AND(EnrollHis.size=0,AppEssay.size=0)}">
+                        
+                        <APEX:OUTPUTPANEL RENDERED="{!TargetX_SRMb__Application__c.IIT_Is_International__c}"><TD COLSPAN="3"><I>You
+                                Have No Insufficient Documents</I></TD>
+                            </APEX:OUTPUTPANEL> 
+                            <APEX:OUTPUTPANEL RENDERED="{!NOT(TargetX_SRMb__Application__c.IIT_Is_International__c)}"><TD COLSPAN="2"><I>You
+                                Have No Insufficient Documents</I></TD>
+                            </APEX:OUTPUTPANEL> 
+                            </APEX:OUTPUTPANEL> 
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+
+<!--End of Insufficiency Block-->
+<!--Start of Incomplete LOR Block-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate',true,false)}">
+                
+                <DIV CLASS="row"> 
+                    <H5>Letters of Recommendation</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Item</TH> 
+                            <TH>Name of Recommender</TH> 
+                            <TH>Resend Link</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!AppIncomRec}" VAR="incomRec"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.Id=incomRec.TargetX_SRMb__Application__c,true,false)}">
+                        
+                        <TR>
+                            <TD>{!incomRec.name}</TD>
+                            <TD>{!incomRec.TargetX_SRMb__First_Name__c}
+                                {!incomRec.TargetX_SRMb__Last_Name__c}</TD>
+                            <TD><APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217762&tfa_2={!incomRec.Id}&tfa_3={!Contact.Id}&tfa_5={!TargetX_SRMb__Application__c.Id}&tfa_6={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_7={!incomRec.TargetX_SRMb__Email__c}&tfa_8={!incomRec.TargetX_App__Link_Security_Hash__c}&tfa_9={!incomRec.TargetX_SRMb__First_Name__c}&tfa_10={!incomRec.TargetX_SRMb__Last_Name__c}&tfa_11={!contact.FirstName}&tfa_12={!contact.LastName}">Resend
+                                Request for<BR />Letter of Recommendation</APEX:OUTPUTLINK></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        </TBODY>
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(AppIncomRec.size=0,true,false)}">
+                        
+                            <TD COLSPAN="3"><B>No recommendations are
+                                awaiting submission.</B></TD>
+                            </APEX:OUTPUTPANEL> 
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+
+<!--End of Incomplete LOR Block-->
+<!--Start of App list Block-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(AppList.size > 1,true,false)}">
+                
+                <DIV CLASS="row"> 
+                    <H5>Other Applications</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Program</TH> 
+                            <TH>Degree</TH> 
+                            <TH>Status</TH> 
+                            <TH>Start Term and Year</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!AppList}" VAR="app"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(AND(TargetX_SRMb__Application__c.Id != app.Id,app.RecordTypeId != '012j00000010K29AAE'),true,false)}">
+                        
+                        <TR>
+                            <TD><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/apptracker/AppTracker?id={!app.Id}&k={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}">{!app.TargetX_SRMb__Program__c}</APEX:OUTPUTLINK></TD>
+                            <TD>{!app.TargetX_SRMb__Degree__c}</TD>
+                            <TD>{!app.TargetX_SRMb__Status__c}</TD>
+                            <TD>{!app.TargetX_SRMb__Start_Term_and_Year__c}</TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        </TBODY>
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+
+<!--End of App list Block-->
+<!--Start of UG Special App list Block-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(AND(AppList.size > 1,TargetX_SRMb__Application__c.TargetX_SRMb__Level__c = 'Undergraduate'),true,false)}">
+                
+                <DIV CLASS="row"> 
+                    <H5>Scholarship and Dual Admission Applications</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Application</TH>
+                            <TH>Stage</TH>
+                            <TH>Status</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!AppList}" VAR="app"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(AND(TargetX_SRMb__Application__c.Id != app.Id,app.RecordTypeId = '012j00000010K29AAE'),true,false)}">
+                        
+                        <TR>
+                            <TD><APEX:OUTPUTLINK VALUE="https://iit.secure.force.com/apptracker/AppTracker?id={!app.Id}&k={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}">{!SUBSTITUTE(app.TargetX_SRMb__Application_Type__c,'Undergraduate ','')}</APEX:OUTPUTLINK></TD>
+                            <TD>{!app.TargetX_SRMb__Stage__c}</TD>
+                            <TD>{!IF(app.TargetX_SRMb__Status__c = 'Decision Made','Complete',app.TargetX_SRMb__Status__c)}</TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        </TBODY>
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+
+<!--End of UG Special App list Block-->
+<!--Final Transcript Block-->
+                <APEX:OUTPUTPANEL RENDERED="{!IF(OR(TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit No Financial Support',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit to Alternate',TargetX_SRMb__Application__c.TargetX_SRMb__Application_Decision__c='Admit Conditional'),TRUE,FALSE)}">
+                
+                <APEX:OUTPUTPANEL RENDERED="{!AND(TargetX_SRMb__Application__c.Special_Program__c !='Paris Program IIT',TargetX_SRMb__Application__c.TargetX_SRMb__Level__c='Graduate', FinalEnrollHist.size !=0 )}">
+                
+                <DIV CLASS="row"> 
+                    <H5>Final Transcripts Required</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Item</TH> 
+                            <TH>Upload Final Document Link</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!FinalEnrollHist}"
+                                     VAR="finalEnroll"> 
+                        <APEX:OUTPUTPANEL RENDERED="{!IF(TargetX_SRMb__Application__c.Id=finalEnroll.TargetX_SRMb__Application__c,true,false)}">
+                        
+                        <TR>
+                            <TD>{!finalEnroll.name}</TD>
+                            <TD><APEX:OUTPUTLINK VALUE="http://iit.secure.force.com/form?formid=217792&tfa_2={!finalEnroll.Id}&tfa_3={!Contact.Id}&tfa_6={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}&tfa_5={!TargetX_SRMb__Application__c.Id}&tfa_7={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.Email}">Upload
+                                Your Final Transcript and Degree</APEX:OUTPUTLINK></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </APEX:REPEAT> 
+                        <APEX:OUTPUTPANEL RENDERED="{!FinalEnrollHist.size=0}">
+                        
+                            <TD COLSPAN="2"><B>No Final Trascripts Required</B></TD>
+                            </APEX:OUTPUTPANEL> 
+                            </TBODY>
+                    </TABLE>
+                </DIV>
+                </APEX:OUTPUTPANEL> 
+                </APEX:OUTPUTPANEL> 
+                <DIV CLASS="row"> 
+                    <H5>Received</H5> 
+                    <TABLE CLASS="table table-bordered table-striped">
+                        <THEAD>
+                        <TR>
+                            <TH>Item</TH> 
+                            <TH>Comments</TH> 
+                            <TH>Status</TH> 
+                        </TR>
+                        </THEAD>
+                        <TBODY>
+                        <APEX:REPEAT VALUE="{!closedActivities}" VAR="item"> 
+                        <TR>
+                            <TD>{!item.name}</TD>
+                            <TD>{!item.TargetX_SRMb__Related_To__c}</TD>
+                            <TD>{!item.TargetX_SRMb__Status__c}</TD>
+                        </TR>
+                        </APEX:REPEAT> 
+                        <APEX:OUTPUTPANEL RENDERED="{!closedActivities.size=0}">
+                        
+                        <TR>
+                            <TD COLSPAN="3"><I>No materials have been
+                                received for this application.</I></TD>
+                        </TR>
+                        </APEX:OUTPUTPANEL> 
+                        </TBODY>
+                    </TABLE>
+                </DIV>
+            </DIV>
+            <APEX:OUTPUTLINK VALUE="{!$Page.AppTrackerDetails}?id={!TargetX_SRMb__Application__c.Id}&k={!TargetX_SRMb__Application__c.TargetX_SRMb__Contact__r.TargetX_Base__Access_Key__c}">Go To More Detailed View</APEX:OUTPUTLINK> 
+        </DIV>
+
+<!-- END OF ROW 2 -->
+    </DIV>
+    <DIV CLASS="row"> 
+        <DIV CLASS="col-md-12"> 
+
+<!--FOOTER-->
+        </DIV>
+    </DIV>
+    </APEX:OUTPUTPANEL> 
+</DIV>
+
+<!--END OF CONTAINER-->
+<APEX:INCLUDE PAGENAME="AppTracker_CSS" /> 
+<SCRIPT TYPE="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );
+            });
+        });
+</SCRIPT> 
+</APEX:PAGE>

@@ -1,0 +1,15 @@
+<apex:component controller="TX_sObjectRemote" allowDML="true" >
+    <apex:attribute name="escape" description="If set to false, this will override the default of all JavaScript Remoting calls being escaped." type="String" required="false"/>
+
+    <script type="text/javascript" src="{!URLFOR($Resource.TX_sObjectRemote)}"></script>
+
+    <script type="text/javascript">
+        var sObjectEscapeOverride = '{!escape}';
+
+        var sObjectQueryMethodName = '{!$RemoteAction.TX_sObjectRemote.query}';
+        var sObjectInsertMethodName = '{!$RemoteAction.TX_sObjectRemote.insertSObjects}';
+        var sObjectUpdateMethodName = '{!$RemoteAction.TX_sObjectRemote.updateSObjects}';
+        var sObjectDeleteMethodName = '{!$RemoteAction.TX_sObjectRemote.deleteSObjects}';
+        var sObjectUpsertMethodName = '{!$RemoteAction.TX_sObjectRemote.upsertSObjects}';
+    </script>
+</apex:component>

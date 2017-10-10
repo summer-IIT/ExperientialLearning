@@ -1,0 +1,67 @@
+<apex:page controller="IITEPICaseController" showHeader="true" standardStyleSheets="true">
+    
+    <head>
+        <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/37.0/deployment.js'></script>
+        <script type='text/javascript'>liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '572j0000000CmBL', '00Dj0000001uRxk');</script>
+        <title>Illinois Insitute of Technology - Salesforce Support</title>
+    </head>
+    
+    <div class="container">
+        <!--<div clas="row">
+            <div class="col-md-10">
+                <img src="{!$Resource.Logo}" />
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-md-10 well well-lg">
+                <h3>Welcome to the Illinois Institute of Technology Salesforce Support Page</h3>
+                <br />
+                <p>Use the form below to submit a new support case to the Enrollment Process Intelligence Team</p>
+                <br />
+                <apex:form >
+                    <apex:pageMessages />
+                    <table>
+                        <tr>
+                            <th align="left">Your Email:</th>
+                            <td><apex:inputText required="true" size="50" value="{!ctEmail}"/></td>
+                        </tr>
+                        <tr>
+                            <th align="left">Subject:</th>
+                            <td><apex:inputText required="true" size="50" value="{!c.Subject}"/></td>
+                        </tr>
+                        <tr>
+                            <th align="left" valign="top">Description:</th>
+                            <td><apex:inputTextArea required="true" cols="100" rows="10" value="{!c.Description}"/></td>
+                        </tr>
+                        <tr>
+                            <th align="left" valign="top">Priority:</th>
+                            <td><apex:inputField required="true" value="{!c.Priority}"/>
+                            <br />High - System Unavailable<br />Medium - General Technical Issue<br />Low - General Inquiry or Question</td>
+                        </tr>
+                        <tr>
+                            <td><br /><apex:commandButton value="Submit Case" action="{!submitCase}"/></td>
+                        </tr>
+                    </table>
+                </apex:form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 well well-lg">
+                <br />
+                <h3>For immediate assistance, please use the EPI Chat below.</h3>
+                <br />
+                <a id="liveagent_button_online_573j0000000CngJ" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('573j0000000CngJ')">Start Online Chat</a>
+                <div id="liveagent_button_offline_573j0000000CngJ" style="display: none;">Agents currently unavailable.</div>
+                <script type="text/javascript">
+                if (!window._laq) { window._laq = []; }
+                window._laq.push(function(){liveagent.showWhenOnline('573j0000000CngJ', document.getElementById('liveagent_button_online_573j0000000CngJ'));
+                liveagent.showWhenOffline('573j0000000CngJ', document.getElementById('liveagent_button_offline_573j0000000CngJ'));
+                });</script>
+            </div>
+        </div>
+    </div>
+    
+</apex:page>

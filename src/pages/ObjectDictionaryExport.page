@@ -1,0 +1,35 @@
+<apex:page Controller="objectDictionaryController" contentType="application/vnd.ms-excel#{!selectedObject}_Data_Dictionary.xls" cache="true" showheader="false" sidebar="false">
+            <apex:dataTable value="{!selectedFields}" var="fp">
+                
+                <apex:column headerValue="Name">
+                    {!fp.Label}
+                </apex:column>
+                <apex:column headerValue="Label">
+                    {!fp.apiName}
+                </apex:column>
+                <apex:column headerValue="Data Type">
+                    {!fp.Type}{!fp.Reference}
+                </apex:column>
+                <apex:column headerValue="Picklist Values">
+                    {!fp.picklistValues}
+                </apex:column>
+                <apex:column headerValue="Length">
+                {!fp.Length}
+                </apex:column>
+                <apex:column headerValue="Precision">
+                {!fp.Precision}
+                </apex:column>
+                <apex:column headerValue="Formula">
+                {!fp.isFormula}
+                </apex:column>
+                <apex:column headerValue="External_ID">
+                {!fp.isExternalId}
+                </apex:column>
+                <apex:column headerValue="Unique">
+                {!fp.isUnique}
+                </apex:column>
+                <apex:column headerValue="Updateable">
+                {!fp.isUpdateable}
+                </apex:column>
+            </apex:dataTable>
+</apex:page>

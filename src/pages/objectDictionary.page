@@ -1,0 +1,146 @@
+<apex:page controller="objectDictionaryController" sidebar="false" >
+<head>
+<link href="{!URLFOR($Resource.objectDictionaryResources, '/css/bootstrap.min.css')}" rel="stylesheet" />
+<link href="//fonts.googleapis.com/css?family=Roboto:100italic,100,300italic,300,400italic,400,500italic,500,700italic,700,900italic,900" rel="stylesheet" type="text/css" />
+<link href="{!URLFOR($Resource.objectDictionaryResources, '/css/bootstrap-sortable.css')}" rel="stylesheet" />
+<apex:includeScript value="{!URLFOR($Resource.objectDictionaryResources, '/js/jquery.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.objectDictionaryResources, '/js/bootstrap.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.objectDictionaryResources, '/js/bootstrap-sortable.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.objectDictionaryResources, '/js/moment.min.js')}" />
+<style type="text/css">
+body,h1,h2,h3,h4,h5,h6,form,table,input[type="submit"]{font-family:'Roboto',sans-serif !important;}
+table{font-size: 12px;}
+.centered{text-align: center;}
+.fpvSpan{display:block;}
+label{font-size: 12px; font-weight: normal; margin-right: 10px; padding-left: 5px;}
+span{font-size: 13px;}
+</style>
+</head>
+    <apex:form >
+        <apex:pageBlock mode="detail">
+        <apex:pageMessages ></apex:pageMessages>
+           <div class="container">
+            <apex:outputPanel id="objectList" styleClass="row">                      
+                <div class="col-md-4">
+                <h1>1. <span>Select an object group.</span></h1>
+                    <apex:selectList value="{!selectedObjectGroup}" size="1" styleClass="form-control objectGroupSelect" label="Object Group">
+                        <apex:selectOptions value="{!objectGroups}"></apex:SelectOptions>
+                        <apex:actionSupport event="onchange" action="{!buildObjectList}" reRender="objectList" />
+                    </apex:selectList>            
+                </div>
+                <div class="col-md-4">
+                <h1>2. <span>Select an object.</span></h1>
+                    <apex:selectList value="{!selectedObject}" size="1" label="Select an Object" styleClass="form-control objectSelect" >
+                        <apex:selectOptions value="{!objects}"></apex:SelectOptions>                        
+                    </apex:selectList>
+                    <div class="row">
+                    <div class="col-md-4" style="margin-top: 5px;">
+                    <h6>&nbsp;List objects by:</h6>
+                    </div>
+                    <div class="col-md-6">
+                    <apex:selectRadio value="{!displayObjects}" label="Display Objects By" layout="lineDirection" styleClass="displayBy" >
+                        <apex:selectOption itemValue="Label" itemLabel="Label" />
+                        <apex:selectOption itemValue="Name" itemLabel="API Name" />
+                        <apex:actionSupport event="onchange" action="{!buildObjectList}" reRender="objectList" />
+                    </apex:selectRadio>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                <h1>3. <span>Select fields to display.</span></h1>                             
+                                <apex:selectList value="{!selectedType}" size="1" label="Fields to Display" styleClass="form-control fieldSelect" >
+                                    <apex:selectOptions value="{!types}" />
+                                        <apex:actionSupport event="onchange" action="{!fieldResult}" reRender="resultSection" status="selectStatus" />
+                                </apex:selectList>
+                </div>
+            </apex:outputPanel>
+            </div>
+        </apex:pageBlock>    
+    <apex:actionStatus id="selectStatus" onstop="addSort()">
+        <apex:facet name="stop">
+        <apex:outputPanel id="resultSection" styleClass="row">
+            <div class="col-md-12">     
+        <apex:outputPanel rendered="{!selectedObject != '' && fieldsToDisplay.size > 0}">
+        <apex:commandButton action="{!export}" value="Export Object Dictionary" rendered="{!selectedObject != ''}" style="margin-bottom: 5px;"/>
+        <apex:commandButton action="{!generateImportTemplate}" value="Create Import Template" style="margin-bottom: 5px;"/>
+            <table class="table table-bordered table-striped sortable">
+                <thead>
+                  <tr>
+                    <th data-defaultsort="disabled">
+                        <apex:inputCheckbox value="{!selectAll}" id="selectAll">
+                          <apex:actionSupport event="onclick" action="{!selectAllFields}" reRender="resultSection" status="selectStatus"/>    
+                        </apex:inputCheckbox>
+                    </th>
+                    <th>Label</th>
+                    <th>Name</th>
+                    <th>Data Type</th>
+                    <th data-defaultsort="disabled">Picklist Values</th>
+                    <th>Length</th>
+                    <th>Precision</th>
+                    <th>Formula</th>
+                    <th>External ID</th>
+                    <th>Unique</th>
+                    <th>Updateable</th>
+                    <!--<th>External Field (Table.Column)</th>-->
+                  </tr>
+                </thead>
+                <tbody>
+                  <apex:repeat value="{!fieldProfiles}" var="fp">
+                    <tr>
+                      <td>
+                        <apex:inputCheckbox value="{!fp.isSelected}" id="checkedone">
+                          <!--<apex:actionSupport event="onclick" action="{!updateSelectedFieldList}" reRender="resultSection" status="selectStatus"/>-->
+                        </apex:inputCheckbox>
+                      </td>
+                      <td>{!fp.Label}</td>
+                      <td>{!fp.apiName}</td>
+                      <td>{!fp.Type}{!fp.Reference}</td>
+                      <td>
+                        <apex:repeat value="{!fp.picklistValues}" var="fpv">
+                          <span class="fpvSpan">{!fpv}</span>
+                        </apex:repeat>
+                      </td>
+                      <td class="centered">{!fp.Length}</td>
+                      <td class="centered">{!fp.Precision}</td>
+                      <td class="centered"><apex:outputText rendered="{!fp.isFormula}">&#10004;</apex:outputText></td>
+                      <td class="centered"><apex:outputText rendered="{!fp.isExternalId}">&#10004;</apex:outputText></td>
+                      <td class="centered"><apex:outputText rendered="{!fp.isUnique}">&#10004;</apex:outputText></td>
+                      <td class="centered"><apex:outputText rendered="{!fp.isUpdateable}">&#10004;</apex:outputText></td>
+                      <!--<td>
+                          <apex:outputLink value="/a0B/e?00Ni000000CaeLT={!selectedObject}&00Ni000000CaeLY={!fp.apiName}&retURL=%2Fa0B%2Fo" target="_blank" id="newDataMappingLink" rendered="{!fp.dataMapping.Id == NULL && fp.isUpdateable}">Add Mapping</apex:outputLink>
+                          <apex:outputLink value="/{!fp.dataMapping.Id}" target="_blank" id="editDataMappingLink" rendered="{!fp.dataMapping.Id != NULL}">{!fp.dataMapping.External_System_Field__c}</apex:outputLink>
+                          <apex:inputText value="{!fp.dataMapping.External_System_Field__c}" styleClass="form-control" />
+                      </td>-->
+                    </tr>
+                  </apex:repeat>
+                </tbody>
+            </table>
+            </apex:outputPanel>
+        </div>
+        <apex:outputPanel rendered="{!selectedObject != '' && fieldsToDisplay.size == 0}">{!selectedObject} has no fields of type {!selectedType}</apex:outputPanel>
+                </apex:outputPanel>
+    </apex:facet>
+            <apex:facet name="start">
+                 <apex:outputPanel >
+                       <apex:image value="/img/loading32.gif"/>
+                   </apex:outputPanel>
+               </apex:facet>
+            </apex:actionStatus>
+    </apex:form>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('label').addClass('control-label');
+       
+    });
+    
+    function addSort(){
+        $.bootstrapSortable(true, 'reversed');
+    }
+    
+    
+    $(document).on('change', '.objectSelect', function(){
+        $('.fieldSelect').val('');
+    });
+</script>
+</apex:page>

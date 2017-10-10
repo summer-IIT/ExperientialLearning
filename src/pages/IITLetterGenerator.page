@@ -1,0 +1,58 @@
+<apex:page standardStyleSheets="false" showHeader="true" sidebar="false" controller="IITLetterGeneratorController">
+	<html>
+		<head>
+            <title>IIT Letter Generator</title>
+            <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem_IIT,'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+        </head>
+        
+        <div class="iit">
+            <div class="slds-align--absolute-center slds-m-bottom--medium">
+                <h1 class="slds-text-heading--large">Welcome to the IIT Letter Wizard</h1>
+            </div>
+            <div class="slds-align--absolute-center slds-m-bottom--xx-large">
+                <p class="slds-text-heading--label">Use the form below to generate letters and post letter activities.</p>
+            </div>
+            
+			<div class="slds-align--absolute-center">
+            <div class="slds-box">
+				<apex:form id="form" styleClass="slds-form--stacked">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="select-report">Report:</label>
+                    	<div class="slds-form-element__control">
+							<div class="slds-select_container">
+								<apex:selectList id="select-report" multiselect="false" required="true" size="1" value="{!currentReport}" styleClass="slds-select">
+									<apex:selectOptions value="{!reports}" />
+								</apex:selectList>
+							</div>
+						</div>
+					</div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="select-letter">Letter:</label>
+                    	<div class="slds-form-element__control">
+							<div class="slds-select_container">
+								<apex:selectList id="select-letter" multiselect="false" required="true" size="1" value="{!currentLetter}" styleClass="slds-select">
+									<apex:selectOptions value="{!letters}" />
+								</apex:selectList>
+							</div>
+						</div>
+					</div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="select-activity">Log Activities:</label>
+                    	<div class="slds-form-element__control">
+							<div class="slds-select_container">
+								<apex:selectList id="select-activity" multiselect="false" required="true" size="1" value="{!currentActivity}" styleClass="slds-select">
+									<apex:selectOptions value="{!activities}" />
+								</apex:selectList>
+							</div>
+						</div>
+					</div>
+                    <div class="slds-m-top--large">
+                        <apex:commandButton value="Run Letters" action="{!runLetters}" oncomplete="window.open('{!url}');" styleClass="slds-button slds-button--brand" />
+                        <apex:commandButton value="Post Activities" action="{!postActivities}" oncomplete="alert('{!numOfTasks} Letter Activities Posted!');window.location.reload();" styleClass="slds-button slds-button--brand" />
+                    </div>
+        		</apex:form>
+			</div>
+            </div>
+    	</div>
+    </html>
+</apex:page>

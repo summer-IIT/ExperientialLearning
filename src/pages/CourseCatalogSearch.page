@@ -1,0 +1,64 @@
+<APEX:PAGE EXTENSIONS="IITCourseCatalogController" SHOWHEADER="FALSE"
+           STANDARDCONTROLLER="IIT_Courses__c" STANDARDSTYLESHEETS="false"> 
+<HEAD>
+    <LINK HREF="http://web.iit.edu/sites/web/themes/iit_web/favicon.ico"
+          REL="icon" TYPE="image/x-icon" />
+    <LINK HREF="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+          REL="stylesheet" />
+    <SCRIPT SRC="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></SCRIPT>
+    
+    <SCRIPT SRC="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></SCRIPT>
+    
+    <TITLE>IIT Online Course Catalog</TITLE> 
+    <META CONTENT="English" HTTP-EQUIV="Content-Language" />
+    <META CONTENT="text/html; charset=UTF-8" HTTP-EQUIV="Content-Type" />
+    <LINK HREF="IIT_CSS_Course_Catalog" MEDIA="screen" REL="stylesheet"
+          TYPE="text/css" />
+</HEAD>
+<APEX:INCLUDE PAGENAME="IITCourseCatalogHeader" /> 
+<DIV CLASS="container"> 
+    <DIV ID="right"> 
+        <H2>Search</H2> 
+        <APEX:FORM > 
+            <APEX:INPUTTEXT LABEL="Input" VALUE="{!searchstring}" />
+            <APEX:COMMANDBUTTON ACTION="{!search}" VALUE="Search courses" />
+            <BR />
+            <APEX:OUTPUTTEXT >*Search by course number or course title</APEX:OUTPUTTEXT>
+            <APEX:PAGEBLOCK TITLE="Search Results"> 
+                <APEX:PAGEBLOCKTABLE VALUE="{!coursesearchlist}" VAR="c"> 
+                    <APEX:COLUMN > 
+                        <APEX:OUTPUTLINK VALUE="{!$Page.CourseCatalogDetails}?id={!c.id}">{!IF(c.IIT_Course_Title__c != null,c.name + ' - ' + c.IIT_Course_Title__c,c.name)}</APEX:OUTPUTLINK>
+                    </APEX:COLUMN> 
+                </APEX:PAGEBLOCKTABLE> 
+            </APEX:PAGEBLOCK> 
+        </APEX:FORM> 
+    </DIV>
+    <DIV ID="left"> 
+        <APEX:INCLUDE PAGENAME="IITCourseCatalogMenu" />
+        <A HREF="{!$Page.CourseCatalogHome}"><H3><SPAN CLASS="glyphicon glyphicon-arrow-left"></SPAN><STRONG>&nbsp;Return to Home Page</STRONG></H3></A> 
+    </DIV>
+    <DIV STYLE="clear: both;"> 
+    </DIV>
+</DIV><!--END OF CONTAINER-->
+<DIV ID="footer">
+    Illinois Institute of Technology 
+</DIV>
+
+
+<APEX:INCLUDE PAGENAME="IIT_CSS_Course_Catalog" /> 
+<SCRIPT TYPE="text/javascript">
+        $(document).ready(function(){
+            var windowHeight = $(window).height();
+            $('.container').css(
+                "min-height", windowHeight
+            );
+
+            $(window).resize(function(){
+                windowHeight = $(window).height();
+                $('.container').css(
+                "min-height", windowHeight
+                );
+            });
+        });
+</SCRIPT> 
+</APEX:PAGE>

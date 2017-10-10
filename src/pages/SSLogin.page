@@ -1,0 +1,51 @@
+<apex:page standardStyleSheets="false" showHeader="false" sidebar="false" controller="IITSSLoginController" cache="false">
+    <html>
+        <head>
+            <title>Illinois Tech Scholarship Symposium</title>
+            <apex:stylesheet value="{!URLFOR($Resource.LightningDesignSystem_IIT,'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+        </head>
+        
+        <div class="iit">
+            <div class="slds-align--absolute-center slds-m-bottom--large">
+                <img src="{!$Resource.Logo}" />
+            </div>
+            <div class="slds-align--absolute-center slds-m-bottom--large">
+                <h1 class="slds-text-heading--large">Scholarship Symposium Interview System</h1>
+            </div>
+            <div class="slds-align--absolute-center slds-m-bottom--large">
+                <p class="slds-text-heading--label">Please use the login credential provided via email to access the system.</p>
+            </div>
+            
+            <div class="slds-align--absolute-center">
+            <div class="slds-box">
+                <apex:form id="form" styleClass="slds-form--stacked">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="input-username">Username: <i>(ex. A12345678)</i></label>
+                        <div class="slds-form-element__control">
+                            <apex:inputText id="input-username" value="{!username}" required="true" maxlength="9" title="IIT Banner ID" styleClass="slds-input" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="input-password">Password:</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputSecret id="input-password" value="{!password}" required="true" styleClass="slds-input" />
+                        </div>
+                    </div>
+                    <div class="slds-align--absolute-center slds-m-top--large">
+                        <apex:commandButton value="Login" action="{!login}" styleClass="slds-button slds-button--brand" />
+                    </div>
+                </apex:form>
+            </div>
+            </div>
+            
+            <div class="slds-align--absolute-center slds-m-bottom--large">
+                <apex:outputLink value="{!$Page.SSForgotPassword}">Forgot Password</apex:outputLink>
+            </div>
+            
+            <div class="slds-align--absolute-center slds-m-bottom--large">
+                <p class="slds-text-heading--label" style="color:red;">{!errorMessage}</p>
+            </div>
+            
+        </div>
+    </html>
+</apex:page>
